@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,17 +12,41 @@
     <title>SB Admin 2 - Blank</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?=base_url('sb-admin/')?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url('sb-admin/') ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="<?=base_url('sb-admin/')?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url('sb-admin/') ?>css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="<?= base_url('sb-admin/')?>sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url('sb-admin/') ?>sweetalert2/sweetalert2.min.css">
 
+    <!-- Styles Table for this page -->
+    <link href="<?= base_url('sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <!-- Custom Primary Color Override to match v_home -->
+    <style>
+    .bg-gradient-primary {
+        background-color: #0d83fd !important;
+        background-image: linear-gradient(180deg, #0d83fd 10%, #0a6dc2 100%) !important;
+        background-size: cover;
+    }
+
+    .btn-primary,
+    .sidebar .nav-item.active .nav-link {
+        background-color: #0d83fd !important;
+        border-color: #0d83fd !important;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: #0a6dc2 !important;
+        border-color: #0a6dc2 !important;
+    }
+    </style>
 </head>
 
 <body id="page-top">
@@ -47,7 +70,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="<?=base_url('dashboard/index')?>">
+                <a class="nav-link" href="<?= base_url('dashboard/index') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -70,7 +93,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="<?=base_url('mahasiswa/index')?>">Mahasiswa</a>
+                        <a class="collapse-item" href="<?= base_url('mahasiswa/index') ?>">Mahasiswa</a>
                         <a class="collapse-item" href="buttons.html">Dosen</a>
                         <a class="collapse-item" href="cards.html">Fakultas</a>
                         <a class="collapse-item" href="cards.html">Program Studi</a>
@@ -153,7 +176,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    src="<?=base_url('sb-admin/')?>img/undraw_profile.svg">
+                                    src="<?= base_url('sb-admin/') ?>img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -186,13 +209,17 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-                    <?php
-                        if($content){
-                            $this->load->view($content);
-                        }
-                    ?>
+                    <div class="card shadow mb-4" style="border-radius:0;">
+                        <div class="card-body" style="border-radius:0;">
+                            <!-- Page Heading -->
+                            <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
+                            <?php
+                            if ($content) {
+                                $this->load->view($content);
+                            }
+                            ?>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -241,38 +268,66 @@
         </div>
     </div>
 
+
+
+
+
+
+
     <!-- Bootstrap core JavaScript-->
-    <script src="<?=base_url('sb-admin/')?>vendor/jquery/jquery.min.js"></script>
-    <script src="<?=base_url('sb-admin/')?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?=base_url('sb-admin/')?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
+    <script src="<?= base_url('sb-admin/') ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<?=base_url('sb-admin/')?>js/sb-admin-2.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>js/sb-admin-2.min.js"></script>
 
-     <!-- SweetAlert2 JS -->
-    <script src="<?=base_url('sb-admin/')?>sweetalert2/sweetalert2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- AJAX SPA Sidebar Navigation (jQuery version) -->
-<script>
-$(function() {
-  // Tangkap semua link sidebar dan submenu
-  $('#accordionSidebar').on('click', '.nav-link, .collapse-item', function(e) {
-    var href = $(this).attr('href');
-    if (href && href !== '#' && !href.startsWith('javascript')) {
-      e.preventDefault();
-      $.get(href, function(data) {
-        // Ambil hanya isi .container-fluid jika ada
-        var html = $('<div>').html(data);
-        var content = html.find('.container-fluid').length ? html.find('.container-fluid').html() : data;
-        $('.container-fluid').html(content);
-      });
-    }
-  });
-});
-</script>
+    <!-- SweetAlert2 JS -->
+    <script src="<?= base_url('sb-admin/') ?>sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- AJAX SPA Sidebar Navigation (jQuery version) -->
+    <script>
+    $(function() {
+        // Function to initialize DataTable
+        function initializeDataTable() {
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().destroy();
+            }
+            if ($('#dataTable').length) {
+                $('#dataTable').DataTable({
+                    "responsive": true,
+                    "autoWidth": false
+                });
+            }
+        }
+
+        // Initialize DataTable on first load
+        initializeDataTable();
+
+        // Tangkap semua link sidebar dan submenu
+        $('#accordionSidebar').on('click', '.nav-link, .collapse-item', function(e) {
+            var href = $(this).attr('href');
+            if (href && href !== '#' && !href.startsWith('javascript')) {
+                e.preventDefault();
+                $.get(href, function(data) {
+                    // Ambil hanya isi .container-fluid jika ada
+                    var html = $('<div>').html(data);
+                    var content = html.find('.container-fluid').length ? html.find(
+                        '.container-fluid').html() : data;
+                    $('.container-fluid').html(content);
+                    // Re-initialize DataTable after content is loaded
+                    initializeDataTable();
+                });
+            }
+        });
+    });
+    </script>
 
 
 </body>

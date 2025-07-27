@@ -11,7 +11,7 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#pricing">Pricing</a></li>
-                <li class="dropdown"><a href="#"><span>Dropdown</span> <i
+                <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="#">Dropdown 1</a></li>
@@ -29,11 +29,29 @@
                         <li><a href="#">Dropdown 3</a></li>
                         <li><a href="#">Dropdown 4</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li><a href="#contact">Contact</a></li>
+                <?php $user = $this->session->userdata('user_data'); ?>
+                <?php if(isset($user['role']) && $user['role'] === 'CUSTOMER'): ?>
+                    <li><a href="#booking-history">Booking History</a></li>
+                <?php endif; ?>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-        <a class="btn-getstarted" href="#sign-in" id="navigate-to-signin">Sign In</a>
+        <?php if(!$this->session->userdata('logged_in')): ?>
+            <a class="btn-getstarted" href="#sign-in" id="navigate-to-signin">Sign In</a>
+        <?php else: ?>
+            <?php $user = $this->session->userdata('user_data'); ?>
+            <?php if(isset($user['role']) && $user['role'] === 'ADMIN'): ?>
+                <a class="btn-getstarted" href="<?= base_url('dashboard') ?>">Logged In as <?= htmlspecialchars($user['email'] ?? '-') ?></a>
+            <?php else: ?>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="btn-getstarted" href="#">Logged In as <?= htmlspecialchars($user['email'] ?? '-') ?></a>
+                    <a href="<?= base_url('auth/logout') ?>" title="Logout" style="font-size:1.3em;vertical-align:middle;display:inline-block;background:none;border:none;padding:0;">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </a>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </header>

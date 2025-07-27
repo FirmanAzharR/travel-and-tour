@@ -43,7 +43,7 @@ class M_mahasiswa extends CI_Model
         log_message('debug', 'ID yang dicari: ' . $id);
         log_message('debug', 'Hasil query: ' . ($result ? 'Data ditemukan - ID: ' . $result->id . ', Nama: ' . $result->nama : 'Data tidak ditemukan'));
         
-        // Jika data tidak ditemukan, coba cari tanpa join dulu
+        // Ini Debugging Jika data tidak ditemukan, cari tanpa join dulu
         if (!$result) {
             log_message('debug', 'Mencoba query tanpa join...');
             $this->db->select('*');

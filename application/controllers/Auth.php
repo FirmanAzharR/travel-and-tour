@@ -7,16 +7,35 @@ class Auth extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('m_auth');
-        // $this->load->helper('url');
+        $this->load->library('auth_libraries');
+        $this->load->library('session');
     }
 
     public function index(){
-        // $data = array(
-        //     'title' => 'Sign In',
-        //     'description' => '',
-        //     'content' => 'landing-page/v_home',
-        // );
-        // $this->load->view('v_home', $data, false);//load sign-in
+        $data['content'] = 'landing-page/v_home';
+        $this->load->view('landing-page/v_layout', $data);
+        //form validation
+        // $this->form_validation->set_rules('email', 'Email', 'required',['required' => 'Email harus diisi']);
+        // $this->form_validation->set_rules('password', 'Password', 'required',['required' => 'Password harus diisi']);
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     // Jika validasi gagal, tampilkan form login
+        //     $data = array(
+        //         'content' => 'auth/v_login',
+        //     );
+        //     $this->load->view('landing-page/v_layout', $data);
+        // } else {
+        //     // Jika validasi berhasil, proses login
+        //     $email = $this->input->post('email');
+        //     $password = $this->input->post('password');
+
+        //     // Cek login
+        //     if ($this->auth_libraries->login($email, $password)) {
+        //         redirect('dashboard'); // Redirect ke dashboard jika login berhasil
+        //     } else {
+        //         redirect('home#sign-in'); // Redirect ke home jika login gagal
+        //     }
+        // }
     }
 
     public function register_user(){
@@ -116,5 +135,64 @@ class Auth extends CI_Controller{
             
             echo json_encode($response);
         }
+    }
+
+    public function login_ajax() {
+        header('Content-Type: application/json');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', [
+            'required' => 'Email harus diisi', 
+            'valid_email' => 'Format email tidak valid'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required', [
+            'required' => 'Password harus diisi'
+        ]);
+
+        if (
+            $this->form_validation->run() == FALSE
+        ) {
+            $response = [
+                'status' => 'error',
+                'message' => validation_errors()
+            ];
+            echo json_encode($response);
+            return;
+        }
+
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $login = $this->auth_libraries->login($email, $password);
+
+        if ($login) {
+            // Ambil user_data dari session
+            $user_data = $this->session->userdata('user_data');
+
+            if ($user_data['role'] === 'ADMIN') {
+                $response = [
+                'status' => 'success',
+                'message' => 'Login berhasil! Redirecting...',
+                'redirect' => base_url('dashboard'),
+                'user' => $user_data
+                ];
+            } else {
+                $response = [
+                'status' => 'success',
+                'message' => 'Login berhasil! Redirecting...',
+                'redirect' => base_url('home'),
+                'user' => $user_data
+                ];
+            }
+
+        } else {
+            $response = [
+                'status' => 'error',
+                'message' => 'Email atau password salah!'
+            ];
+        }
+        echo json_encode($response);
+    }
+
+    public function logout() {
+        $this->auth_libraries->logout();
+        redirect('home');
     }
 }

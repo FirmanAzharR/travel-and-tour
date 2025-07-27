@@ -16,6 +16,8 @@
     <link href="<?= base_url('landing-page/') ?>assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="<?= base_url('landing-page/') ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="<?= base_url('landing-page/') ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- FontAwesome CDN (v6.4.0 for fa-solid fa-arrow-right-from-bracket) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Main CSS File -->
     <link href="<?= base_url('landing-page/') ?>assets/css/main.css" rel="stylesheet">

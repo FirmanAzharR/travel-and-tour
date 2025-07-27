@@ -8,6 +8,8 @@ class Mahasiswa extends CI_Controller
         parent::__construct();
         $this->load->model('m_mahasiswa');
         // $this->load->helper('url');
+        $this->load->library('auth_libraries');
+        $this->auth_libraries->is_logged_in(); // Check if user is logged in
     }
     public function index()
     {

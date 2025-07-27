@@ -2,7 +2,8 @@
 <link rel="stylesheet" href="<?= base_url('sb-admin/') ?>sweetalert2/sweetalert2.min.css">
 
 <!-- Sign In Section -->
- <section id="sign-in" class="contact section light-background">
+<?php if(!$this->session->userdata('logged_in')): ?>
+<section id="sign-in" class="contact section light-background">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up" style="margin-top: 50px;">
@@ -19,47 +20,56 @@
                     <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum
                         primis.
                     </p>
+                    <?php 
+                        if($this->session->flashdata('message')) {
+                            echo '<div class="alert alert-danger">' . $this->session->flashdata('message') . '</div>';
+                        }
 
-                    <form data-aos="fade-up"
-                        data-aos-delay="200">
+                        // if($this->session->flashdata('message')) {
+                        //     echo '<div class="alert alert-warning">' . $this->session->flashdata('error') . '</div>';
+                        // }
+                    ?>
+                    <form id="signin-form-ajax" method="post" data-aos="fade-up" data-aos-delay="200">
                         <div class="row gy-4">
 
                             <div class="col-md-12">
-                                <input type="email" name="name" class="form-control" placeholder="Your Email" required="">
+                                <input type="email" name="email" class="form-control" placeholder="Your Email"
+                                    required="">
                             </div>
 
                             <div class="col-md-12 ">
-                                <input type="password" class="form-control" name="email" placeholder="Your Password"
+                                <input type="password" class="form-control" name="password" placeholder="Your Password"
                                     required="">
                             </div>
 
                             <div class="col-12 text-center">
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Sign In</button><br><br>
-                                </div>                                
-                                <label for="register"> Don't have an account ?</label><a href="#" id="show-register">Register here</a>
+                                </div>
+                                <label for="register"> Don't have an account ?</label><a href="#"
+                                    id="show-register">Register here</a>
                             </div>
 
                         </div>
                     </form>
 
                 </div>
-                
+
                 <div class="contact-form" id="register-form" data-aos="fade-up" data-aos-delay="300">
                     <h3>Register</h3>
                     <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum
                         primis.
                     </p>
-                    
+
                     <!-- Alert untuk menampilkan pesan -->
                     <div id="register-alert" class="alert" style="display: none;"></div>
-                    
-                    <form id="register-form-ajax" data-aos="fade-up"
-                        data-aos-delay="200">
+
+                    <form id="register-form-ajax" data-aos="fade-up" data-aos-delay="200">
                         <div class="row gy-4">
-                            
+
                             <div class="col-md-12">
-                                <input type="email" name="email" class="form-control" placeholder="Your Email" required="">
+                                <input type="email" name="email" class="form-control" placeholder="Your Email"
+                                    required="">
                             </div>
 
                             <div class="col-md-12 ">
@@ -70,8 +80,9 @@
                             <div class="col-12 text-center">
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Register</button><br><br>
-                                </div>                                
-                                <label for="register"> Have an account ?</label><a href="#" id="show-signin">SignIn here</a>
+                                </div>
+                                <label for="register"> Have an account ?</label><a href="#" id="show-signin">SignIn
+                                    here</a>
                             </div>
 
                         </div>
@@ -122,8 +133,8 @@
         </div>
 
     </div>
-
 </section>
+<?php endif; ?>
 <!-- End Sign In Section -->
 
 
@@ -137,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const registerForm = document.getElementById('register-form');
     const signinForm = document.getElementById('signin-form');
     const containerSignIn = document.getElementById('sign-in');
-    
+
     if (registerForm) {
         registerForm.style.display = 'none';
     }
@@ -146,17 +157,19 @@ document.addEventListener('DOMContentLoaded', function() {
     //     containerSignIn.style.display = 'none';
     // }
 
- const navigateToSignin = document.getElementById('navigate-to-signin');
+    const navigateToSignin = document.getElementById('navigate-to-signin');
     if (navigateToSignin) {
         navigateToSignin.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (containerSignIn) {
-            // containerSignIn.style.display = 'block';
-            // Ubah URL tanpa reload halaman
-            window.history.pushState(null, null, '#sign-in');
-            // Smooth scroll to sign-in section
-            containerSignIn.scrollIntoView({ behavior: 'smooth' });
-        }
+            e.preventDefault();
+            if (containerSignIn) {
+                // containerSignIn.style.display = 'block';
+                // Ubah URL tanpa reload halaman
+                window.history.pushState(null, null, '#sign-in');
+                // Smooth scroll to sign-in section
+                containerSignIn.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     }
 
@@ -169,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             registerForm.style.display = 'block';
         });
     }
-    
+
     // Show signin form when "SignIn here" is clicked
     const showSigninLink = document.getElementById('show-signin');
     if (showSigninLink) {
@@ -183,82 +196,144 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle register form submission with AJAX
     const registerFormAjax = document.getElementById('register-form-ajax');
     const registerAlert = document.getElementById('register-alert');
-    
+
     if (registerFormAjax) {
         registerFormAjax.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Show loading state
             const submitBtn = registerFormAjax.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Loading...';
             submitBtn.disabled = true;
-            
+
             // Get form data
             const formData = new FormData(registerFormAjax);
-            
+
             // Send AJAX request
             fetch('<?= base_url("auth/register_ajax") ?>', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Close loading SweetAlert
-                Swal.close();
-                
-                if (data.status === 'success') {
-                    // Show success SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: data.message,
-                        confirmButtonText: 'OK',
-                        confirmButtonColor: '#0D83FD'
-                    }).then((result) => {
-                        // Clear form on success
-                        registerFormAjax.reset();
-                        
-                        // Clear all input fields manually to ensure they are empty
-                        const inputs = registerFormAjax.querySelectorAll('input');
-                        inputs.forEach(input => {
-                            input.value = '';
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Close loading SweetAlert
+                    Swal.close();
+
+                    if (data.status === 'success') {
+                        // Show success SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: data.message,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#0D83FD'
+                        }).then((result) => {
+                            // Clear form on success
+                            registerFormAjax.reset();
+
+                            // Clear all input fields manually to ensure they are empty
+                            const inputs = registerFormAjax.querySelectorAll('input');
+                            inputs.forEach(input => {
+                                input.value = '';
+                            });
+
+                            // Switch to signin form after successful registration
+                            registerForm.style.display = 'none';
+                            signinForm.style.display = 'block';
                         });
-                        
-                        // Switch to signin form after successful registration
-                        registerForm.style.display = 'none';
-                        signinForm.style.display = 'block';
-                    });
-                } else {
+                    } else {
+                        // Show error SweetAlert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: data.message,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#0D83FD'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Close loading SweetAlert
+                    Swal.close();
+
                     // Show error SweetAlert
                     Swal.fire({
                         icon: 'error',
-                        title: 'Gagal!',
-                        text: data.message,
+                        title: 'Terjadi Kesalahan!',
+                        text: 'Terjadi kesalahan. Silakan coba lagi.',
                         confirmButtonText: 'OK',
                         confirmButtonColor: '#0D83FD'
                     });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Close loading SweetAlert
-                Swal.close();
-                
-                // Show error SweetAlert
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Terjadi Kesalahan!',
-                    text: 'Terjadi kesalahan. Silakan coba lagi.',
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#0D83FD'
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 });
-            })
-            .finally(() => {
-                // Reset button state
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
+        });
+    }
+
+    // Handle sign-in form submission with AJAX
+    const signinFormAjax = document.getElementById('signin-form-ajax');
+    if (signinFormAjax) {
+        signinFormAjax.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show loading state
+            const submitBtn = signinFormAjax.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Loading...';
+            submitBtn.disabled = true;
+
+            // Get form data
+            const formData = new FormData(signinFormAjax);
+
+            // Send AJAX request
+            fetch('<?= base_url("auth/login_ajax") ?>', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: data.message,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#0D83FD'
+                        }).then(() => {
+                            // Redirect to dashboard
+                            window.location.href = data.redirect;
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: data.message,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#0D83FD'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        text: 'Terjadi kesalahan. Silakan coba lagi.',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0D83FD'
+                    });
+                })
+                .finally(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 });

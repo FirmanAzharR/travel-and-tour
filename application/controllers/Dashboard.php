@@ -4,8 +4,8 @@ class Dashboard extends CI_Controller{
         $data = array(
             'title' => 'Dashboard',
             'description' => '',
-            'content' => 'v_dashboard',
+            'content' => 'dashboard/v_dashboard',
         );
-        $this->load->view('v_template', $data, false);//load template sb-admin
+        $this->load->view('dashboard/v_template', $data, false);//load template sb-admin
     }
 }

@@ -26,6 +26,27 @@
     <!-- Styles Table for this page -->
     <link href="<?= base_url('sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="<?= base_url('sb-admin/') ?>vendor/jquery/jquery.min.js"></script>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="<?= base_url('sb-admin/') ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<?= base_url('sb-admin/') ?>vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="<?= base_url('sb-admin/') ?>js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="<?= base_url('sb-admin/') ?>sweetalert2/sweetalert2.min.js"></script>
+
     <!-- Custom Primary Color Override to match v_home -->
     <style>
     .bg-gradient-primary {
@@ -47,6 +68,7 @@
         border-color: #0a6dc2 !important;
     }
     </style>
+
 </head>
 
 <body id="page-top">
@@ -228,13 +250,13 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <!-- <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
             <!-- End of Footer -->
 
         </div>
@@ -268,49 +290,68 @@
         </div>
     </div>
 
-
-
-
-
-
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?= base_url('sb-admin/') ?>vendor/jquery/jquery.min.js"></script>
-    <script src="<?= base_url('sb-admin/') ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<?= base_url('sb-admin/') ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<?= base_url('sb-admin/') ?>js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url('sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- SweetAlert2 JS -->
-    <script src="<?= base_url('sb-admin/') ?>sweetalert2/sweetalert2.min.js"></script>
-
     <!-- AJAX SPA Sidebar Navigation (jQuery version) -->
     <script>
     $(function() {
+        // Handle Sidebar Toggle
+        $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+            $("body").toggleClass("sidebar-toggled");
+            $(".sidebar").toggleClass("toggled");
+            if ($(".sidebar").hasClass("toggled")) {
+                $('.sidebar .collapse').collapse('hide');
+            }
+        });
+
+        // Close any open menu accordions when window is resized below 768px
+        $(window).resize(function() {
+            if ($(window).width() < 768) {
+                $('.sidebar .collapse').collapse('hide');
+            }
+        });
+
         // Function to initialize DataTable
-        function initializeDataTable() {
+        window.initializeDataTable = function(options = {}) {
+            // Default options
+            const defaultOptions = {
+                responsive: true,
+                autoWidth: false,
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: [0, 1]
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: -1
+                    },
+                    {
+                        responsivePriority: 3,
+                        targets: '_all'
+                    }
+                ]
+            };
+
+            // Merge default options with provided options
+            const finalOptions = {
+                ...defaultOptions,
+                ...options
+            };
+
+            // Destroy existing DataTable if it exists
             if ($.fn.DataTable.isDataTable('#dataTable')) {
                 $('#dataTable').DataTable().destroy();
             }
-            if ($('#dataTable').length) {
-                $('#dataTable').DataTable({
-                    "responsive": true,
-                    "autoWidth": false
-                });
-            }
-        }
 
-        // Initialize DataTable on first load
+            // Initialize DataTable if the table exists
+            if ($('#dataTable').length) {
+                return $('#dataTable').DataTable(finalOptions);
+            }
+            return null;
+        };
+
+        // Initialize DataTable on page load
         initializeDataTable();
 
-        // Tangkap semua link sidebar dan submenu
+        // link sidebar dan submenu
         $('#accordionSidebar').on('click', '.nav-link, .collapse-item', function(e) {
             var href = $(this).attr('href');
             if (href && href !== '#' && !href.startsWith('javascript')) {
@@ -325,6 +366,12 @@
                     initializeDataTable();
                 });
             }
+        });
+
+        // Handle browser back/forward buttons
+        $(window).on('popstate', function() {
+            // Re-initialize DataTable when using browser navigation
+            initializeDataTable();
         });
     });
     </script>

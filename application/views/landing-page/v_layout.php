@@ -23,7 +23,7 @@
 
 <body class="index-page">
 
-    <?php $this->load->view('v_navbar'); ?>
+    <?php $this->load->view('landing-page/v_navbar'); ?>
 
     <main class="main">
         <?php
@@ -34,7 +34,7 @@
         ?>
     </main>
 
-    <?php $this->load->view('v_footer'); ?>
+    <?php $this->load->view('landing-page/v_footer'); ?>
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i

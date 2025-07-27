@@ -1134,6 +1134,10 @@
 
 </section><!-- /Contact Section -->
 
+<!-- Sign In Section -->
+<?php include APPPATH . 'views/auth/v_login.php'; ?>
+<!-- End Sign In Section -->
+
 </main>
 
 <!-- Scroll Top -->
@@ -1150,6 +1154,7 @@
 
 <!-- Main JS File -->
 <script src="<?= base_url('landing-page/') ?>assets/js/main.js"></script>
+
 
 </body>
 

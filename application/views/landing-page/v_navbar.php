@@ -34,6 +34,6 @@
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-        <a class="btn-getstarted" href="<?= base_url('home/login') ?>">Sign In</a>
+        <a class="btn-getstarted" href="#sign-in" id="navigate-to-signin">Sign In</a>
     </div>
 </header>

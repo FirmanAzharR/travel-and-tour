@@ -4,6 +4,7 @@ class Dashboard extends CI_Controller{
         parent::__construct();
         $this->load->library('auth_libraries');
         $this->auth_libraries->is_logged_in(); // Check if user is logged in
+        $this->auth_libraries->is_admin(); // Check if user is admin
     }
     public function index(){
         $data = array(

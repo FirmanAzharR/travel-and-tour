@@ -40,4 +40,12 @@ class Auth_Libraries {
         $this->CI->session->unset_userdata('logged_in');
         $this->CI->session->unset_userdata('user_data');
     }
+
+    public function is_admin() {
+        $user_data = $this->CI->session->userdata('user_data');
+        if (!$user_data || !isset($user_data['role']) || $user_data['role'] !== 'ADMIN') {
+            $this->CI->session->set_flashdata('message', 'Access denied. Only admin users can access this page.');
+            redirect('home');
+        }
+    }
 }

@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide register form initially
     const registerForm = document.getElementById('register-form');
     const signinForm = document.getElementById('signin-form');
-    const containerSignIn = document.getElementById('sign-in');
+    // const containerSignIn = document.getElementById('sign-in');
 
     if (registerForm) {
         registerForm.style.display = 'none';
@@ -157,21 +157,21 @@ document.addEventListener('DOMContentLoaded', function() {
     //     containerSignIn.style.display = 'none';
     // }
 
-    const navigateToSignin = document.getElementById('navigate-to-signin');
-    if (navigateToSignin) {
-        navigateToSignin.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (containerSignIn) {
-                // containerSignIn.style.display = 'block';
-                // Ubah URL tanpa reload halaman
-                window.history.pushState(null, null, '#sign-in');
-                // Smooth scroll to sign-in section
-                containerSignIn.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
+    // const navigateToSignin = document.getElementById('navigate-to-signin');
+    // if (navigateToSignin) {
+    //     navigateToSignin.addEventListener('click', function(e) {
+    //         e.preventDefault();
+    //         if (containerSignIn) {
+    //             // containerSignIn.style.display = 'block';
+    //             // Ubah URL tanpa reload halaman
+    //             window.history.pushState(null, null, '#sign-in');
+    //             // Smooth scroll to sign-in section
+    //             containerSignIn.scrollIntoView({
+    //                 behavior: 'smooth'
+    //             });
+    //         }
+    //     });
+    // }
 
     // Show register form when "Register here" is clicked
     const showRegisterLink = document.getElementById('show-register');

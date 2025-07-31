@@ -1134,6 +1134,8 @@
 
 </section><!-- /Contact Section -->
 
+<?php include APPPATH . 'views/booking/v_rental_mobil.php'; ?>
+
 <!-- Sign In Section -->
 <?php include APPPATH . 'views/auth/v_login.php'; ?>
 <!-- End Sign In Section -->

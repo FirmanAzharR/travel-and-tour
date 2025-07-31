@@ -216,10 +216,12 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">
+                                <form id="logoutForm" action="<?= base_url('auth/logout') ?>" method="post" style="display: none;"></form>
+
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                        Logout
+                                    </a>
                             </div>
                         </li>
 

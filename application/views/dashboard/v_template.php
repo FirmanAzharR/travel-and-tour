@@ -123,6 +123,46 @@
                     </div>
                 </div>
             </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>LandingPage Setting</span>
+                </a>
+                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Logo</a>
+                        <a class="collapse-item" href="utilities-color.html">Header</a>
+                        <a class="collapse-item active" href="utilities-border.html">Gallery</a>
+                        <a class="collapse-item" href="utilities-animation.html">Testimoni</a>
+                        <a class="collapse-item" href="utilities-other.html">Content</a>
+                        <a class="collapse-item" href="utilities-other.html">Pop Up Image</a>
+                        <a class="collapse-item" href="utilities-other.html">Contact</a>
+                        <a class="collapse-item" href="utilities-other.html">Footer</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+                    aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Master Data</span>
+                </a>
+                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Rental Motor</a>
+                        <a class="collapse-item" href="utilities-color.html">Rental Mobil</a>
+                        <a class="collapse-item" href="utilities-other.html">Tour Package</a>
+                    </div>
+                </div>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

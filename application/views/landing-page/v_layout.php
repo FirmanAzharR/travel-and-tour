@@ -51,7 +51,8 @@
     <script src="<?= base_url('landing-page/') ?>assets/vendor/purecounter/purecounter_vanilla.js"></script>
 
     <!-- Main JS File -->
-    <script src="<?= base_url('landing-page/') ?>assets/js/main.js"></script>
+  	<script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

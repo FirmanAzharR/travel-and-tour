@@ -15,7 +15,7 @@
           <h3>Get In Touch</h3>
           <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
           </p>
-            test
+            
             <!-- Form -->
     <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-4">

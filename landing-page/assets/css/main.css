@@ -168,7 +168,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  max-height: 60px;
   margin-right: 8px;
 }
 
@@ -818,11 +818,29 @@ section,
   position: relative;
   text-align: center;
   z-index: 1;
+  width: 100%;
 }
 
 .hero .hero-image img {
+  width: 100%;
   max-width: 100%;
   height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Pastikan responsive di berbagai ukuran layar */
+@media (max-width: 991px) {
+  .hero .hero-image img {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero .hero-image img {
+    max-width: 100%;
+  }
 }
 
 .hero .customers-badge {

@@ -6,36 +6,38 @@
 
     <div class="row align-items-center">
       <div class="col-lg-6">
-        <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
-          <div class="company-badge mb-4">
-            <i class="bi bi-gear-fill me-2"></i>
-            Working for your success
-          </div>
+				<div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+					<div class="company-badge mb-4">
+						<i class="bi bi-compass-fill me-2"></i>
+						Explore Jogja with Comfort
+					</div>
 
-          <h1 class="mb-4">
-            Maecenas Vitae <br>
-            Consectetur Led <br>
-            <span class="accent-text">Vestibulum Ante</span>
-          </h1>
+					<h1 class="mb-4">
+						Your Journey <br>
+						Starts With <br>
+						<span class="accent-text">Wak Trans Travel</span>
+					</h1>
 
-          <p class="mb-4 mb-md-5">
-            Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt.
-            Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
-          </p>
+					<p class="mb-4 mb-md-5">
+						Discover the beauty of Yogyakarta with our premium transportation service.
+						Comfortable vehicles, experienced drivers, and customizable tour packages
+						to make your Jogja adventure unforgettable.
+					</p>
 
-          <div class="hero-buttons">
-            <a href="#about" class="btn btn-primary me-0 me-sm-2 mx-1">Get Started</a>
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn btn-link mt-2 mt-sm-0 glightbox">
-              <i class="bi bi-play-circle me-1"></i>
-              Play Video
-            </a>
-          </div>
-        </div>
-      </div>
+					<div class="hero-buttons">
+						<a href="#booking" class="btn btn-primary me-0 me-sm-2 mx-1">Book Now</a>
+						<a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn btn-link mt-2 mt-sm-0 glightbox">
+							<i class="bi bi-play-circle me-1"></i>
+							Watch Our Tours
+						</a>
+					</div>
+				</div>
+			</div>
+
 
       <div class="col-lg-6">
         <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-          <img src="<?= base_url('landing-page/') ?>assets/img/illustration-1.webp" alt="Hero Image" class="img-fluid">
+          <img src="<?= base_url('landing-page/') ?>assets/img/base/main3.png" class="image-fluid" alt="Hero Image" >
 
           <div class="customers-badge">
             <div class="customer-avatars">
@@ -44,9 +46,9 @@
               <img src="<?= base_url('landing-page/') ?>assets/img/avatar-3.webp" alt="Customer 3" class="avatar">
               <img src="<?= base_url('landing-page/') ?>assets/img/avatar-4.webp" alt="Customer 4" class="avatar">
               <img src="<?= base_url('landing-page/') ?>assets/img/avatar-5.webp" alt="Customer 5" class="avatar">
-              <span class="avatar more">12+</span>
+              <span class="avatar more">3+</span>
             </div>
-            <p class="mb-0 mt-2">12,000+ lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+            <p class="mb-0 mt-2">Trusted by 3,000+ travelers for the best Yogyakarta experience</p>
           </div>
         </div>
       </div>

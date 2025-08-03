@@ -12,16 +12,15 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li class="dropdown"><a href="#"><span>Booking</span> <i
-                            class="bi bi-chevron-down toggle-dropdown"></i></a>
-                    <ul>
-                         <li><a href="#travel-wisata-jogja">Travel Wisata Jogja</a></li>
-                         <li><a href="#travel-bandara">Travel Bandara</a></li>
-                         <li><a href="#">Rental Mobil</a></li>
-                         <li><a href="#">Carter Haice/Mini Bus</a></li>
-                         <li><a href="#">Paket Wisata</a></li>
-                    </ul>
-                </li>
+                <li class="dropdown"><a href="#"><span>Booking</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+    <ul>
+        <li><a href="#travel-wisata-jogja" class="booking-menu">Travel Wisata Jogja</a></li>
+        <li><a href="#travel-bandara" class="booking-menu">Travel Bandara</a></li>
+        <li><a href="#rental-mobil" class="booking-menu">Rental Mobil</a></li>
+        <li><a href="#carter-bus" class="booking-menu">Carter Haice/Mini Bus</a></li>
+        <!-- Jika ada file booking lain, tambahkan di sini -->
+    </ul>
+</li>
                 <?php $user = $this->session->userdata('user_data'); ?>
                 <?php if(isset($user['role']) && $user['role'] === 'CUSTOMER'): ?>
                     <li><a href="#booking-history">Booking History</a></li>

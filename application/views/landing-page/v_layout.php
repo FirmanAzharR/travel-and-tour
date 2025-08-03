@@ -11,7 +11,7 @@
     <title>Wak Trans Travel</title>
 
     <!-- Vendor CSS Files -->
-	<link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/img/base/logo.png') ?>">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('landing-page/assets/img/base/logo.png') ?>">
     <link href="<?= base_url('landing-page/') ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url('landing-page/') ?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= base_url('landing-page/') ?>assets/vendor/aos/aos.css" rel="stylesheet">
@@ -52,7 +52,7 @@
     <script src="<?= base_url('landing-page/') ?>assets/vendor/purecounter/purecounter_vanilla.js"></script>
 
     <!-- Main JS File -->
-  	<script src="assets/js/main.js"></script>
+  	<script src="<?= base_url('landing-page/') ?>assets/js/main.js"></script>
 
 </body>
 

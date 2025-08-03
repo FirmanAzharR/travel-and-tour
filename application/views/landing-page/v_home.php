@@ -1,5 +1,13 @@
 <!-- Konten utama halaman Home, tanpa tag <html>, <head>, <body>, navbar, footer, dan script -->
 <!-- Hero Section -->
+ <head>
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+ </head>
 <section id="hero" class="hero section">
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -1134,9 +1142,15 @@
 
   </div>
 
-</section><!-- /Contact Section -->
+</section>
+<!-- /Contact Section -->
 
+<!-- Booking Section -->
+<?php include APPPATH . 'views/booking/v_travel_wisata_jogja.php'; ?>
+<?php include APPPATH . 'views/booking/v_travel_bandara.php'; ?>
+<?php include APPPATH . 'views/booking/v_rental_mobil.php'; ?>
 <?php include APPPATH . 'views/booking/v_carter_bus.php'; ?>
+<!-- End Booking Section -->
 
 <!-- Sign In Section -->
 <?php include APPPATH . 'views/auth/v_login.php'; ?>
@@ -1157,9 +1171,45 @@
 <script src="<?= base_url('landing-page/') ?>assets/vendor/purecounter/purecounter_vanilla.js"></script>
 
 <!-- Main JS File -->
-<script src="<?= base_url('landing-page/') ?>assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
+<script>
+$(window).on('load', function() {
+    // Semua id section booking
+    var bookingSections = [
+        '#travel-wisata-jogja',
+        '#travel-bandara',
+        '#rental-mobil',
+        '#carter-bus'
+    ];
+
+    // Sembunyikan semua section booking saat load
+    function hideAllBookingSections() {
+        bookingSections.forEach(function(id) {
+            $(id).hide();
+        });
+    }
+
+    // Tampilkan travel-wisata-jogja secara default saat load
+    hideAllBookingSections();
+    $('#travel-wisata-jogja').show();
+
+    // Handle klik menu Booking
+    $('.booking-menu').on('click', function(e) {
+        e.preventDefault();
+        var target = $(this).attr('href');
+        // Hide semua section booking
+        hideAllBookingSections();
+        // Tampilkan section sesuai menu
+        $(target).show();
+        // Scroll ke section
+        $('html, body').animate({
+            scrollTop: $(target).offset().top - 100 // offset untuk header
+        }, 500);
+    });
+});
+</script>
 </body>
 
 </html>

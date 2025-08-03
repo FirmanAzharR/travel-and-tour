@@ -180,18 +180,20 @@ $(document).ready(function () {
         },
         body: new URLSearchParams(formData).toString()
       })
-      .then(response => {
+      .then(async response => {
+        const data = await response.json().catch(() => ({}));
+        
+        // If response is not ok, handle validation errors or other errors
         if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text().then(text => {
-          try {
-            return text ? JSON.parse(text) : {}
-          } catch (e) {
-            console.error('Error parsing JSON:', e, 'Response text:', text);
-            throw new Error('Invalid JSON response from server');
+          // If there's a validation error with field-specific messages
+          if (data.errors) {
+            const errorMessages = Object.values(data.errors).flat().join('\n');
+            throw new Error(errorMessages);
           }
-        });
+          // If there's a general error message
+          throw new Error(data.message || 'Terjadi kesalahan pada server');
+        }
+        return data;
       })
       .then(data => {
         if (data.status === 'success') {
@@ -212,10 +214,72 @@ $(document).ready(function () {
         }
       })
       .catch(error => {
+        console.error('Error:', error);
+        
+        // Format error message with better HTML structure
+        let errorMessage = error.message || 'Terjadi kesalahan saat memproses permintaan. Silakan coba lagi nanti.';
+        
+        // Create a more structured HTML for error messages
+        let htmlContent = `
+          <div style="text-align: left;">
+            <div style="margin-bottom: 15px; color: #dc3545; font-weight: 500;">
+              Mohon perbaiki kesalahan berikut:
+            </div>
+            <ul style="padding-left: 20px; margin: 0; list-style-type: none;">
+        `;
+        
+        // If there are multiple errors in the message (separated by newlines)
+        if (errorMessage.includes('\n')) {
+          const errors = errorMessage.split('\n').filter(msg => msg.trim() !== '');
+          htmlContent += errors.map(msg => 
+            `<li style="margin-bottom: 8px; padding-left: 10px; border-left: 3px solid #dc3545;">
+              <i class="fas fa-exclamation-circle" style="margin-right: 8px; color: #dc3545;"></i>
+              ${msg.trim()}
+            </li>`
+          ).join('');
+        } else {
+          htmlContent += `
+            <li style="margin-bottom: 8px; padding-left: 10px; border-left: 3px solid #dc3545;">
+              <i class="fas fa-exclamation-circle" style="margin-right: 8px; color: #dc3545;"></i>
+              ${errorMessage}
+            </li>
+          `;
+        }
+        
+        htmlContent += `
+            </ul>
+          </div>
+        `;
+        
         Swal.fire({
           icon: 'error',
-          title: 'Gagal',
-          text: error.message || 'Terjadi kesalahan saat memproses permintaan'
+          title: '<span style="color: #dc3545; font-size: 1.5rem;">Validasi Gagal</span>',
+          html: htmlContent,
+          confirmButtonText: 'Mengerti',
+          confirmButtonColor: '#dc3545',
+          width: '500px',
+          padding: '20px',
+          background: '#fff',
+          backdrop: `
+            rgba(0,0,0,0.7)
+            url("/assets/img/logo.png")
+            center left
+            no-repeat
+          `,
+          customClass: {
+            popup: 'animate__animated animate__fadeInDown',
+            title: 'mb-3',
+            confirmButton: 'btn btn-danger px-4 py-2',
+            closeButton: 'btn-close-white'
+          },
+          buttonsStyling: false,
+          showCloseButton: true,
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
         });
       })
       .finally(() => {

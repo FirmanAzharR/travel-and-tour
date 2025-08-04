@@ -7,6 +7,18 @@ class Booking extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('M_booking');
+        $this->load->helper('pdf');
+        
+        // Load TCPDF library
+        $tcpdf_path = APPPATH.'third_party/tcpdf/tcpdf.php';
+        if (!file_exists($tcpdf_path)) {
+            // Try alternative path
+            $tcpdf_path = FCPATH.'assets/tcpdf/tcpdf.php';
+            if (!file_exists($tcpdf_path)) {
+                die('TCPDF library not found. Please ensure TCPDF is installed in the correct location.');
+            }
+        }
+        require_once($tcpdf_path);
     }
 
     public function booking_carter_bus()
@@ -99,8 +111,14 @@ class Booking extends CI_Controller {
             // Jika validasi gagal, tampilkan kembali form dengan error
             $this->load->view('booking/v_travel_wisata_jogja');
         } else {
+        // Generate booking code
+        $date = date('YmdHis');
+        $random = mt_rand(1000, 9999);
+        $booking_code = 'WTR-' . $date . '-' . $random;
+
         // Ambil data dari form
         $data = array(
+            'booking_code'      => $booking_code,
             'wa_number'         => $this->input->post('wa-number'),
             'booking_date'      => $this->input->post('booking-date'),
             'pickup_address'    => $this->input->post('pickup-address'),
@@ -114,12 +132,37 @@ class Booking extends CI_Controller {
         $result = $this->M_booking->insert_data($data);
 
         if ($result) {
-            $this->session->set_flashdata('success', 'Booking berhasil disimpan.');
+            // Return JSON response with all booking data
+            $response = [
+                'status' => 'success',
+                'booking_code' => $booking_code,
+                'customer_name' => $this->input->post('name'),
+                'wa_number' => $this->input->post('wa-number'),
+                'booking_date' => $this->input->post('booking-date'),
+                'pickup_address' => $this->input->post('pickup-address'),
+                'total_passenger' => $this->input->post('total-passenger'),
+                'tour_destination' => $this->input->post('tour-destination'),
+                'duration' => $this->input->post('duration'),
+                'car_type' => $this->input->post('car-type'),
+                'pickup_time' => $this->input->post('pickup-time')
+            ];
+            
+            // Set content type to JSON
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+            return;
         } else {
-            $this->session->set_flashdata('error', 'Gagal menyimpan booking.');
+            // Return error response
+            $response = [
+                'status' => 'error',
+                'message' => 'Gagal menyimpan booking.'
+            ];
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+            return;
         }
-        // Redirect ke halaman sukses atau booking lagi
-        redirect('booking/booking_travel_wisata_jogja');
     }
     }
 
@@ -348,6 +391,44 @@ class Booking extends CI_Controller {
         } catch (Exception $e) {
             $response['message'] = $e->getMessage();
 $this->output
+                ->set_content_type('application/json', 'utf-8')
+                ->set_status_header(500)
+                ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+    }
+    
+    public function generate_pdf() {
+        try {
+            // Get all POST data
+            $data = $this->input->post();
+            
+            // Load the PDF helper
+            $this->load->helper('pdf');
+            
+            // Generate PDF using the helper function
+            $pdfUrl = generate_booking_pdf($data);
+            
+            if ($pdfUrl) {
+                $response = [
+                    'status' => 'success',
+                    'pdf_url' => $pdfUrl
+                ];
+            } else {
+                throw new Exception('Gagal membuat PDF');
+            }
+            
+            $this->output
+                ->set_content_type('application/json', 'utf-8')
+                ->set_status_header(200)
+                ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                
+        } catch (Exception $e) {
+            $response = [
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ];
+            
+            $this->output
                 ->set_content_type('application/json', 'utf-8')
                 ->set_status_header(500)
                 ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));

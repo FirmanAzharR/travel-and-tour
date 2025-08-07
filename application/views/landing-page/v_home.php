@@ -63,51 +63,52 @@
     </div>
 
     <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="bi bi-trophy"></i>
-          </div>
-          <div class="stat-content">
-            <h4>3x Won Awards</h4>
-            <p class="mb-0">Vestibulum ante ipsum</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="bi bi-briefcase"></i>
-          </div>
-          <div class="stat-content">
-            <h4>6.5k Faucibus</h4>
-            <p class="mb-0">Nullam quis ante</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="bi bi-graph-up"></i>
-          </div>
-          <div class="stat-content">
-            <h4>80k Mauris</h4>
-            <p class="mb-0">Etiam sit amet orci</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="bi bi-award"></i>
-          </div>
-          <div class="stat-content">
-            <h4>6x Phasellus</h4>
-            <p class="mb-0">Vestibulum ante ipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stat-item">
+					<div class="stat-icon">
+						<i class="bi bi-trophy"></i>
+					</div>
+					<div class="stat-content">
+						<h4>3x Award Winner</h4>
+						<p class="mb-0">Best Tour Operator</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stat-item">
+					<div class="stat-icon">
+						<i class="bi bi-briefcase"></i>
+					</div>
+					<div class="stat-content">
+						<h4>5000+ Tours</h4>
+						<p class="mb-0">Completed Successfully</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stat-item">
+					<div class="stat-icon">
+						<i class="bi bi-graph-up"></i>
+					</div>
+					<div class="stat-content">
+						<h4>12,500+ Travelers</h4>
+						<p class="mb-0">Happy Customers</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="stat-item">
+					<div class="stat-icon">
+						<i class="bi bi-award"></i>
+					</div>
+					<div class="stat-content">
+						<h4>98% Satisfaction</h4>
+						<p class="mb-0">Customer Rating</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
   </div>
 
@@ -189,13 +190,13 @@
 
 </section><!-- /About Section -->
 
-<!-- Features Section -->
+<!-- Destinations Section -->
 <section id="features" class="features section">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Features</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+    <h2>Destinasi Pilihan</h2>
+    <p>Temukan berbagai pilihan destinasi menarik untuk perjalanan liburan Anda berikutnya</p>
   </div><!-- End Section Title -->
 
   <div class="container">
@@ -205,20 +206,14 @@
       <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
 
         <li class="nav-item">
-          <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
-            <h4>Modisit</h4>
+          <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#destinations-tab-1">
+            <h4>Wisata</h4>
           </a>
         </li><!-- End tab nav item -->
 
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
-            <h4>Praesenti</h4>
-          </a><!-- End tab nav item -->
-
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-            <h4>Explica</h4>
+          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#destinations-tab-2">
+            <h4>City Tour</h4>
           </a>
         </li><!-- End tab nav item -->
 
@@ -228,237 +223,264 @@
 
     <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
-      <div class="tab-pane fade active show" id="features-tab-1">
-        <div class="row">
-          <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-            <h3>Voluptatem dignissimos provident</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                  velit.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                  fugiat nulla pariatur.</span></li>
-            </ul>
-          </div>
-          <div class="col-lg-6 order-1 order-lg-2 text-center">
-            <img src="<?= base_url('landing-page/') ?>assets/img/features-illustration-1.webp" alt="" class="img-fluid">
-          </div>
+      <!-- Wisata Tab -->
+      <div class="tab-pane fade active show" id="destinations-tab-1">
+        <div class="row gy-4 mt-4">
+          
+          <!-- Destination Card 1 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (1).png" class="card-img-top" alt="Bali">
+              <div class="card-body">
+                <h5 class="card-title">Bali</h5>
+                <p class="card-text">Nikmati keindahan pantai, budaya, dan spiritual di Pulau Dewata yang mempesona</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">3-7 Hari</span>
+                  <span class="price">Mulai Rp 3.5jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
+          <!-- Destination Card 2 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (2).png" class="card-img-top" alt="Raja Ampat">
+              <div class="card-body">
+                <h5 class="card-title">Raja Ampat</h5>
+                <p class="card-text">Surga bawah laut dengan keanekaragaman hayati terkaya di dunia</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">4-6 Hari</span>
+                  <span class="price">Mulai Rp 7.5jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
+          <!-- Destination Card 3 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (3).png" class="card-img-top" alt="Bromo">
+              <div class="card-body">
+                <h5 class="card-title">Bromo</h5>
+                <p class="card-text">Saksikan sunrise spektakuler di atas lautan awan dengan pemandangan gunung berapi aktif</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">2-3 Hari</span>
+                  <span class="price">Mulai Rp 1.8jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
+          <!-- Destination Card 4 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (4).png" class="card-img-top" alt="Labuan Bajo">
+              <div class="card-body">
+                <h5 class="card-title">Labuan Bajo</h5>
+                <p class="card-text">Petualangan eksotis melihat Komodo dan menjelajahi pulau-pulau menakjubkan</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">3-5 Hari</span>
+                  <span class="price">Mulai Rp 5.2jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
+          <!-- Destination Card 5 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (5).png" class="card-img-top" alt="Danau Toba">
+              <div class="card-body">
+                <h5 class="card-title">Danau Toba</h5>
+                <p class="card-text">Danau vulkanik terbesar di dunia dengan keindahan alam dan budaya Batak yang kaya</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">3-4 Hari</span>
+                  <span class="price">Mulai Rp 2.5jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
+          <!-- Destination Card 6 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (6).png" class="card-img-top" alt="Dieng">
+              <div class="card-body">
+                <h5 class="card-title">Dieng Plateau</h5>
+                <p class="card-text">Negeri di atas awan dengan pemandangan sunrise, telaga warna, dan candi kuno</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">2-3 Hari</span>
+                  <span class="price">Mulai Rp 1.5jt</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End Destination Card -->
+          
         </div>
-      </div><!-- End tab content item -->
+      </div><!-- End Wisata Tab -->
 
-      <div class="tab-pane fade" id="features-tab-2">
-        <div class="row">
-          <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-            <h3>Neque exercitationem debitis</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                  velit.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
-                  a. Ipsum neque dolor voluptate nisi sed.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                  fugiat nulla pariatur.</span></li>
-            </ul>
-          </div>
-          <div class="col-lg-6 order-1 order-lg-2 text-center">
-            <img src="<?= base_url('landing-page/') ?>assets/img/features-illustration-2.webp" alt="" class="img-fluid">
-          </div>
+      <!-- City Tour Tab -->
+      <div class="tab-pane fade" id="destinations-tab-2">
+        <div class="row gy-4 mt-4">
+          
+          <!-- City Tour Card 1 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (1).PNG" class="card-img-top" alt="Yogyakarta">
+              <div class="card-body">
+                <h5 class="card-title">Yogyakarta</h5>
+                <p class="card-text">Jelajahi kota budaya dengan Keraton, Malioboro, Candi Prambanan dan Borobudur</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-3 Hari</span>
+                  <span class="price">Mulai Rp 850rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
+          <!-- City Tour Card 2 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (2).PNG" class="card-img-top" alt="Jakarta">
+              <div class="card-body">
+                <h5 class="card-title">Jakarta</h5>
+                <p class="card-text">Nikmati ibu kota dengan Monas, Ancol, museum-museum dan pusat perbelanjaan modern</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-2 Hari</span>
+                  <span class="price">Mulai Rp 750rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
+          <!-- City Tour Card 3 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (3).PNG" class="card-img-top" alt="Bandung">
+              <div class="card-body">
+                <h5 class="card-title">Bandung</h5>
+                <p class="card-text">Kota dengan suasana sejuk, wisata kuliner, factory outlet, dan pemandangan alam</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-3 Hari</span>
+                  <span class="price">Mulai Rp 800rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
+          <!-- City Tour Card 4 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (4).PNG" class="card-img-top" alt="Surabaya">
+              <div class="card-body">
+                <h5 class="card-title">Surabaya</h5>
+                <p class="card-text">Kota pahlawan dengan Jembatan Suramadu, Tugu Pahlawan, dan wisata kuliner khas</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-2 Hari</span>
+                  <span class="price">Mulai Rp 700rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
+          <!-- City Tour Card 5 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (5).PNG" class="card-img-top" alt="Malang">
+              <div class="card-body">
+                <h5 class="card-title">Malang</h5>
+                <p class="card-text">Kota sejuk dengan Jatim Park, Museum Angkut, dan wisata alam Batu</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-3 Hari</span>
+                  <span class="price">Mulai Rp 850rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
+          <!-- City Tour Card 6 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="card destination-card">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (6).PNG" class="card-img-top" alt="Solo">
+              <div class="card-body">
+                <h5 class="card-title">Solo</h5>
+                <p class="card-text">Kota budaya dengan Keraton Kasunanan, Mangkunegaran, dan batik tradisional</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="badge bg-primary">1-2 Hari</span>
+                  <span class="price">Mulai Rp 700rb</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
+              </div>
+            </div>
+          </div><!-- End City Tour Card -->
+          
         </div>
-      </div><!-- End tab content item -->
-
-      <div class="tab-pane fade" id="features-tab-3">
-        <div class="row">
-          <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-            <h3>Voluptatibus commodi accusamu</h3>
-            <ul>
-              <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                  velit.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
-                  a. Ipsum neque dolor voluptate nisi sed.</span></li>
-            </ul>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
-            </p>
-          </div>
-          <div class="col-lg-6 order-1 order-lg-2 text-center">
-            <img src="<?= base_url('landing-page/') ?>assets/img/features-illustration-3.webp" alt="" class="img-fluid">
-          </div>
-        </div>
-      </div><!-- End tab content item -->
+      </div><!-- End City Tour Tab -->
 
     </div>
 
   </div>
 
-</section><!-- /Features Section -->
+</section><!-- /Destinations Section -->
+
+
 
 <!-- Features Cards Section -->
 <section id="features-cards" class="features-cards section">
-
   <div class="container">
+		<div class="section-header text-center position-relative" data-aos="fade-up">
+			<span class="section-badge">TRAVEL PARTNER TERPERCAYA</span>
+			<h2 class="section-title fw-bold">Kenapa Memilih <span class="text-primary">Kami</span></h2>
+		</div>
 
     <div class="row gy-4">
-
       <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
         <div class="feature-box orange">
-          <i class="bi bi-award"></i>
-          <h4>Corporis voluptates</h4>
-          <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+          <i class="bi bi-cash-coin"></i>
+          <h4>Harga Terbaik</h4>
+          <p>Dapatkan pengalaman wisata berkualitas dengan harga kompetitif. Kami menawarkan value for money tanpa mengorbankan kualitas layanan.</p>
         </div>
-      </div><!-- End Feature Borx-->
+      </div><!-- End Feature Box-->
 
       <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
         <div class="feature-box blue">
-          <i class="bi bi-patch-check"></i>
-          <h4>Explicabo consectetur</h4>
-          <p>Est autem dicta beatae suscipit. Sint veritatis et sit quasi ab aut inventore</p>
+          <i class="bi bi-people"></i>
+          <h4>Pemandu Profesional</h4>
+          <p>Tim pemandu wisata bersertifikasi dan berpengetahuan luas tentang sejarah, budaya, dan spot foto terbaik di setiap destinasi.</p>
         </div>
-      </div><!-- End Feature Borx-->
+      </div><!-- End Feature Box-->
 
       <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
         <div class="feature-box green">
-          <i class="bi bi-sunrise"></i>
-          <h4>Ullamco laboris</h4>
-          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+          <i class="bi bi-car-front"></i>
+          <h4>Transportasi Nyaman</h4>
+          <p>Armada kendaraan modern, terawat, dan ber-AC dengan driver profesional untuk kenyamanan perjalanan Anda dari awal hingga akhir.</p>
         </div>
-      </div><!-- End Feature Borx-->
+      </div><!-- End Feature Box-->
 
       <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
         <div class="feature-box red">
-          <i class="bi bi-shield-check"></i>
-          <h4>Labore consequatur</h4>
-          <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+          <i class="bi bi-heart"></i>
+          <h4>Pelayanan Personal</h4>
+          <p>Kami memberikan perhatian pada detail dan kebutuhan khusus setiap pelanggan. Kepuasan Anda adalah prioritas utama kami.</p>
         </div>
-      </div><!-- End Feature Borx-->
-
+      </div><!-- End Feature Box-->
     </div>
-
   </div>
-
 </section><!-- /Features Cards Section -->
 
-<!-- Features 2 Section -->
-<section id="features-2" class="features-2 section">
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row align-items-center">
-
-      <div class="col-lg-4">
-
-        <div class="feature-item text-end mb-5" data-aos="fade-right" data-aos-delay="200">
-          <div class="d-flex align-items-center justify-content-end gap-4">
-            <div class="feature-content">
-              <h3>Use On Any Device</h3>
-              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui
-                quis mi consectetuer lacinia.</p>
-            </div>
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-display"></i>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-        <div class="feature-item text-end mb-5" data-aos="fade-right" data-aos-delay="300">
-          <div class="d-flex align-items-center justify-content-end gap-4">
-            <div class="feature-content">
-              <h3>Feather Icons</h3>
-              <p>Phasellus ullamcorper ipsum rutrum nunc nunc nonummy metus vestibulum volutpat sapien arcu sed
-                augue aliquam erat volutpat.</p>
-            </div>
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-feather"></i>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-        <div class="feature-item text-end" data-aos="fade-right" data-aos-delay="400">
-          <div class="d-flex align-items-center justify-content-end gap-4">
-            <div class="feature-content">
-              <h3>Retina Ready</h3>
-              <p>Aenean tellus metus bibendum sed posuere ac mattis non nunc vestibulum fringilla purus sit amet
-                fermentum aenean commodo.</p>
-            </div>
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-eye"></i>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-      </div>
-
-      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-        <div class="phone-mockup text-center">
-          <img src="<?= base_url('landing-page/') ?>assets/img/phone-app-screen.webp" alt="Phone Mockup"
-            class="img-fluid">
-        </div>
-      </div><!-- End Phone Mockup -->
-
-      <div class="col-lg-4">
-
-        <div class="feature-item mb-5" data-aos="fade-left" data-aos-delay="200">
-          <div class="d-flex align-items-center gap-4">
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-code-square"></i>
-            </div>
-            <div class="feature-content">
-              <h3>W3c Valid Code</h3>
-              <p>Donec vitae sapien ut libero venenatis faucibus nullam quis ante etiam sit amet orci eget eros
-                faucibus tincidunt.</p>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-        <div class="feature-item mb-5" data-aos="fade-left" data-aos-delay="300">
-          <div class="d-flex align-items-center gap-4">
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-phone"></i>
-            </div>
-            <div class="feature-content">
-              <h3>Fully Responsive</h3>
-              <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem
-                neque sed ipsum.</p>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-        <div class="feature-item" data-aos="fade-left" data-aos-delay="400">
-          <div class="d-flex align-items-center gap-4">
-            <div class="feature-icon flex-shrink-0">
-              <i class="bi bi-browser-chrome"></i>
-            </div>
-            <div class="feature-content">
-              <h3>Browser Compatibility</h3>
-              <p>Nullam dictum felis eu pede mollis pretium integer tincidunt cras dapibus vivamus elementum semper
-                nisi aenean vulputate.</p>
-            </div>
-          </div>
-        </div><!-- End .feature-item -->
-
-      </div>
-    </div>
-
-  </div>
-
-</section><!-- /Features 2 Section -->
 
 <!-- Call To Action Section -->
 <section id="call-to-action" class="call-to-action section">
@@ -467,10 +489,9 @@
 
     <div class="row content justify-content-center align-items-center position-relative">
       <div class="col-lg-8 mx-auto text-center">
-        <h2 class="display-4 mb-4">Maecenas tempus tellus eget condimentum</h2>
-        <p class="mb-4">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-          Donec velit neque, auctor sit amet aliquam vel</p>
-        <a href="#" class="btn btn-cta">Call To Action</a>
+        <h2 class="display-4 mb-4">Wujudkan Liburan Impian Anda Bersama Kami</h2>
+        <p class="mb-4">Jangan biarkan momen berharga berlalu begitu saja. Saatnya menjelajah keindahan Indonesia dengan pengalaman perjalanan yang tak terlupakan, didampingi oleh tim profesional kami.</p>
+        <a href="#" class="btn btn-cta">Booking Sekarang</a>
       </div>
 
       <!-- Abstract Background Elements -->
@@ -522,217 +543,141 @@
 
 </section><!-- /Call To Action Section -->
 
-<!-- Clients Section -->
-<section id="clients" class="clients section">
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="swiper init-swiper">
-      <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 2,
-                  "spaceBetween": 40
-                },
-                "480": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 60
-                },
-                "640": {
-                  "slidesPerView": 4,
-                  "spaceBetween": 80
-                },
-                "992": {
-                  "slidesPerView": 6,
-                  "spaceBetween": 120
-                }
-              }
-            }
-          </script>
-      <div class="swiper-wrapper align-items-center">
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-1.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-2.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-3.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-4.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-5.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-6.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-7.png"
-            class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="<?= base_url('landing-page/') ?>assets/img/clients/client-8.png"
-            class="img-fluid" alt=""></div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
-
-  </div>
-
-</section><!-- /Clients Section -->
-
 <!-- Testimonials Section -->
 <section id="testimonials" class="testimonials section light-background">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Testimonials</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+    <h2>Apa Kata Mereka</h2>
+    <p>Pengalaman tak terlupakan dari pelanggan yang telah menikmati perjalanan bersama kami</p>
   </div><!-- End Section Title -->
 
-  <div class="container">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-    <div class="row g-5">
-
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="testimonial-item">
-          <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-1.jpg" class="testimonial-img"
-            alt="">
-          <h3>Saul Goodman</h3>
-          <h4>Ceo &amp; Founder</h4>
-          <div class="stars">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    <div class="swiper testimonials-swiper init-swiper">
+      <script type="application/json" class="swiper-config">
+        {
+          "loop": true,
+          "speed": 800,
+          "autoplay": {
+            "delay": 5000
+          },
+          "slidesPerView": 1,
+          "spaceBetween": 30,
+          "pagination": {
+            "el": ".swiper-pagination",
+            "type": "bullets",
+            "clickable": true
+          },
+          "navigation": {
+            "nextEl": ".testimonial-swiper-button-next",
+            "prevEl": ".testimonial-swiper-button-prev"
+          },
+          "breakpoints": {
+            "768": {
+              "slidesPerView": 2,
+              "spaceBetween": 30
+            },
+            "1200": {
+              "slidesPerView": 2,
+              "spaceBetween": 40
+            }
+          }
+        }
+      </script>
+      
+      <div class="swiper-wrapper">
+        
+        <!-- Testimonial Item 1 -->
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="Foto Budi Santoso">
+            <h3>Budi Santoso</h3>
+            <h4>Keluarga, Jakarta</h4>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>Liburan keluarga kami ke Yogyakarta jadi sangat berkesan berkat layanan tour yang luar biasa ini. Guide sangat ramah dan mengerti kebutuhan anak-anak. Semua destinasi yang dikunjungi sesuai ekspektasi, bahkan lebih! Akomodasi nyaman dan makanan enak. Pasti akan menggunakan jasa mereka lagi untuk trip berikutnya.</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
           </div>
-          <p>
-            <i class="bi bi-quote quote-icon-left"></i>
-            <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-              Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-            <i class="bi bi-quote quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
+        </div><!-- End testimonial item -->
 
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="testimonial-item">
-          <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-2.jpg" class="testimonial-img"
-            alt="">
-          <h3>Sara Wilsson</h3>
-          <h4>Designer</h4>
-          <div class="stars">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        <!-- Testimonial Item 2 -->
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="Foto Anita Wijaya">
+            <h3>Anita Wijaya</h3>
+            <h4>Solo Traveler, Surabaya</h4>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>Sebagai solo traveler, keamanan dan kenyamanan adalah prioritas saya. Travel tour ini memberikan pengalaman yang menyenangkan dengan grup kecil yang sangat friendly. Saya menemukan spot-spot tersembunyi yang tidak akan saya temukan sendiri. Guide sangat knowledgeable dan sabar menjawab semua pertanyaan saya.</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
           </div>
-          <p>
-            <i class="bi bi-quote quote-icon-left"></i>
-            <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
-              malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-            <i class="bi bi-quote quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
+        </div><!-- End testimonial item -->
 
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="testimonial-item">
-          <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-3.jpg" class="testimonial-img"
-            alt="">
-          <h3>Jena Karlis</h3>
-          <h4>Store Owner</h4>
-          <div class="stars">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        <!-- Testimonial Item 3 -->
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="Foto Dian & Reza">
+            <h3>Dian & Reza</h3>
+            <h4>Honeymoon Couple, Bandung</h4>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>Paket honeymoon ke Labuan Bajo yang kami pilih benar-benar sempurna! Pemandangan sunset di Pulau Padar, snorkeling dengan manta ray, dan kunjungan ke Pulau Komodo jadi momen tak terlupakan. Tim tour sangat perhatian dengan detail kecil yang membuat perjalanan kami spesial. Terima kasih untuk pengalaman honeymoon yang magical!</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
           </div>
-          <p>
-            <i class="bi bi-quote quote-icon-left"></i>
-            <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim
-              tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-            <i class="bi bi-quote quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
+        </div><!-- End testimonial item -->
 
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="testimonial-item">
-          <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-4.jpg" class="testimonial-img"
-            alt="">
-          <h3>Matt Brandon</h3>
-          <h4>Freelancer</h4>
-          <div class="stars">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        <!-- Testimonial Item 4 -->
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="Foto Hendra Wijaya">
+            <h3>Hendra Wijaya</h3>
+            <h4>Business Trip, Semarang</h4>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>Saya menggunakan jasa mereka untuk mengatur company outing dengan 50 karyawan. Semua berjalan lancar dari awal hingga akhir. Koordinasi sempurna, aktivitas team building yang seru, dan penanganan logistik yang profesional. Semua karyawan sangat puas dan refreshed. Definitely recommended untuk corporate event!</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
           </div>
-          <p>
-            <i class="bi bi-quote quote-icon-left"></i>
-            <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit
-              minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-            <i class="bi bi-quote quote-icon-right"></i>
-          </p>
-        </div>
-      </div><!-- End testimonial item -->
-
+        </div><!-- End testimonial item -->
+      </div>
+      
+      <div class="swiper-pagination"></div>
+      
+      <!-- Navigation Arrows -->
+      <div class="testimonial-swiper-button-next swiper-button-next"></div>
+      <div class="testimonial-swiper-button-prev swiper-button-prev"></div>
+      
     </div>
 
   </div>
 
 </section><!-- /Testimonials Section -->
 
-<!-- Stats Section -->
-<section id="stats" class="stats section">
 
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row gy-4">
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stats-item text-center w-100 h-100">
-          <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Clients</p>
-        </div>
-      </div><!-- End Stats Item -->
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stats-item text-center w-100 h-100">
-          <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Projects</p>
-        </div>
-      </div><!-- End Stats Item -->
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stats-item text-center w-100 h-100">
-          <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Hours Of Support</p>
-        </div>
-      </div><!-- End Stats Item -->
-
-      <div class="col-lg-3 col-md-6">
-        <div class="stats-item text-center w-100 h-100">
-          <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Workers</p>
-        </div>
-      </div><!-- End Stats Item -->
-
-    </div>
-
-  </div>
-
-</section><!-- /Stats Section -->
 
 <!-- Services Section -->
 <section id="services" class="services section light-background">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Services</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+    <h2>Layanan Kami</h2>
+    <p>Kami menyediakan berbagai layanan perjalanan premium untuk memastikan pengalaman liburan Anda tak terlupakan</p>
   </div><!-- End Section Title -->
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -742,13 +687,11 @@
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
         <div class="service-card d-flex">
           <div class="icon flex-shrink-0">
-            <i class="bi bi-activity"></i>
+            <i class="bi bi-globe2"></i>
           </div>
           <div>
-            <h3>Nesciunt Mete</h3>
-            <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure
-              perferendis tempore et consequatur.</p>
-            <a href="service-details.html" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+            <h3>Paket Wisata Domestik</h3>
+            <p>Jelajahi keindahan Indonesia dari Sabang sampai Merauke dengan paket wisata yang dirancang khusus untuk memenuhi kebutuhan liburan Anda. Dari pantai eksotis Bali hingga keajaiban alam Raja Ampat.</p>
           </div>
         </div>
       </div><!-- End Service Card -->
@@ -756,13 +699,11 @@
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
         <div class="service-card d-flex">
           <div class="icon flex-shrink-0">
-            <i class="bi bi-diagram-3"></i>
+            <i class="bi bi-airplane"></i>
           </div>
           <div>
-            <h3>Eosle Commodi</h3>
-            <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut
-              nesciunt dolorem.</p>
-            <a href="service-details.html" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+            <h3>Paket Wisata Internasional</h3>
+            <p>Wujudkan impian traveling ke luar negeri dengan paket wisata internasional kami. Dari keindahan Asia Tenggara hingga kemegahan Eropa, semua diatur dengan detail untuk kenyamanan perjalanan Anda.</p>
           </div>
         </div>
       </div><!-- End Service Card -->
@@ -770,13 +711,11 @@
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
         <div class="service-card d-flex">
           <div class="icon flex-shrink-0">
-            <i class="bi bi-easel"></i>
+            <i class="bi bi-people"></i>
           </div>
           <div>
-            <h3>Ledo Markt</h3>
-            <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci
-              eos earum corrupti.</p>
-            <a href="service-details.html" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+            <h3>Private & Custom Tour</h3>
+            <p>Ingin liburan yang lebih personal? Kami menawarkan layanan private tour dan custom itinerary sesuai dengan preferensi, budget, dan waktu Anda. Nikmati fleksibilitas dan privasi selama perjalanan.</p>
           </div>
         </div>
       </div><!-- End Service Card -->
@@ -784,13 +723,11 @@
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
         <div class="service-card d-flex">
           <div class="icon flex-shrink-0">
-            <i class="bi bi-clipboard-data"></i>
+            <i class="bi bi-building"></i>
           </div>
           <div>
-            <h3>Asperiores Commodit</h3>
-            <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident
-              adipisci neque.</p>
-            <a href="service-details.html" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+            <h3>Corporate & MICE</h3>
+            <p>Layanan khusus untuk kebutuhan korporasi, meeting, incentive, conference, dan exhibition. Tim kami berpengalaman dalam mengelola event perusahaan dari skala kecil hingga besar dengan profesionalisme tinggi.</p>
           </div>
         </div>
       </div><!-- End Service Card -->
@@ -800,6 +737,7 @@
   </div>
 
 </section><!-- /Services Section -->
+
 
 <!-- Pricing Section -->
 <section id="pricing" class="pricing section light-background">
@@ -1045,105 +983,6 @@
   </div>
 
 </section><!-- /Call To Action 2 Section -->
-
-<!-- Contact Section -->
-<section id="contact" class="contact section light-background">
-
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Contact</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row g-4 g-lg-5">
-      <div class="col-lg-5">
-        <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-          <h3>Contact Info</h3>
-          <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
-          </p>
-
-          <div class="info-item" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon-box">
-              <i class="bi bi-geo-alt"></i>
-            </div>
-            <div class="content">
-              <h4>Our Location</h4>
-              <p>A108 Adam Street</p>
-              <p>New York, NY 535022</p>
-            </div>
-          </div>
-
-          <div class="info-item" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon-box">
-              <i class="bi bi-telephone"></i>
-            </div>
-            <div class="content">
-              <h4>Phone Number</h4>
-              <p>+1 5589 55488 55</p>
-              <p>+1 6678 254445 41</p>
-            </div>
-          </div>
-
-          <div class="info-item" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon-box">
-              <i class="bi bi-envelope"></i>
-            </div>
-            <div class="content">
-              <h4>Email Address</h4>
-              <p>info@example.com</p>
-              <p>contact@example.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-7">
-        <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-          <h3>Get In Touch</h3>
-          <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
-          </p>
-
-          <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-4">
-
-              <div class="col-md-6">
-                <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-              </div>
-
-              <div class="col-md-6 ">
-                <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-              </div>
-
-              <div class="col-12">
-                <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-              </div>
-
-              <div class="col-12">
-                <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-              </div>
-
-              <div class="col-12 text-center">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                <button type="submit" class="btn">Send Message</button>
-              </div>
-
-            </div>
-          </form>
-
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-<!-- /Contact Section -->
 
 <!-- Booking Section -->
 <?php include APPPATH . 'views/booking/v_travel_wisata_jogja.php'; ?>

@@ -9,7 +9,7 @@ if (!function_exists('generate_booking_pdf')) {
         require_once(APPPATH . 'third_party/tcpdf/tcpdf.php');
 
         // Konfigurasi file PDF
-        $filename = 'booking_' . $data['booking_code'] . '.pdf';
+        $filename = 'booking_wisata_' . $data['booking_code'] . '.pdf';
         $folder_path = FCPATH . 'generate_pdf/';
         $filepath = $folder_path . $filename;
 

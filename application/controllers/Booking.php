@@ -8,7 +8,7 @@ class Booking extends CI_Controller {
         parent::__construct();
         $this->load->model('M_booking');
         $this->load->helper('pdf');
-        
+
         // Load TCPDF library
         $tcpdf_path = APPPATH.'third_party/tcpdf/tcpdf.php';
         if (!file_exists($tcpdf_path)) {
@@ -19,6 +19,23 @@ class Booking extends CI_Controller {
             }
         }
         require_once($tcpdf_path);
+    }
+
+    // Fungsi untuk memuat view booking sesuai permintaan AJAX
+    public function load_view($type)
+    {
+        // Whitelist nama file yang boleh diakses
+        $allowed = [
+            'v_travel_wisata_jogja',
+            'v_travel_bandara',
+            'v_rental_mobil',
+            'v_carter_bus'
+        ];
+        if (in_array($type, $allowed)) {
+            $this->load->view('booking/' . $type);
+        } else {
+            show_404();
+        }
     }
 
     public function booking_carter_bus()
@@ -44,7 +61,13 @@ class Booking extends CI_Controller {
             ];
         } else {
             // Prepare data for database
+            // Generate booking code
+            $date = date('YmdHis');
+            $random = mt_rand(1000, 9999);
+            $booking_code = 'RB-' . $date . '-' . $random;
+
             $data = [
+                'booking_code' => $booking_code,
                 'customer_name' => $this->input->post('customer_name'),
                 'wa_number' => $this->input->post('wa_number'),
                 'total_passengers' => $this->input->post('total_passengers'),
@@ -54,13 +77,26 @@ class Booking extends CI_Controller {
                 'pickup_address' => $this->input->post('pickup_address')
             ];
 
+            // Add user_id if user is logged in
+            if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                $data['user_id'] = $this->session->userdata('user_data')['id'];
+            }
+
             // Insert data to database
             $result = $this->M_booking->save_carter_bus_booking($data);
 
             if ($result) {
                 $response = [
                     'status' => 'success',
-                    'message' => 'Pesanan berhasil dikirim. Tim kami akan segera menghubungi Anda.'
+                    'message' => 'Pesanan berhasil dikirim. Tim kami akan segera menghubungi Anda.',
+                    'booking_code' => $booking_code,
+                    'customer_name' => $this->input->post('customer_name'),
+                    'wa_number' => $this->input->post('wa_number'),
+                    'total_passengers' => $this->input->post('total_passengers'),
+                    'booking_date_start' => $this->input->post('booking_date_start'),
+                    'booking_date_end' => $this->input->post('booking_date_end'),
+                    'pickup_time' => $this->input->post('pickup_time'),
+                    'pickup_address' => $this->input->post('pickup_address')
                 ];
             } else {
                 $response = [
@@ -74,23 +110,6 @@ class Booking extends CI_Controller {
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
-    }
-
-    // Fungsi untuk memuat view booking sesuai permintaan AJAX
-    public function load_view($type)
-    {
-        // Whitelist nama file yang boleh diakses
-        $allowed = [
-            'v_travel_wisata_jogja',
-            'v_travel_bandara',
-            'v_rental_mobil',
-            'v_carter_bus'
-        ];
-        if (in_array($type, $allowed)) {
-            $this->load->view('booking/' . $type);
-        } else {
-            show_404();
-        }
     }
 
     public function booking_travel_wisata_jogja()
@@ -125,8 +144,14 @@ class Booking extends CI_Controller {
             'total_passengers'  => $this->input->post('total-passenger'),
             'tour_destination'  => $this->input->post('tour-destination'),
             'duration'          => $this->input->post('duration'),
-            'car_name'          => $this->input->post('car-type')
+            'car_name'          => $this->input->post('car-type'),
+            'customer_name'     => $this->input->post('name'),
         );
+
+         // Add user_id if user is logged in
+            if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                $data['user_id'] = $this->session->userdata('user_data')['id'];
+            }
 
         // Simpan ke database
         $result = $this->M_booking->insert_data($data);
@@ -170,51 +195,56 @@ class Booking extends CI_Controller {
     public function booking_travel_bandara()
     {
     // Load booking model
-    $this->load->model('M_booking');
+        $this->load->model('M_booking');
 
-    // Set validation rules sesuai form antar-bandara
-    $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama harus diisi']);
-    $this->form_validation->set_rules('wa-number', 'WhatsApp Number', 'required', ['required' => 'WhatsApp Number harus diisi']);
-    $this->form_validation->set_rules('total-passengers', 'Total Penumpang', 'required', ['required' => 'Total Penumpang harus diisi']);
-    $this->form_validation->set_rules('pickup-address', 'Pickup Address', 'required', ['required' => 'Pickup Address harus diisi']);
-    $this->form_validation->set_rules('airport-name', 'Airport Name', 'required', ['required' => 'Airport Name harus diisi']);
-    $this->form_validation->set_rules('booking-date', 'Booking Date', 'required', ['required' => 'Booking Date harus diisi']);
-    $this->form_validation->set_rules('pickup-time', 'Pickup Time', 'required', ['required' => 'Pickup Time harus diisi']);
-    $this->form_validation->set_rules('flight-time', 'Flight Time', 'required', ['required' => 'Flight Time harus diisi']);
-    $this->form_validation->set_rules('flight-number', 'Flight Number', 'required', ['required' => 'Flight Number harus diisi']);
-    $this->form_validation->set_rules('services', 'Services', 'required', ['required' => 'Services harus diisi']);
-    $this->form_validation->set_rules('box', 'Barang Bagasi', 'required', ['required' => 'Barang Bagasi harus diisi']);
+        // Set validation rules sesuai form antar-bandara
+        $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama harus diisi']);
+        $this->form_validation->set_rules('wa-number', 'WhatsApp Number', 'required', ['required' => 'WhatsApp Number harus diisi']);
+        $this->form_validation->set_rules('total-passengers', 'Total Penumpang', 'required', ['required' => 'Total Penumpang harus diisi']);
+        $this->form_validation->set_rules('pickup-address', 'Pickup Address', 'required', ['required' => 'Pickup Address harus diisi']);
+        $this->form_validation->set_rules('airport-name', 'Airport Name', 'required', ['required' => 'Airport Name harus diisi']);
+        $this->form_validation->set_rules('booking-date', 'Booking Date', 'required', ['required' => 'Booking Date harus diisi']);
+        $this->form_validation->set_rules('pickup-time', 'Pickup Time', 'required', ['required' => 'Pickup Time harus diisi']);
+        $this->form_validation->set_rules('flight-time', 'Flight Time', 'required', ['required' => 'Flight Time harus diisi']);
+        $this->form_validation->set_rules('flight-number', 'Flight Number', 'required', ['required' => 'Flight Number harus diisi']);
+        $this->form_validation->set_rules('services', 'Services', 'required', ['required' => 'Services harus diisi']);
+        $this->form_validation->set_rules('box', 'Barang Bagasi', 'required', ['required' => 'Barang Bagasi harus diisi']);
 
-    if ($this->form_validation->run() == FALSE) {
-        // Jika validasi gagal, tampilkan kembali form dengan error
-        $this->load->view('booking/v_travel_bandara');
-    } else {
-        // Ambil data dari form
-        $data = array(
-            'customer_name'     => $this->input->post('wa-number'),
-            'wa_number'         => $this->input->post('wa-number'),
-            'total_passengers'  => $this->input->post('total-passenger'),
-            'pickup_address'    => $this->input->post('pickup-address'),
-            'airport_name'      => $this->input->post('airport-name'),
-            'booking_date'      => $this->input->post('booking-date'),
-            'pickup_time'       => $this->input->post('pickup-time'),
-            'flight_time'       => $this->input->post('flight-time'),
-            'flight_number'     => $this->input->post('flight-number'),
-            'services'          => $this->input->post('services'),
-            'luggage_items'               => $this->input->post('box'),
-        );
-
-        // Simpan ke database
-        $result = $this->M_booking->insert_data_booking_travel_bandara($data);
-
-        if ($result) {
-            $this->session->set_flashdata('success', 'Booking berhasil disimpan.');
+        if ($this->form_validation->run() == FALSE) {
+            // Jika validasi gagal, tampilkan kembali form dengan error
+            $this->load->view('booking/v_travel_bandara');
         } else {
-            $this->session->set_flashdata('error', 'Gagal menyimpan booking.');
+            // Ambil data dari form
+            $data = array(
+                'customer_name'     => $this->input->post('wa-number'),
+                'wa_number'         => $this->input->post('wa-number'),
+                'total_passengers'  => $this->input->post('total-passenger'),
+                'pickup_address'    => $this->input->post('pickup-address'),
+                'airport_name'      => $this->input->post('airport-name'),
+                'booking_date'      => $this->input->post('booking-date'),
+                'pickup_time'       => $this->input->post('pickup-time'),
+                'flight_time'       => $this->input->post('flight-time'),
+                'flight_number'     => $this->input->post('flight-number'),
+                'services'          => $this->input->post('services'),
+                'luggage_items'               => $this->input->post('box'),
+            );
+
+            // Add user_id if user is logged in
+                if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                    $data['user_id'] = $this->session->userdata('user_data')['id'];
+                }
+
+            // Simpan ke database
+            $result = $this->M_booking->insert_data_booking_travel_bandara($data);
+
+            if ($result) {
+                $this->session->set_flashdata('success', 'Booking berhasil disimpan.');
+            } else {
+                $this->session->set_flashdata('error', 'Gagal menyimpan booking.');
+            }
+            // Redirect ke halaman sukses atau booking lagi
+            redirect('booking/booking_travel_bandara');
         }
-        // Redirect ke halaman sukses atau booking lagi
-        redirect('booking/booking_travel_bandara');
-    }
     }
 
     public function booking_travel_bandara_pp()
@@ -255,6 +285,11 @@ class Booking extends CI_Controller {
                 'pickup_time'       => $this->input->post('pickup-time'),
             );
 
+             // Add user_id if user is logged in
+            if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                $data['user_id'] = $this->session->userdata('user_data')['id'];
+            }
+
             // Simpan ke database (bisa gunakan insert_data_booking_travel_bandara atau buat baru jika ingin terpisah)
             $result = $this->M_booking->insert_data_booking_travel_bandara($data);
 
@@ -270,59 +305,64 @@ class Booking extends CI_Controller {
 
     public function booking_travel_bandara_pickup()
     {
-    // Load booking model
-    $this->load->model('M_booking');
+        // Load booking model
+        $this->load->model('M_booking');
 
-    // Set validation rules sesuai form antar-bandara
-    $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama harus diisi']);
-    $this->form_validation->set_rules('wa-number', 'WhatsApp Number', 'required', ['required' => 'WhatsApp Number harus diisi']);
-    $this->form_validation->set_rules('total-passengers', 'Total Penumpang', 'required', ['required' => 'Total Penumpang harus diisi']);
-    $this->form_validation->set_rules('pickup-address', 'Pickup Address', 'required', ['required' => 'Pickup Address harus diisi']);
-    $this->form_validation->set_rules('airport-name', 'Airport Name', 'required', ['required' => 'Airport Name harus diisi']);
-    $this->form_validation->set_rules('booking-date', 'Booking Date', 'required', ['required' => 'Booking Date harus diisi']);
-    $this->form_validation->set_rules('arrival-time', 'Arrival Time', 'required', ['required' => 'Arrival Time harus diisi']);
-    $this->form_validation->set_rules('flight-number', 'Flight Number', 'required', ['required' => 'Flight Number harus diisi']);
-    $this->form_validation->set_rules('services', 'Services', 'required', ['required' => 'Services harus diisi']);
-    $this->form_validation->set_rules('box', 'Barang Bagasi', 'required', ['required' => 'Barang Bagasi harus diisi']);
+        // Set validation rules sesuai form antar-bandara
+        $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama harus diisi']);
+        $this->form_validation->set_rules('wa-number', 'WhatsApp Number', 'required', ['required' => 'WhatsApp Number harus diisi']);
+        $this->form_validation->set_rules('total-passengers', 'Total Penumpang', 'required', ['required' => 'Total Penumpang harus diisi']);
+        $this->form_validation->set_rules('pickup-address', 'Pickup Address', 'required', ['required' => 'Pickup Address harus diisi']);
+        $this->form_validation->set_rules('airport-name', 'Airport Name', 'required', ['required' => 'Airport Name harus diisi']);
+        $this->form_validation->set_rules('booking-date', 'Booking Date', 'required', ['required' => 'Booking Date harus diisi']);
+        $this->form_validation->set_rules('arrival-time', 'Arrival Time', 'required', ['required' => 'Arrival Time harus diisi']);
+        $this->form_validation->set_rules('flight-number', 'Flight Number', 'required', ['required' => 'Flight Number harus diisi']);
+        $this->form_validation->set_rules('services', 'Services', 'required', ['required' => 'Services harus diisi']);
+        $this->form_validation->set_rules('box', 'Barang Bagasi', 'required', ['required' => 'Barang Bagasi harus diisi']);
 
-    if ($this->form_validation->run() == FALSE) {
-        // Jika validasi gagal, balas error detail
-        $errors = $this->form_validation->error_array();
-        $error_message = 'Gagal menyimpan booking. Data tidak valid.';
-        if (!empty($errors)) {
-            $error_message .= "\n";
-            foreach ($errors as $field => $msg) {
-                $error_message .= $msg . "\n";
+        if ($this->form_validation->run() == FALSE) {
+            // Jika validasi gagal, balas error detail
+            $errors = $this->form_validation->error_array();
+            $error_message = 'Gagal menyimpan booking. Data tidak valid.';
+            if (!empty($errors)) {
+                $error_message .= "\n";
+                foreach ($errors as $field => $msg) {
+                    $error_message .= $msg . "\n";
+                }
             }
-        }
-        echo $error_message;
-        return;
-    } else {
-        // Ambil data dari form jemput-bandara
-        $data = array(
-            'customer_name'     => $this->input->post('name'),
-            'wa_number'         => $this->input->post('wa-number'),
-            'total_passengers'  => $this->input->post('total-passengers'),
-            'pickup_address'    => $this->input->post('pickup-address'),
-            'airport_name'      => $this->input->post('airport-name'),
-            'booking_date'      => $this->input->post('booking-date'),
-            'arrival_time'      => $this->input->post('arrival-time'),
-            'flight_number'     => $this->input->post('flight-number'),
-            'services'          => $this->input->post('services'),
-            'luggage_items'     => $this->input->post('box'),
-        );
-
-        // Simpan ke database
-        $result = $this->M_booking->insert_data_booking_travel_bandara_pickup($data);
-
-        if ($result) {
-            echo 'Booking berhasil disimpan';
+            echo $error_message;
+            return;
         } else {
-            $db_error = $this->db->error();
-            echo 'Gagal menyimpan booking. DB Error: ' . $db_error['message'];
+            // Ambil data dari form jemput-bandara
+            $data = array(
+                'customer_name'     => $this->input->post('name'),
+                'wa_number'         => $this->input->post('wa-number'),
+                'total_passengers'  => $this->input->post('total-passengers'),
+                'pickup_address'    => $this->input->post('pickup-address'),
+                'airport_name'      => $this->input->post('airport-name'),
+                'booking_date'      => $this->input->post('booking-date'),
+                'arrival_time'      => $this->input->post('arrival-time'),
+                'flight_number'     => $this->input->post('flight-number'),
+                'services'          => $this->input->post('services'),
+                'luggage_items'     => $this->input->post('box'),
+            );
+
+            // Add user_id if user is logged in
+                if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                    $data['user_id'] = $this->session->userdata('user_data')['id'];
+                }
+
+            // Simpan ke database
+            $result = $this->M_booking->insert_data_booking_travel_bandara_pickup($data);
+
+            if ($result) {
+                echo 'Booking berhasil disimpan';
+            } else {
+                $db_error = $this->db->error();
+                echo 'Gagal menyimpan booking. DB Error: ' . $db_error['message'];
+            }
+            return;
         }
-        return;
-    }
     }
 
     public function booking_rental_mobil()
@@ -343,21 +383,21 @@ class Booking extends CI_Controller {
         $this->form_validation->set_rules('car_id', 'Mobil', 'required', ['required' => 'Pilih mobil terlebih dahulu']);
         $this->form_validation->set_rules('car_name', 'Nama Mobil', 'required');
 
-        $response = ['status' => 'error', 'message' => ''];
-
         if ($this->form_validation->run() == FALSE) {
-            // Jika validasi gagal
-            $response['message'] = validation_errors('', '\n');
-            $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(400)
-                ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+            // Jika validasi gagal, tampilkan kembali form dengan error
+            $this->load->view('booking/v_rental_mobil');
             return;
         }
 
         try {
+            // Generate booking code
+            $date = date('YmdHis');
+            $random = mt_rand(1000, 9999);
+            $booking_code = 'RTL-' . $date . '-' . $random;
+
             // Prepare booking data
             $booking_data = [
+                'booking_code' => $booking_code,
                 'customer_name' => $this->input->post('customer_name'),
                 'wa_number' => $this->input->post('wa_number'),
                 'booking_date_start' => $this->input->post('booking_date_start'),
@@ -368,18 +408,35 @@ class Booking extends CI_Controller {
                 'route' => $this->input->post('rute-pemakaian'),
                 'car_id' => $this->input->post('car_id'),
                 'car_name' => $this->input->post('car_name'),
-                // 'created_at' => date('Y-m-d H:i:s')
-                // 'status' => 'pending'
+                'created_at' => date('Y-m-d H:i:s')
             ];
+
+            // Add user_id if user is logged in
+            if ($this->session->userdata('user_data') && isset($this->session->userdata('user_data')['id'])) {
+                $booking_data['user_id'] = $this->session->userdata('user_data')['id'];
+            }
 
             // Insert booking data
             $booking_id = $this->M_booking->insert_rental_booking($booking_data);
 
             if ($booking_id) {
+                // Return JSON response with all booking data
                 $response = [
                     'status' => 'success',
-                    'message' => 'Pesanan rental mobil berhasil dibuat',
-                    'booking_id' => $booking_id
+                    'booking_code' => $booking_code,
+                    'booking_id' => $booking_id,
+                    'customer_name' => $this->input->post('customer_name'),
+                    'wa_number' => $this->input->post('wa_number'),
+                    'booking_date_start' => $this->input->post('booking_date_start'),
+                    'booking_date_end' => $this->input->post('booking_date_end'),
+                    'duration' => $this->input->post('duration'),
+                    'pickup_address' => $this->input->post('pickup-address'),
+                    'booking_type' => $this->input->post('booking-type'),
+                    'route' => $this->input->post('rute-pemakaian'),
+                    'car_id' => $this->input->post('car_id'),
+                    'car_name' => $this->input->post('car_name'),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'message' => 'Pesanan rental mobil berhasil dibuat'
                 ];
                 $this->output
                     ->set_content_type('application/json', 'utf-8')
@@ -389,8 +446,11 @@ class Booking extends CI_Controller {
                 throw new Exception('Gagal menyimpan data booking');
             }
         } catch (Exception $e) {
-            $response['message'] = $e->getMessage();
-$this->output
+            $response = [
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ];
+            $this->output
                 ->set_content_type('application/json', 'utf-8')
                 ->set_status_header(500)
                 ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));

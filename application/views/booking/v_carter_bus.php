@@ -1,11 +1,10 @@
-
 <section id="carter-bus" class="contact section light-background">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Carter Haice / Mini Bus</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
+  <h2>Carter Haice / Mini Bus</h2>
+  <p>Jadikan perjalanan Anda lebih berkesan dengan layanan sewa kendaraan terpercaya. Kenyamanan dan keamanan adalah prioritas kami</p>
+</div><!-- End Section Title -->
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -13,48 +12,70 @@
       <div class="col-lg-12">
         <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
           <h3>Get In Touch</h3>
-          <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
           </p>
             
-            <!-- Form -->
-    <form id="carter-bus-form" data-aos="fade-up" data-aos-delay="200">
+          <!-- Form -->
+          <form id="carter-bus-form" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-4">
 
               <div class="col-md-4">
-                <label for="customer_name" class="form-label">Nama Customer</label>
+                <label for="customer_name" class="form-label">
+                  <i class="bi bi-person-fill me-2"></i>Nama Customer
+                </label>
                 <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Nama Lengkap" required>
               </div>
+
               <div class="col-md-4">
-                <label for="wa_number" class="form-label">Nomor WhatsApp</label>
+                <label for="wa_number" class="form-label">
+                  <i class="bi bi-whatsapp me-2"></i>Nomor WhatsApp
+                </label>
                 <input type="text" id="wa_number" class="form-control" name="wa_number" placeholder="Contoh: 628123456789" required>
               </div>
+
               <div class="col-md-4">
-                <label for="total_passengers" class="form-label">Total Passengers</label>
+                <label for="total_passengers" class="form-label">
+                  <i class="bi bi-people-fill me-2"></i>Total Passengers
+                </label>
                 <input type="number" id="total_passengers" class="form-control" name="total_passengers" placeholder="Total Passengers" required data-bs-toggle="tooltip" data-bs-placement="top" title="Total Passengers">
               </div>
-             <div class="col-md-4">
-                <label for="booking_date_start" class="form-label">Tanggal Mulai Sewa</label>
+
+              <div class="col-md-4">
+                <label for="booking_date_start" class="form-label">
+                  <i class="bi bi-calendar-event me-2"></i>Tanggal Mulai Sewa
+                </label>
                 <input type="date" id="booking_date_start" class="form-control" name="booking_date_start" required>
               </div>
+
               <div class="col-md-4">
-                <label for="pickup_time" class="form-label">Waktu Jemput</label>
+                <label for="pickup_time" class="form-label">
+                  <i class="bi bi-clock me-2"></i>Waktu Jemput
+                </label>
                 <input type="time" id="pickup_time" class="form-control" name="pickup_time" required>
               </div>
+
               <div class="col-md-4">
-                <label for="booking_date_end" class="form-label">Tanggal Selesai Sewa</label>
+                <label for="booking_date_end" class="form-label">
+                  <i class="bi bi-calendar-check me-2"></i>Tanggal Selesai Sewa
+                </label>
                 <input type="date" id="booking_date_end" class="form-control" name="booking_date_end" required>
               </div>
+
               <div class="col-md-12">
-                <label for="pickup_address" class="form-label">Alamat Penjemputan</label>
+                <label for="pickup_address" class="form-label">
+                  <i class="bi bi-geo-alt-fill me-2"></i>Alamat Penjemputan
+                </label>
                 <input type="text" id="pickup_address" class="form-control" name="pickup_address" placeholder="Alamat lengkap penjemputan" required>
               </div>
-              <br>
+
               <div class="col-12 text-center mt-4">
-                <button type="submit" class="btn btn-primary">Booking Sekarang</button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-2"></i>Booking Sekarang
+                </button>
               </div>
             </div>
           </form>
           
+          <!-- Script tetap sama seperti sebelumnya -->
           <script>
           $(document).ready(function() {
             // Handle form submission
@@ -182,9 +203,6 @@
           </script>
         </div>
       </div>
-
     </div>
-
   </div>
-
 </section>

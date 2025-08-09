@@ -11,7 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --blue: #0d83fd;
+  --blue: #4e73df;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -24,7 +24,7 @@
   --white: #fff;
   --gray: #858796;
   --gray-dark: #5a5c69;
-  --primary: #0d83fd;
+  --primary: #4e73df;
   --secondary: #858796;
   --success: #1cc88a;
   --info: #36b9cc;
@@ -2357,40 +2357,39 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #0d83fd;
-  border-color: #0d83fd;
+  background-color: #4e73df;
+  border-color: #4e73df;
 }
-
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #0a6dc2;
-  border-color: #0a6dc2;
+  background-color: #2e59d9;
+  border-color: #2653d4;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
-  background-color: #0a6dc2;
-  border-color: #0a6dc2;
-  box-shadow: 0 0 0 0.2rem rgba(13, 131, 253, 0.3);
+  background-color: #2e59d9;
+  border-color: #2653d4;
+  box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
   color: #fff;
-  background-color: #0d83fd;
-  border-color: #0d83fd;
+  background-color: #4e73df;
+  border-color: #4e73df;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #0a6dc2;
-  border-color: #0957a0;
+  background-color: #2653d4;
+  border-color: #244ec9;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(13, 131, 253, 0.3);
+  box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
 }
 
 .btn-secondary {
@@ -9901,8 +9900,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-  background-color: #0d83fd !important;
-  background-image: linear-gradient(180deg, #0d83fd 10%, #0a6dc2 100%) !important;
+  background-color: #4e73df;
+  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
   background-size: cover;
 }
 

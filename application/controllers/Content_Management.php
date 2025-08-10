@@ -1,4 +1,4 @@
-<?php
+<?php 
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Content_Management extends CI_Controller
@@ -6,12 +6,12 @@ class Content_Management extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // $this->load->model('m_mahasiswa');
-        // // $this->load->helper('url');
+        $this->load->model('m_content');
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('upload');
         // $this->load->library('auth_libraries');
-        // $this->auth_libraries->is_logged_in(); // Check if user is logged in
-        // $this->auth_libraries->is_admin(); // Check if user is admin
-
+        // $this->auth_libraries->is_logged_in();
+        // $this->auth_libraries->is_admin();
     }
 
     public function index()
@@ -21,7 +21,7 @@ class Content_Management extends CI_Controller
             'description' => '',
             'content' => 'content/v_content',
         );
-        $this->load->view('dashboard/v_template', $data, false);//load template sb-admin
+        $this->load->view('dashboard/v_template', $data, false);
     }
 
     public function load_view($view_name)
@@ -34,9 +34,228 @@ class Content_Management extends CI_Controller
         ];
 
         if (array_key_exists($view_name, $allowed_views)) {
-            $this->load->view($allowed_views[$view_name]);
+            $data = [];
+            if ($view_name === 'content_top') {
+                $data['latest_logo'] = $this->get_logo_data();
+                $data['web_data'] = $this->m_content->get_web_title_description();
+                $data['video_data'] = $this->m_content->get_video(); // Load video data
+            }
+            $this->load->view($allowed_views[$view_name], $data);
         } else {
             echo "View not found.";
         }
+    }
+
+    /**
+     * Ambil object logo aktif dari database
+     */
+    private function get_logo_data()
+    {
+        return $this->m_content->get_active_logo();
+    }
+
+    /**
+     * API untuk ambil logo via AJAX
+     */
+    public function get_active_logo()
+    {
+        $latest_logo = $this->get_logo_data();
+        if ($latest_logo && !empty($latest_logo->url_image)) {
+            echo json_encode([
+                'status' => 'success',
+                'image_url' => base_url($latest_logo->url_image)
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Logo tidak ditemukan'
+            ]);
+        }
+    }
+
+    public function upload_logo()
+    {
+        header('Content-Type: application/json');
+        
+        if (empty($_FILES['logo']['name'])) {
+            echo json_encode(['status' => 'error', 'message' => 'Tidak ada file yang dipilih']);
+            return;
+        }
+
+        $config['upload_path'] = './media_uploads/logo-image/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['max_size'] = 2048; // 2MB
+        $config['encrypt_name'] = TRUE;
+
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, TRUE);
+        }
+
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('logo')) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => $this->upload->display_errors('', '')
+            ]);
+            return;
+        }
+
+        $upload_data = $this->upload->data();
+        $image_path = 'media_uploads/logo-image/' . $upload_data['file_name'];
+
+        $logo_data = [
+            'url_image' => $image_path,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        // Get the current active logo
+        $current_logo = $this->m_content->get_active_logo();
+        
+        if ($current_logo) {
+            // Update existing logo
+            $result = $this->m_content->update_logo($current_logo->id, $logo_data);
+        } else {
+            // Insert new logo if none exists
+            $logo_data['created_at'] = date('Y-m-d H:i:s');
+            $result = $this->m_content->save_logo($logo_data);
+        }
+
+        if ($result) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Logo berhasil diupdate',
+                'image_url' => base_url($image_path)
+            ]);
+        } else {
+            // If database operation fails, delete the uploaded file
+            unlink($upload_data['full_path']);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal menyimpan data ke database'
+            ]);
+        }
+    }
+
+    /**
+     * Update website title and description via AJAX
+     */
+    public function update_web_title_description() {
+        // Check if this is an AJAX request
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+        
+        $response = [
+            'status' => 'error',
+            'message' => 'Gagal menyimpan data'
+        ];
+        
+        // Get POST data
+        $title = $this->input->post('title', true);
+        $description = $this->input->post('description', true);
+        
+        if (empty($title) || empty($description)) {
+            $response['message'] = 'Judul dan deskripsi tidak boleh kosong';
+            echo json_encode($response);
+            return;
+        }
+        
+        $data = [
+            'title' => $title,
+            'description' => $description,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        if ($this->m_content->update_web_title_description($data)) {
+            $response['status'] = 'success';
+            $response['message'] = 'Data berhasil disimpan';
+        }
+        
+        echo json_encode($response);
+    }
+
+    /**
+     * Update video via AJAX
+     */
+    public function update_video() {
+        // Check if this is an AJAX request
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+        
+        $response = [
+            'status' => 'error',
+            'message' => 'Gagal menyimpan video'
+        ];
+        
+        // Get POST data
+        $video_url = $this->input->post('video_url', true);
+        
+        if (empty($video_url)) {
+            $response['message'] = 'Link video tidak boleh kosong';
+            echo json_encode($response);
+            return;
+        }
+        
+        // Extract video ID from YouTube URL
+        $video_id = '';
+        $youtube_match = [];
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&\n?#]+)/', $video_url, $youtube_match)) {
+            $video_id = $youtube_match[1];
+        }
+        
+        if (empty($video_id)) {
+            $response['message'] = 'Link video YouTube tidak valid';
+            echo json_encode($response);
+            return;
+        }
+        
+        $data = [
+            'link_video' => $video_url,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        
+        if ($this->m_content->update_video($data)) {
+            $response['status'] = 'success';
+            $response['message'] = 'Video berhasil disimpan';
+            $response['embed_url'] = 'https://www.youtube.com/embed/' . $video_id;
+        }
+        
+        echo json_encode($response);
+    }
+
+    /**
+     * Update contact information via AJAX
+     */
+    public function update_contact() {
+        // Check if this is an AJAX request
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+        
+        $response = [
+            'status' => 'error',
+            'message' => 'Gagal menyimpan data kontak'
+        ];
+        
+        // Get POST data
+        $data = [
+            'whatsapp' => $this->input->post('whatsapp', true),
+            'email' => $this->input->post('email', true),
+            'alamat' => $this->input->post('alamat', true),
+            'fb' => $this->input->post('facebook', true),
+            'ig' => $this->input->post('instagram', true),
+            'twitter' => $this->input->post('twitter', true),
+            'tiktok' => $this->input->post('tiktok', true)
+        ];
+        
+        // Update contact information
+        if ($this->m_content->update_contact($data)) {
+            $response['status'] = 'success';
+            $response['message'] = 'Data kontak berhasil disimpan';
+        }
+        
+        echo json_encode($response);
     }
 }

@@ -85,48 +85,6 @@
 
 <hr>
 
-<div id="content-area">
-    <p>Silakan pilih salah satu menu di atas.</p>
-</div>
-
-<!-- Initialize scripts after the DOM is fully loaded -->
-<script>
-// Wait for the document to be fully loaded
-$(document).ready(function() {
-    // Make cards clickable
-    $('.clickable-card').css('cursor', 'pointer').on('click', function(){
-        let viewName = $(this).data('url');
-        $('#content-area').html('<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>');
-
-        // Load the content via AJAX
-        $.ajax({
-            url: '<?= base_url('content_management/load_view/') ?>' + viewName,
-            method: 'GET',
-            success: function(response) {
-                $('#content-area').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error loading content:', error);
-                $('#content-area').html('<div class="alert alert-danger">Error loading content. Please try again.</div>');
-            }
-        });
-    });
-});
-
-// Function to initialize tooltips
-function initTooltips() {
-    $('[data-toggle="tooltip"]').tooltip({
-        trigger: 'hover',
-        placement: 'top'
-    });
-}
-
-// Initialize tooltips when document is ready
-$(document).ready(function() {
-    initTooltips();
-});
-</script>
-
 <!-- Content Section -->
 <div id="content-area">
     <p>Silakan pilih salah satu menu di atas.</p>

@@ -61,49 +61,46 @@
       object-fit: cover;
     }
   </style>
-   <script>
-      const dropzone = document.getElementById('dropzone');
-      const fileInput = document.getElementById('fileInput');
-      const preview = document.getElementById('preview');
-      
-      // Klik area dropzone untuk memilih file
-      dropzone.addEventListener('click', () => fileInput.click());
-      
-      // Saat file dipilih manual
-      fileInput.addEventListener('change', handleFiles);
-      
-      // Drag over
-      dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.classList.add('dragover');
-      });
-      
-      // Drag leave
-      dropzone.addEventListener('dragleave', () => {
-        dropzone.classList.remove('dragover');
-      });
-      
-      // Drop file
-      dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        handleFiles(e.dataTransfer);
-      });
-      
-      function handleFiles(data) {
-        const files = data.files || fileInput.files;
-        if (files.length > 0) {
-          const file = files[0];
-          if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded shadow" alt="Preview">`;
-            }
-            reader.readAsDataURL(file);
-          } else {
-            alert('Hanya file gambar yang diperbolehkan!');
-          }
-        }
-      }
-   </script>
+  <script>
+    function initPopupImage() {
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+
+    if (dropzone && fileInput && preview) {
+        // Hapus event lama (replace node)
+        dropzone.replaceWith(dropzone.cloneNode(true));
+        fileInput.replaceWith(fileInput.cloneNode(true));
+
+        const newDropzone = document.getElementById('dropzone');
+        const newFileInput = document.getElementById('fileInput');
+        const newPreview = document.getElementById('preview');
+
+        // Klik area dropzone
+        newDropzone.addEventListener('click', () => newFileInput.click());
+
+        // Saat file dipilih manual
+        newFileInput.addEventListener('change', () => handleFiles(newFileInput, newPreview));
+
+        // Drag over
+        newDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            newDropzone.classList.add('dragover');
+        });
+
+        // Drag leave
+        newDropzone.addEventListener('dragleave', () => {
+            newDropzone.classList.remove('dragover');
+        });
+
+        // Drop file
+        newDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            newDropzone.classList.remove('dragover');
+            handleFiles(e.dataTransfer, newPreview);
+        });
+    }
+}
+
+  </script>
 </section>

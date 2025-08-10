@@ -237,4 +237,146 @@ class M_content extends CI_Model {
             return $this->db->insert('contact', $data);
         }
     }
+    
+    /**
+     * Get all active popup images
+     * 
+     * @return array Returns array of active popup images
+     */
+    public function get_popup_images() {
+        $this->db->select('*');
+        $this->db->from('popup_image');
+        $this->db->where('deleted_at', NULL);
+        $this->db->order_by('created_at', 'DESC');
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    /**
+     * Count active popup images
+     * 
+     * @return int Number of active popup images
+     */
+    public function count_popup_images() {
+        $this->db->where('deleted_at', NULL);
+        return $this->db->count_all_results('popup_image');
+    }
+    
+    /**
+     * Save popup image
+     * 
+     * @param array $data Image data to save
+     * @return int|bool Insert ID on success, false on failure
+     */
+    public function save_popup_image($data) {
+        $this->db->trans_start();
+        
+        $this->db->insert('popup_image', $data);
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        }
+        
+        return $insert_id;
+    }
+    
+    /**
+     * Soft delete popup image
+     * 
+     * @param int $id Image ID to delete
+     * @return bool True on success, false on failure
+     */
+    public function delete_popup_image($id) {
+        $this->db->where('id', $id);
+        return $this->db->update('popup_image', ['deleted_at' => date('Y-m-d H:i:s')]);
+    }
+    
+    /**
+     * Get popup image by ID
+     * 
+     * @param int $id Image ID
+     * @return object|null Image data or null if not found
+     */
+    public function get_popup_image($id) {
+        $this->db->where('id', $id);
+        $this->db->where('deleted_at', NULL);
+        $query = $this->db->get('popup_image');
+        return $query->row();
+    }
+    
+    /**
+     * Get all active gallery images
+     * 
+     * @return array Returns array of active gallery images
+     */
+    public function get_gallery_images() {
+        $this->db->select('*');
+        $this->db->from('gallery_content');
+        $this->db->where('deleted_at', NULL);
+        $this->db->order_by('created_at', 'DESC');
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    /**
+     * Count active gallery images
+     * 
+     * @return int Number of active gallery images
+     */
+    public function count_gallery_images() {
+        $this->db->where('deleted_at', NULL);
+        return $this->db->count_all_results('gallery_content');
+    }
+    
+    /**
+     * Save gallery image
+     * 
+     * @param array $data Image data to save
+     * @return int|bool Insert ID on success, false on failure
+     */
+    public function save_gallery_image($data) {
+        $this->db->trans_start();
+        
+        $this->db->insert('gallery_content', $data);
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        }
+        
+        return $insert_id;
+    }
+    
+    /**
+     * Soft delete gallery image
+     * 
+     * @param int $id Image ID to delete
+     * @return bool True on success, false on failure
+     */
+    public function delete_gallery_image($id) {
+        $this->db->where('id', $id);
+        return $this->db->update('gallery_content', ['deleted_at' => date('Y-m-d H:i:s')]);
+    }
+    
+    /**
+     * Get gallery image by ID
+     * 
+     * @param int $id Image ID
+     * @return object|null Image data or null if not found
+     */
+    public function get_gallery_image($id) {
+        $this->db->where('id', $id);
+        $this->db->where('deleted_at', NULL);
+        $query = $this->db->get('gallery_content');
+        return $query->row();
+    }
 }

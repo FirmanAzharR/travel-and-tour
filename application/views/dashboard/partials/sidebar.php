@@ -1,5 +1,24 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle URL history push for all sidebar links
+        document.querySelectorAll('.sidebar .nav-link, .sidebar .collapse-item').forEach(link => {
+            if (link.href && link.href !== '#' && !link.getAttribute('data-toggle')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    if (url) {
+                        // Push the new URL to history
+                        window.history.pushState({}, '', url);
+                        // Trigger a popstate event to handle the navigation
+                        window.dispatchEvent(new Event('popstate'));
+                    }
+                });
+            }
+        });
+    });
+    </script>
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard') ?>">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -44,7 +63,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Master Data</a>
+                <a class="collapse-item" href="<?= base_url('master_data/index') ?>">Master Data</a>
             </div>
         </div>
     </li>

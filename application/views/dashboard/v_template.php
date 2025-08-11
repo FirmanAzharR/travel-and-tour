@@ -126,6 +126,7 @@
       <!-- JS custom untuk content -->
       <script src="<?= base_url('sb-admin/js/content-extra.js') ?>"></script>
       <script src="<?= base_url('sb-admin/js/content.js') ?>"></script>
+      <script src="<?= base_url('sb-admin/js/master-data.js') ?>"></script>
       <!-- AJAX SPA Sidebar Navigation (jQuery version) -->
       <script>
          var baseUrl = "<?= base_url(); ?>";
@@ -203,6 +204,9 @@
                          $('.container-fluid').html(content);
                          // Re-initialize DataTable after content is loaded
                          initializeDataTable();
+                         // Re-initialize master data after content is loaded
+                         initCardEventsMasterData();
+                         // Re-initialize extra content after content is loaded
                          if (href.includes('dashboard')) {
                             $.getScript("<?= base_url('sb-admin/js/demo/chart-area-demo.js') ?>", function() {
                                 renderAreaChart();
@@ -220,6 +224,11 @@
 
              // Set cursor pointer untuk semua card, termasuk yang dimuat via AJAX
             $(document).on('mouseenter', '.clickable-card', function() {
+                $(this).css('cursor', 'pointer');
+            });
+
+            // Set cursor pointer untuk semua card, termasuk yang dimuat via AJAX
+            $(document).on('mouseenter', '.clickable-card-master-data', function() {
                 $(this).css('cursor', 'pointer');
             });
 

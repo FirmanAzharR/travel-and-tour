@@ -384,223 +384,381 @@
 							padding-left: 40px;
 						}
 					</style>
-							<script>
-								document.addEventListener('DOMContentLoaded', function () {
-								// AJAX submit untuk form antar-bandara
-								const bandaraForm = document.getElementById('booking-travel-bandara-form');
-								if (bandaraForm) {
-									bandaraForm.addEventListener('submit', function(e) {
-										e.preventDefault();
-										const submitBtn = bandaraForm.querySelector('button[type="submit"]');
-										const originalText = submitBtn.textContent;
-										submitBtn.textContent = 'Processing...';
-										submitBtn.disabled = true;
-										const formData = new FormData(bandaraForm);
-										Swal.fire({
-										title: 'Processing...',
-										allowOutsideClick: false,
-										didOpen: () => { Swal.showLoading(); }
-										});
-										for (let pair of formData.entries()) {
-										console.log(pair[0]+ ': ' + pair[1]);
-										}
-										fetch('<?= base_url('booking/booking_travel_bandara') ?>', {
-										method: 'POST',
-										body: formData
-										})
-										.then(response => response.text())
-										.then(html => {
-										let success = false;
-										let message = 'Booking berhasil disimpan!';
-										let htmlMessage = '';
-										if (html.includes('Booking berhasil disimpan')) {
-											success = true;
-										} else if (html.includes('Gagal menyimpan booking')) {
-											// Ambil semua baris error setelah 'Gagal menyimpan booking.'
-											const lines = html.split('\n');
-											if (lines.length > 1) {
-												// Baris pertama pesan utama, sisanya detail error
-												message = lines[0];
-												const errorList = lines.slice(1).filter(e => e.trim() !== '');
-												if (errorList.length > 0) {
-												htmlMessage = '<ul style="text-align:left">' + errorList.map(e => '<li>' + e + '</li>').join('') + '</ul>';
-												}
-											} else {
-												message = html;
-											}
-										}
-										Swal.fire({
-											icon: success ? 'success' : 'error',
-											title: success ? 'Sukses!' : 'Gagal!',
-											text: message,
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										if (success) bandaraForm.reset();
-										})
-										.catch(() => {
-										Swal.fire({
-											icon: 'error',
-											title: 'Terjadi Kesalahan!',
-											text: 'Terjadi kesalahan. Silakan coba lagi.',
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										})
-										.finally(() => {
-										submitBtn.textContent = originalText;
-										submitBtn.disabled = false;
-										});
-									});
-								}
-								// AJAX submit untuk form pulang-pergi bandara
-								const bandaraPPForm = document.getElementById('booking-travel-bandara-pp-form');
-								if (bandaraPPForm) {
-									bandaraPPForm.addEventListener('submit', function(e) {
-										e.preventDefault();
-										const submitBtn = bandaraPPForm.querySelector('button[type="submit"]');
-										const originalText = submitBtn.textContent;
-										submitBtn.textContent = 'Processing...';
-										submitBtn.disabled = true;
-										const formData = new FormData(bandaraPPForm);
-										Swal.fire({
-										title: 'Processing...',
-										allowOutsideClick: false,
-										didOpen: () => { Swal.showLoading(); }
-										});
-										for (let pair of formData.entries()) {
-										console.log(pair[0]+ ': ' + pair[1]);
-										}
-										fetch('<?= base_url('booking/booking_travel_bandara_pp') ?>', {
-										method: 'POST',
-										body: formData
-										})
-										.then(response => response.text())
-										.then(html => {
-										let success = false;
-										let message = 'Booking berhasil disimpan!';
-										let htmlMessage = '';
-										if (html.includes('Booking berhasil disimpan')) {
-											success = true;
-										} else if (html.includes('Gagal menyimpan booking')) {
-											// Ambil semua baris error setelah 'Gagal menyimpan booking.'
-											const lines = html.split('\n');
-											if (lines.length > 1) {
-												message = lines[0];
-												const errorList = lines.slice(1).filter(e => e.trim() !== '');
-												if (errorList.length > 0) {
-												htmlMessage = '<ul style="text-align:left">' + errorList.map(e => '<li>' + e + '</li>').join('') + '</ul>';
-												}
-											} else {
-												message = html;
-											}
-										}
-										Swal.fire({
-											icon: success ? 'success' : 'error',
-											title: success ? 'Sukses!' : 'Gagal!',
-											html: htmlMessage ? ('<div>' + message + htmlMessage + '</div>') : message,
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										if (success) bandaraPPForm.reset();
-										})
-										.catch(() => {
-										Swal.fire({
-											icon: 'error',
-											title: 'Terjadi Kesalahan!',
-											text: 'Terjadi kesalahan. Silakan coba lagi.',
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										})
-										.finally(() => {
-										submitBtn.textContent = originalText;
-										submitBtn.disabled = false;
-										});
-									});
-								}
-								// AJAX submit untuk form jemput-bandara
-								const bandaraPickupForm = document.getElementById('booking-travel-bandara-pickup-form');
-								if (bandaraPickupForm) {
-									bandaraPickupForm.addEventListener('submit', function(e) {
-										e.preventDefault();
-										const submitBtn = bandaraPickupForm.querySelector('button[type="submit"]');
-										const originalText = submitBtn.textContent;
-										submitBtn.textContent = 'Processing...';
-										submitBtn.disabled = true;
-										const formData = new FormData(bandaraPickupForm);
-										Swal.fire({
-										title: 'Processing...',
-										allowOutsideClick: false,
-										didOpen: () => { Swal.showLoading(); }
-										});
-										// Debug: tampilkan data yang dikirim
-										for (let pair of formData.entries()) {
-										console.log(pair[0]+ ': ' + pair[1]);
-										}
-										fetch('<?= base_url('booking/booking_travel_bandara_pickup') ?>', {
-										method: 'POST',
-										body: formData
-										})
-										.then(response => response.text())
-										.then(html => {
-										let success = false;
-										let message = 'Booking berhasil disimpan!';
-										if (html.includes('Booking berhasil disimpan')) {
-											success = true;
-										} else if (html.includes('Gagal menyimpan booking')) {
-											// Ambil pesan error detail jika ada
-											const match = html.match(/Gagal menyimpan booking\.(.*)/);
-											if (match && match[1]) {
-												message = 'Gagal menyimpan booking.' + match[1];
-											} else {
-												message = 'Gagal menyimpan booking.';
-											}
-										}
-										Swal.fire({
-											icon: success ? 'success' : 'error',
-											title: success ? 'Sukses!' : 'Gagal!',
-											text: message,
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										if (success) bandaraPickupForm.reset();
-										})
-										.catch(() => {
-										Swal.fire({
-											icon: 'error',
-											title: 'Terjadi Kesalahan!',
-											text: 'Terjadi kesalahan. Silakan coba lagi.',
-											confirmButtonText: 'OK',
-											confirmButtonColor: '#0D83FD'
-										});
-										})
-										.finally(() => {
-										submitBtn.textContent = originalText;
-										submitBtn.disabled = false;
-										});
-									});
-								}
-								
-								// Aktifkan tab terakhir yang dipilih jika ada di localStorage
-								var lastTab = localStorage.getItem('activeBookingTab');
-								if (lastTab) {
-									var tabTrigger = document.querySelector('button[data-bs-target="' + lastTab + '"]');
-									if (tabTrigger) {
-										var tab = new bootstrap.Tab(tabTrigger);
-										tab.show();
-									}
-								}
-								
-								// Simpan tab yang dipilih ke localStorage saat tab di-click
-								var tabButtons = document.querySelectorAll('#bookingTab button[data-bs-toggle="tab"]');
-								tabButtons.forEach(function (btn) {
-									btn.addEventListener('shown.bs.tab', function (event) {
-										localStorage.setItem('activeBookingTab', event.target.getAttribute('data-bs-target'));
-									});
-								});
-								});
-							</script>
+							               <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    // AJAX submit untuk form antar-bandara
+                    const bandaraForm = document.getElementById('booking-travel-bandara-form');
+                    if (bandaraForm) {
+                      bandaraForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const submitBtn = bandaraForm.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Processing...';
+                        submitBtn.disabled = true;
+                        const formData = new FormData(bandaraForm);
+                        
+                        Swal.fire({
+                          title: 'Processing...',
+                          allowOutsideClick: false,
+                          didOpen: () => { Swal.showLoading(); }
+                        });
+                        
+                        fetch('<?= base_url('booking/booking_travel_bandara') ?>', {
+                          method: 'POST',
+                          body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === 'success') {
+                                Swal.fire({
+                                    title: 'Booking Berhasil!',
+                                    html: 'Mengalihkan ke WhatsApp ...',
+                                    allowOutsideClick: false,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                }).then((result) => {
+                                    const waNumber = '6288213761173';
+                                    const customerName = encodeURIComponent(data.customer_name || '');
+                                    const bookingCode = encodeURIComponent(data.booking_code || '');
+                                    const waNumberCustomer = encodeURIComponent(data.wa_number || '');
+                                    const totalPassengers = encodeURIComponent(data.total_passengers || '');
+                                    const bookingDate = encodeURIComponent(data.booking_date || '');
+                                    const pickupAddress = encodeURIComponent(data.pickup_address || '');
+                                    const airportName = encodeURIComponent(data.airport_name || '');
+                                    const pickupTime = encodeURIComponent(data.pickup_time || '');
+                                    const flightTime = encodeURIComponent(data.flight_time || '');
+                                    const flightNumber = encodeURIComponent(data.flight_number || '');
+                                    const services = encodeURIComponent(data.services || '');
+                                    const luggageItems = encodeURIComponent(data.luggage_items || '');
+                                    
+                                    // Create WhatsApp message
+                                    let message = `Halo, saya ${customerName}%0A`;
+                                    message += `Saya sudah melakukan pemesanan travel bandara dengan detail sebagai berikut:%0A%0A`;
+                                    message += `*Kode Booking*: ${bookingCode}%0A`;
+                                    message += `*Nama*: ${customerName}%0A`;
+                                    message += `*No. WhatsApp*: ${waNumberCustomer}%0A`;
+                                    message += `*Total Penumpang*: ${totalPassengers}%0A`;
+                                    message += `*Bandara Tujuan*: ${airportName}%0A`;
+                                    message += `*Tanggal Keberangkatan*: ${bookingDate}%0A`;
+                                    message += `*Waktu Penjemputan*: ${pickupTime}%0A`;
+                                    message += `*Waktu Penerbangan*: ${flightTime}%0A`;
+                                    message += `*Nomor Penerbangan*: ${flightNumber}%0A`;
+                                    message += `*Layanan*: ${services}%0A`;
+                                    message += `*Barang Bawaan*: ${luggageItems}%0A`;
+                                    message += `*Alamat Penjemputan*: ${pickupAddress}%0A%0A`;
+                                    message += `Terima kasih.`;
+
+                                    // Open WhatsApp with the message
+                                    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+                                    
+                                    // Reset the form
+                                    // Show success message
+                                    Swal.fire({
+                                       icon: 'success',
+                                       title: 'Booking Berhasil!',
+                                       html: `
+                                        <div class="text-start">
+                                        <p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p>
+                                           <div class="alert alert-info mt-3">
+                                                <strong>Kode Booking:</strong> ${data.booking_code}
+                                           </div>
+                                       </div>`,
+                                       confirmButtonText: 'Selesai'
+                                    }).then(() => {
+                                       // Reset form
+                                       bandaraForm.reset();
+                                    });
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message || 'Gagal menyimpan booking.',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#0D83FD'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan!',
+                                text: 'Terjadi kesalahan. Silakan coba lagi.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#0D83FD'
+                            });
+                        })
+                        .finally(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        });
+                      });
+                    }
+                    // AJAX submit untuk form pulang-pergi bandara
+                    const bandaraPPForm = document.getElementById('booking-travel-bandara-pp-form');
+                    if (bandaraPPForm) {
+                      bandaraPPForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const submitBtn = bandaraPPForm.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Processing...';
+                        submitBtn.disabled = true;
+                        const formData = new FormData(bandaraPPForm);
+                        
+                        Swal.fire({
+                          title: 'Processing...',
+                          allowOutsideClick: false,
+                          didOpen: () => { Swal.showLoading(); }
+                        });
+                        
+                        fetch('<?= base_url('booking/booking_travel_bandara_pp') ?>', {
+                          method: 'POST',
+                          body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === 'success') {
+                                Swal.fire({
+                                    title: 'Booking Berhasil!',
+                                    html: 'Mengalihkan ke WhatsApp ...',
+                                    allowOutsideClick: false,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                }).then((result) => {
+                                    const waNumber = '6288213761173'; 
+                                    const customerName = encodeURIComponent(data.customer_name || '');
+                                    const bookingCode = encodeURIComponent(data.booking_code || '');
+                                    const waNumberCustomer = encodeURIComponent(data.wa_number || '');
+                                    const totalPassengers = encodeURIComponent(data.total_passengers || '');
+                                    const bookingDate = encodeURIComponent(data.booking_date || '');
+                                    const pickupAddress = encodeURIComponent(data.pickup_address || '');
+                                    const airportName = encodeURIComponent(data.airport_name || '');
+                                    const pickupTime = encodeURIComponent(data.pickup_time || '');
+                                    // const returnDate = encodeURIComponent(data.return_date || '');
+                                    // const returnTime = encodeURIComponent(data.return_time || '');
+                                    // const flightNumber = encodeURIComponent(data.flight_number || '');
+                                    // const services = encodeURIComponent(data.services || '');
+                                    // const luggageItems = encodeURIComponent(data.luggage_items || '');
+                                    
+                                    // Create WhatsApp message
+                                    let message = `Halo, saya ${customerName}%0A`;
+                                    message += `Saya sudah melakukan pemesanan travel bandara (Pulang Pergi) dengan detail sebagai berikut:%0A%0A`;
+                                    message += `*Kode Booking*: ${bookingCode}%0A`;
+                                    message += `*Nama*: ${customerName}%0A`;
+                                    message += `*No. WhatsApp*: ${waNumberCustomer}%0A`;
+                                    message += `*Total Penumpang*: ${totalPassengers}%0A`;
+                                    message += `*Bandara Tujuan*: ${airportName}%0A`;
+                                    message += `*Tanggal Keberangkatan*: ${bookingDate}%0A`;
+                                    message += `*Waktu Penjemputan*: ${pickupTime}%0A`;
+                                    // message += `*Tanggal Kembali*: ${returnDate}%0A`;
+                                    // message += `*Waktu Kembali*: ${returnTime}%0A`;
+                                    // message += `*Nomor Penerbangan*: ${flightNumber}%0A`;
+                                    // message += `*Layanan*: ${services}%0A`;
+                                    // message += `*Barang Bawaan*: ${luggageItems}%0A`;
+                                    message += `*Alamat Penjemputan*: ${pickupAddress}%0A%0A`;
+                                    message += `Terima kasih.`;
+
+                                    // Open WhatsApp with the message
+                                    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+                                    
+                                    // Show success message
+                                    Swal.fire({
+                                       icon: 'success',
+                                       title: 'Booking Berhasil!',
+                                       html: `
+                                        <div class="text-start">
+                                        <p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p>
+                                           <div class="alert alert-info mt-3">
+                                                <strong>Kode Booking:</strong> ${data.booking_code}
+                                           </div>
+                                       </div>`,
+                                       confirmButtonText: 'Selesai'
+                                    }).then(() => {
+                                       // Reset form
+                                       bandaraPPForm.reset();
+                                    });
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message || 'Gagal menyimpan booking.',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#0D83FD'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan!',
+                                text: 'Terjadi kesalahan. Silakan coba lagi.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#0D83FD'
+                            });
+                        })
+                        .finally(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        });
+                      });
+                    }
+                    
+                    // AJAX submit untuk form jemput-bandara
+                    const bandaraPickupForm = document.getElementById('booking-travel-bandara-pickup-form');
+                    if (bandaraPickupForm) {
+                      bandaraPickupForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const submitBtn = bandaraPickupForm.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Processing...';
+                        submitBtn.disabled = true;
+                        const formData = new FormData(bandaraPickupForm);
+                        
+                        Swal.fire({
+                          title: 'Processing...',
+                          allowOutsideClick: false,
+                          didOpen: () => { Swal.showLoading(); }
+                        });
+                        
+                        fetch('<?= base_url('booking/booking_travel_bandara_pickup') ?>', {
+                          method: 'POST',
+                          body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === 'success') {
+                                Swal.fire({
+                                    title: 'Booking Berhasil!',
+                                    html: 'Mengalihkan ke WhatsApp ...',
+                                    allowOutsideClick: false,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                    }
+                                }).then((result) => {
+                                    const waNumber = '6288213761173'; 
+                                    const customerName = encodeURIComponent(data.customer_name || '');
+                                    const bookingCode = encodeURIComponent(data.booking_code || '');
+                                    const waNumberCustomer = encodeURIComponent(data.wa_number || '');
+                                    const totalPassengers = encodeURIComponent(data.total_passengers || '');
+                                    const bookingDate = encodeURIComponent(data.booking_date || '');
+                                    const pickupAddress = encodeURIComponent(data.pickup_address || '');
+                                    const airportName = encodeURIComponent(data.airport_name || '');
+                                    const arrivalTime = encodeURIComponent(data.arrival_time || '');
+                                    const flightNumber = encodeURIComponent(data.flight_number || '');
+                                    const services = encodeURIComponent(data.services || '');
+                                    const luggageItems = encodeURIComponent(data.luggage_items || '');
+                                    
+                                    // Create WhatsApp message
+                                    let message = `Halo, saya ${customerName}%0A`;
+                                    message += `Saya sudah melakukan pemesanan jemput bandara dengan detail sebagai berikut:%0A%0A`;
+                                    message += `*Kode Booking*: ${bookingCode}%0A`;
+                                    message += `*Nama*: ${customerName}%0A`;
+                                    message += `*No. WhatsApp*: ${waNumberCustomer}%0A`;
+                                    message += `*Total Penumpang*: ${totalPassengers}%0A`;
+                                    message += `*Bandara Asal*: ${airportName}%0A`;
+                                    message += `*Tanggal Kedatangan*: ${bookingDate}%0A`;
+                                    message += `*Waktu Kedatangan*: ${arrivalTime}%0A`;
+                                    message += `*Nomor Penerbangan*: ${flightNumber}%0A`;
+                                    message += `*Layanan*: ${services}%0A`;
+                                    message += `*Barang Bawaan*: ${luggageItems}%0A`;
+                                    message += `*Alamat Tujuan*: ${pickupAddress}%0A%0A`;
+                                    message += `Terima kasih.`;
+
+                                    // Open WhatsApp with the message
+                                    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+                                    
+                                    // Show success message
+                                    Swal.fire({
+                                       icon: 'success',
+                                       title: 'Booking Berhasil!',
+                                       html: `
+                                        <div class="text-start">
+                                        <p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p>
+                                           <div class="alert alert-info mt-3">
+                                                <strong>Kode Booking:</strong> ${data.booking_code}
+                                           </div>
+                                       </div>`,
+                                       confirmButtonText: 'Selesai'
+                                    }).then(() => {
+                                       // Reset form
+                                       bandaraPickupForm.reset();
+                                    });
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message || 'Gagal menyimpan booking.',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#0D83FD'
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan!',
+                                text: 'Terjadi kesalahan. Silakan coba lagi.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#0D83FD'
+                            });
+                        })
+                        .finally(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        });
+                      });
+                    }
+                  
+                    // Aktifkan tab terakhir yang dipilih jika ada di localStorage
+                    var lastTab = localStorage.getItem('activeBookingTab');
+                    if (lastTab) {
+                      var tabTrigger = document.querySelector('button[data-bs-target="' + lastTab + '"]');
+                      if (tabTrigger) {
+                        var tab = new bootstrap.Tab(tabTrigger);
+                        tab.show();
+                      }
+                    }
+                  
+                    // Simpan tab yang dipilih ke localStorage saat tab di-click
+                    var tabButtons = document.querySelectorAll('#bookingTab button[data-bs-toggle="tab"]');
+                    tabButtons.forEach(function (btn) {
+                      btn.addEventListener('shown.bs.tab', function (event) {
+                        localStorage.setItem('activeBookingTab', event.target.getAttribute('data-bs-target'));
+                      });
+                    });
+                  });
+               </script>
 						</div>
 					</div>
 				</div>

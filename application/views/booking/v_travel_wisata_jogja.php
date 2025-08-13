@@ -98,187 +98,192 @@
       </div>
   </div>
 
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      // Set minimum date to today
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('booking-date').setAttribute('min', today);
-
-      const bookingForm = document.getElementById('booking-travel-form');
-      if (bookingForm) {
-          bookingForm.addEventListener('submit', function(e) {
-              e.preventDefault();
-              const submitBtn = bookingForm.querySelector('button[type="submit"]');
-              const btnText = submitBtn.querySelector('span');
-              const btnIcon = submitBtn.querySelector('i');
-              const originalText = btnText.textContent;
-              
-              btnIcon.className = 'fas fa-spinner fa-spin';
-              btnText.textContent = 'Memproses...';
-              submitBtn.disabled = true;
-              submitBtn.classList.add('loading');
-
-              const formData = new FormData(bookingForm);
-              
-              Swal.fire({
-                  title: 'Memproses Booking...',
-                  html: 'Mohon tunggu sebentar',
-                  allowOutsideClick: false,
-                  showConfirmButton: false,
-                  didOpen: () => {
-                      Swal.showLoading();
-                  }
-              });
-
-              fetch('<?= base_url('booking/booking_travel_wisata_jogja') ?>', {
-                      method: 'POST',
-                      body: formData
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                      if (data.status === 'success') {
-                          // Show success message with loading and auto-redirect
-                          Swal.fire({
-                              title: 'Booking Berhasil!',
-                              html: 'Menyiapkan tiket Anda...',
-                              allowOutsideClick: false,
-                              showConfirmButton: false,
-                              timer: 1500,
-                              willOpen: () => {
-                                  Swal.showLoading();
-                                  let timerInterval;
-                                  Swal.getHtmlContainer().querySelector('b')
-                                  timerInterval = setInterval(() => {
-                                      Swal.getHtmlContainer().innerHTML =
-                                          'Mengalihkan ke WhatsApp dalam <b>' +
-                                          Math.ceil(Swal.getTimerLeft() /
-                                              1000) + '</b> detik...';
-                                  }, 100);
-                                  Swal.getTimerLeft = () => 1500 - (new Date() - Swal
-                                      .getTimerStartDate());
-                              },
-                              timerProgressBar: true,
-                              allowOutsideClick: false,
-                              didOpen: () => {
-                                  const b = Swal.getHtmlContainer().querySelector(
-                                      'b');
-                                  timerInterval = setInterval(() => {
-                                      b.textContent = (Swal.getTimerLeft() /
-                                          1000).toFixed(0);
-                                  }, 100);
-                              },
-                              willClose: () => {
-                                  clearInterval(timerInterval);
-                              }
-                          }).then((result) => {
-                              const waNumber = '6288213761173';
-                              const customerName = encodeURIComponent(data.customer_name);
-                              const bookingCode = encodeURIComponent(data.booking_code);
-
-                              const generatePDF = () => {
-                                  return new Promise((resolve) => {
-                                      const pdfForm = document.createElement('form');
-                                      pdfForm.method = 'POST';
-                                      pdfForm.action = '<?= base_url('booking/generate_pdf') ?>';
-                                      pdfForm.target = '_blank';
-
-                                      for (let [key, value] of Object.entries(data)) {
-                                          if (key !== 'status') {
-                                              const input = document.createElement('input');
-                                              input.type = 'hidden';
-                                              input.name = key;
-                                              input.value = value;
-                                              pdfForm.appendChild(input);
+ <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const bookingForm = document.getElementById('booking-travel-form');
+          if (bookingForm) {
+              bookingForm.addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  const submitBtn = bookingForm.querySelector('button[type="submit"]');
+                  const originalText = submitBtn.textContent;
+                  submitBtn.textContent = 'Processing...';
+                  submitBtn.disabled = true;
+                  const formData = new FormData(bookingForm);
+                  Swal.fire({
+                      title: 'Processing...',
+                      allowOutsideClick: false,
+                      didOpen: () => {
+                          Swal.showLoading();
+                      }
+                  });
+                  fetch('<?= base_url('booking/booking_travel_wisata_jogja') ?>', {
+                          method: 'POST',
+                          body: formData
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.status === 'success') {
+                              // Show success message with loading and auto-redirect
+                              Swal.fire({
+      title: 'Booking Berhasil!',
+      html: 'Mengalihkan ke WhatsApp dalam <b>3</b> detik...',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timer: 3000, // durasi 3 detik
+      timerProgressBar: true,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: () => {
+          Swal.showLoading();
+      }
+      }).then((result) => {
+      
+                                  // This will be called when timer finishes or user clicks outside
+                                  const waNumber =
+                                      '6288213761173'; // WhatsApp number with country code
+                                  const customerName = encodeURIComponent(data.customer_name);
+                                  const bookingCode = encodeURIComponent(data.booking_code);
+      
+                                  // First, generate and download the PDF
+                                  const generatePDF = () => {
+                                      return new Promise((resolve) => {
+                                          const pdfForm = document.createElement(
+                                              'form');
+                                          pdfForm.method = 'POST';
+                                          pdfForm.action =
+                                              '<?= base_url('booking/generate_pdf') ?>';
+                                          pdfForm.target = '_blank';
+      
+                                          // Add all form data to the PDF form
+                                          for (let [key, value] of Object.entries(
+                                                  data)) {
+                                              if (key !== 'status') {
+                                                  const input = document
+                                                      .createElement('input');
+                                                  input.type = 'hidden';
+                                                  input.name = key;
+                                                  input.value = value;
+                                                  pdfForm.appendChild(input);
+                                              }
                                           }
-                                      }
-
-                                      const returnPathInput = document.createElement('input');
-                                      returnPathInput.type = 'hidden';
-                                      returnPathInput.name = 'return_path';
-                                      returnPathInput.value = '1';
-                                      pdfForm.appendChild(returnPathInput);
-
-                                      const iframe = document.createElement('iframe');
-                                      iframe.name = 'pdfIframe';
-                                      iframe.style.display = 'none';
-                                      document.body.appendChild(iframe);
-
-                                      iframe.onload = function() {
-                                          try {
-                                              const response = JSON.parse(
-                                                  iframe.contentDocument.body.innerText);
-                                              if (response.status === 'success') {
-                                                  resolve(response.pdf_url);
-                                              } else {
+      
+                                          // Add a hidden input to indicate we want to return the PDF path
+                                          const returnPathInput = document
+                                              .createElement('input');
+                                          returnPathInput.type = 'hidden';
+                                          returnPathInput.name = 'return_path';
+                                          returnPathInput.value = '1';
+                                          pdfForm.appendChild(returnPathInput);
+      
+                                          // Create an iframe to handle the response
+                                          const iframe = document.createElement(
+                                              'iframe');
+                                          iframe.name = 'pdfIframe';
+                                          iframe.style.display = 'none';
+                                          document.body.appendChild(iframe);
+      
+                                          // Handle the response from the iframe
+                                          iframe.onload = function() {
+                                              try {
+                                                  const response = JSON.parse(
+                                                      iframe
+                                                      .contentDocument
+                                                      .body.innerText);
+                                                  if (response.status ===
+                                                      'success') {
+                                                      resolve(response
+                                                          .pdf_url);
+                                                  } else {
+                                                      resolve(null);
+                                                  }
+                                              } catch (e) {
                                                   resolve(null);
                                               }
-                                          } catch (e) {
-                                              resolve(null);
-                                          }
-                                          document.body.removeChild(iframe);
-                                      };
-
-                                      pdfForm.target = 'pdfIframe';
-                                      document.body.appendChild(pdfForm);
-                                      pdfForm.submit();
+                                              document.body.removeChild(
+                                                  iframe);
+                                          };
+      
+                                          pdfForm.target = 'pdfIframe';
+                                          document.body.appendChild(pdfForm);
+                                          pdfForm.submit();
+                                      });
+                                  };
+      
+                                  // Generate PDF first, then open WhatsApp
+                                  generatePDF().then((pdfUrl) => {
+                                      // Create WhatsApp message with PDF link
+                                      let message = `Halo, saya ${customerName}%0A`;
+                                      message +=
+                                          `Saya sudah melakukan pemesanan tiket wisata dengan detail sebagai berikut:%0A%0A`;
+                                      message += `*Kode Booking*: ${bookingCode}%0A`;
+                                      message += `*Nama*: ${customerName}%0A`;
+                                      message +=
+                                          `*No. WhatsApp*: ${encodeURIComponent(data.wa_number)}%0A`;
+                                      message +=
+                                          `*Tujuan Wisata*: ${encodeURIComponent(data.tour_destination)}%0A`;
+                                      message +=
+                                          `*Tanggal*: ${encodeURIComponent(data.booking_date)}%0A`;
+                                      message +=
+                                          `*Waktu Jemput*: ${encodeURIComponent(data.pickup_time || '-')}%0A`;
+                                      message +=
+                                          `*Durasi*: ${encodeURIComponent(data.duration || '-')}%0A`;
+                                      message +=
+                                          `*Jumlah Penumpang*: ${encodeURIComponent(data.total_passenger)}%0A`;
+                                      message +=
+                                          `*Tipe Mobil*: ${encodeURIComponent(data.car_type || '-')}%0A`;
+                                      message +=
+                                          `*Alamat Penjemputan*: ${encodeURIComponent(data.pickup_address || '-')}%0A%0A`;
+      
+                                      if (pdfUrl) {
+                                          // Ensure the URL is properly formatted for WhatsApp
+                                          const cleanPdfUrl = pdfUrl.replace(
+                                              /^https?:\/\//, ''
+                                          ); // Remove http/https to prevent double protocols
+                                          message += `*TIKET PDF*%0A`;
+                                          message +=
+                                              `Silakan download tiket PDF di link berikut:%0A`;
+                                          message += `${cleanPdfUrl}%0A%0A`;
+                                          message +=
+                                              `Harap simpan tiket ini sampai transaksi berakhir.`;
+                                      }
+      
+                                      // Open WhatsApp with the message
+                                      window.open(
+                                          `https://wa.me/${waNumber}?text=${message}`,
+                                          '_blank');
+      
+                                      // Reset the form
+                                      bookingForm.reset();
                                   });
-                              };
-
-                              generatePDF().then((pdfUrl) => {
-                                  let message = `Halo, saya ${customerName}%0A`;
-                                  message += `Saya sudah melakukan pemesanan tiket wisata dengan detail sebagai berikut:%0A%0A`;
-                                  message += `*Kode Booking*: ${bookingCode}%0A`;
-                                  message += `*Nama*: ${customerName}%0A`;
-                                  message += `*No. WhatsApp*: ${encodeURIComponent(data.wa_number)}%0A`;
-                                  message += `*Tujuan Wisata*: ${encodeURIComponent(data.tour_destination)}%0A`;
-                                  message += `*Tanggal*: ${encodeURIComponent(data.booking_date)}%0A`;
-                                  message += `*Waktu Jemput*: ${encodeURIComponent(data.pickup_time || '-')}%0A`;
-                                  message += `*Durasi*: ${encodeURIComponent(data.duration || '-')}%0A`;
-                                  message += `*Jumlah Penumpang*: ${encodeURIComponent(data.total_passenger)}%0A`;
-                                  message += `*Tipe Mobil*: ${encodeURIComponent(data.car_type || '-')}%0A`;
-                                  message += `*Alamat Penjemputan*: ${encodeURIComponent(data.pickup_address || '-')}%0A%0A`;
-
-                                  if (pdfUrl) {
-                                      const cleanPdfUrl = pdfUrl.replace(/^https?:\/\//, '');
-                                      message += `*TIKET PDF*%0A`;
-                                      message += `Silakan download tiket PDF di link berikut:%0A`;
-                                      message += `${cleanPdfUrl}%0A%0A`;
-                                      message += `Harap simpan tiket ini sampai transaksi berakhir.`;
-                                  }
-
-                                  window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
-                                  bookingForm.reset();
                               });
-                          });
-                      } else {
+                          } else {
+                              // Show error message if booking failed
+                              Swal.fire({
+                                  icon: 'error',
+                                  title: 'Gagal!',
+                                  text: data.message || 'Gagal menyimpan booking.',
+                                  confirmButtonText: 'OK',
+                                  confirmButtonColor: '#0D83FD'
+                              });
+                          }
+                      })
+                      .catch(() => {
                           Swal.fire({
                               icon: 'error',
-                              title: 'Gagal!',
-                              text: data.message || 'Gagal menyimpan booking.',
+                              title: 'Terjadi Kesalahan!',
+                              text: 'Terjadi kesalahan. Silakan coba lagi.',
                               confirmButtonText: 'OK',
-                              confirmButtonColor: '#0d6efd'
+                              confirmButtonColor: '#0D83FD'
                           });
-                      }
-                  })
-                  .catch(() => {
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Terjadi Kesalahan!',
-                          text: 'Terjadi kesalahan. Silakan coba lagi.',
-                          confirmButtonText: 'OK',
-                          confirmButtonColor: '#0d6efd'
+                      })
+                      .finally(() => {
+                          submitBtn.textContent = originalText;
+                          submitBtn.disabled = false;
                       });
-                  })
-                  .finally(() => {
-                      btnIcon.className = 'fab fa-whatsapp';
-                      btnText.textContent = originalText;
-                      submitBtn.disabled = false;
-                      submitBtn.classList.remove('loading');
-                  });
-          });
-      }
-  });
-  </script>
+              });
+          }
+      });
+   </script>
 </section>
 
 <style>

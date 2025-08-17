@@ -39,7 +39,8 @@ class Master_Data extends CI_Controller
             'master-data-mobil' => 'master-data/v_mobil',
             'master-data-motor' => 'master-data/v_motor',
             'master-data-bus' => 'master-data/v_bus',
-            'master-data-tour-package' => 'master-data/v_tour_package'
+            'master-data-tour-package' => 'master-data/v_tour_package',
+            'master-data-artikel' => 'master-data/v_artikel'
         ];
 
         // Check if the requested view is allowed

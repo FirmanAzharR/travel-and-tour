@@ -126,7 +126,9 @@
       <!-- JS custom untuk content -->
       <script src="<?= base_url('sb-admin/js/content-extra.js') ?>"></script>
       <script src="<?= base_url('sb-admin/js/content.js') ?>"></script>
+      <script src="<?= base_url('sb-admin/js/dashboard-card.js') ?>"></script>
       <script src="<?= base_url('sb-admin/js/master-data.js') ?>"></script>
+
       <!-- AJAX SPA Sidebar Navigation (jQuery version) -->
       <script>
          var baseUrl = "<?= base_url(); ?>";

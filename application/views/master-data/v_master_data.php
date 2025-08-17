@@ -1,6 +1,6 @@
-       <div class="row">
+       <div class="row d-flex flex-nowrap overflow-auto pb-3">
             <!-- Mobil Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-primary shadow h-100 py-2 clickable-card-master-data" data-url="master-data-mobil">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Motor Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-success shadow h-100 py-2 clickable-card-master-data" data-url="master-data-motor">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -40,7 +40,7 @@
             </div>
 
             <!-- Bus/Mini Bus Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-warning shadow h-100 py-2 clickable-card-master-data" data-url="master-data-bus">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -60,7 +60,7 @@
             </div>
 
             <!-- Tour Package Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-info shadow h-100 py-2 clickable-card-master-data" data-url="master-data-tour-package">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -73,6 +73,26 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-suitcase fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel Card -->
+            <div class="col-3 flex-shrink-0 px-2">
+                <div class="card border-left-secondary shadow h-100 py-2 clickable-card-master-data" data-url="master-data-artikel">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Master Data Artikel</div>
+                                <hr>
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                    Kelola data artikel
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-newspaper fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>

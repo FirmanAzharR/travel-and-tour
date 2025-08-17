@@ -145,72 +145,72 @@
                                   const bookingCode = encodeURIComponent(data.booking_code);
       
                                   // First, generate and download the PDF
-                                  const generatePDF = () => {
-                                      return new Promise((resolve) => {
-                                          const pdfForm = document.createElement(
-                                              'form');
-                                          pdfForm.method = 'POST';
-                                          pdfForm.action =
-                                              '<?= base_url('booking/generate_pdf') ?>';
-                                          pdfForm.target = '_blank';
+                                //   const generatePDF = () => {
+                                //       return new Promise((resolve) => {
+                                //           const pdfForm = document.createElement(
+                                //               'form');
+                                //           pdfForm.method = 'POST';
+                                //           pdfForm.action =
+                                //               '<?= base_url('booking/generate_pdf') ?>';
+                                //           pdfForm.target = '_blank';
       
-                                          // Add all form data to the PDF form
-                                          for (let [key, value] of Object.entries(
-                                                  data)) {
-                                              if (key !== 'status') {
-                                                  const input = document
-                                                      .createElement('input');
-                                                  input.type = 'hidden';
-                                                  input.name = key;
-                                                  input.value = value;
-                                                  pdfForm.appendChild(input);
-                                              }
-                                          }
+                                //           // Add all form data to the PDF form
+                                //           for (let [key, value] of Object.entries(
+                                //                   data)) {
+                                //               if (key !== 'status') {
+                                //                   const input = document
+                                //                       .createElement('input');
+                                //                   input.type = 'hidden';
+                                //                   input.name = key;
+                                //                   input.value = value;
+                                //                   pdfForm.appendChild(input);
+                                //               }
+                                //           }
       
-                                          // Add a hidden input to indicate we want to return the PDF path
-                                          const returnPathInput = document
-                                              .createElement('input');
-                                          returnPathInput.type = 'hidden';
-                                          returnPathInput.name = 'return_path';
-                                          returnPathInput.value = '1';
-                                          pdfForm.appendChild(returnPathInput);
+                                //           // Add a hidden input to indicate we want to return the PDF path
+                                //           const returnPathInput = document
+                                //               .createElement('input');
+                                //           returnPathInput.type = 'hidden';
+                                //           returnPathInput.name = 'return_path';
+                                //           returnPathInput.value = '1';
+                                //           pdfForm.appendChild(returnPathInput);
       
-                                          // Create an iframe to handle the response
-                                          const iframe = document.createElement(
-                                              'iframe');
-                                          iframe.name = 'pdfIframe';
-                                          iframe.style.display = 'none';
-                                          document.body.appendChild(iframe);
+                                //           // Create an iframe to handle the response
+                                //           const iframe = document.createElement(
+                                //               'iframe');
+                                //           iframe.name = 'pdfIframe';
+                                //           iframe.style.display = 'none';
+                                //           document.body.appendChild(iframe);
       
-                                          // Handle the response from the iframe
-                                          iframe.onload = function() {
-                                              try {
-                                                  const response = JSON.parse(
-                                                      iframe
-                                                      .contentDocument
-                                                      .body.innerText);
-                                                  if (response.status ===
-                                                      'success') {
-                                                      resolve(response
-                                                          .pdf_url);
-                                                  } else {
-                                                      resolve(null);
-                                                  }
-                                              } catch (e) {
-                                                  resolve(null);
-                                              }
-                                              document.body.removeChild(
-                                                  iframe);
-                                          };
+                                //           // Handle the response from the iframe
+                                //           iframe.onload = function() {
+                                //               try {
+                                //                   const response = JSON.parse(
+                                //                       iframe
+                                //                       .contentDocument
+                                //                       .body.innerText);
+                                //                   if (response.status ===
+                                //                       'success') {
+                                //                       resolve(response
+                                //                           .pdf_url);
+                                //                   } else {
+                                //                       resolve(null);
+                                //                   }
+                                //               } catch (e) {
+                                //                   resolve(null);
+                                //               }
+                                //               document.body.removeChild(
+                                //                   iframe);
+                                //           };
       
-                                          pdfForm.target = 'pdfIframe';
-                                          document.body.appendChild(pdfForm);
-                                          pdfForm.submit();
-                                      });
-                                  };
+                                //           pdfForm.target = 'pdfIframe';
+                                //           document.body.appendChild(pdfForm);
+                                //           pdfForm.submit();
+                                //       });
+                                //   };
       
                                   // Generate PDF first, then open WhatsApp
-                                  generatePDF().then((pdfUrl) => {
+                                //   generatePDF().then((pdfUrl) => {
                                       // Create WhatsApp message with PDF link
                                       let message = `Halo, saya ${customerName}%0A`;
                                       message +=
@@ -254,7 +254,7 @@
       
                                       // Reset the form
                                       bookingForm.reset();
-                                  });
+                                //   });
                               });
                           } else {
                               // Show error message if booking failed

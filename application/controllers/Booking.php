@@ -3,12 +3,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Booking extends CI_Controller {
+    
     public function __construct()
     {
         parent::__construct();
         $this->load->model('M_booking');
         $this->load->helper('pdf');
-
+        $this->load->library('pagination');
+        
         // Load TCPDF library
         $tcpdf_path = APPPATH.'third_party/tcpdf/tcpdf.php';
         if (!file_exists($tcpdf_path)) {
@@ -590,6 +592,141 @@ class Booking extends CI_Controller {
                 ->set_content_type('application/json', 'utf-8')
                 ->set_status_header(500)
                 ->set_output(json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+    }
+
+
+    /**
+     * API: Get paginated booking data for AJAX requests
+     */
+    public function api_get_bookings()
+    {
+        // Set JSON header
+        header('Content-Type: application/json');
+        
+        try {
+            $page = $this->input->get('page') ? (int)$this->input->get('page') : 1;
+            $per_page = 10;
+            $offset = ($page - 1) * $per_page;
+
+            // Get paginated data
+            $data['bookings'] = $this->M_booking->get_city_tour_bookings($per_page, $offset);
+            $total_rows = $this->M_booking->count_city_tour_bookings();
+            
+            // Prepare response
+            $response = [
+                'status' => 'success',
+                'data' => $data['bookings'],
+                'pagination' => [
+                    'total_rows' => $total_rows,
+                    'per_page' => $per_page,
+                    'current_page' => $page,
+                    'total_pages' => ceil($total_rows / $per_page)
+                ]
+            ];
+            
+            echo json_encode($response);
+            
+        } catch (Exception $e) {
+            $this->output
+                ->set_status_header(500)
+                ->set_content_type('application/json')
+                ->set_output(json_encode([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ]));
+        }
+    }
+    
+    /**
+     * API: Get car rental bookings for DataTables
+     */
+    public function api_get_car_bookings_datatables()
+    {
+        // Set JSON header
+        header('Content-Type: application/json');
+        
+        // Get DataTables parameters
+        $draw = $this->input->post('draw');
+        $start = $this->input->post('start');
+        $length = $this->input->post('length');
+        $search = $this->input->post('search')['value'] ?? '';
+        
+        try {
+            // Get paginated data
+            $bookings = $this->M_booking->get_rental_bookings($length, $start, $search);
+            $total_records = $this->M_booking->count_rental_bookings();
+            $filtered_records = $search ? $this->M_booking->count_rental_bookings($search) : $total_records;
+            
+            // Prepare response
+            $response = [
+                'draw' => intval($draw),
+                'recordsTotal' => $total_records,
+                'recordsFiltered' => $filtered_records,
+                'data' => $bookings
+            ];
+            
+            echo json_encode($response);
+            
+        } catch (Exception $e) {
+            log_message('error', 'Error in api_get_car_bookings_datatables: ' . $e->getMessage());
+            echo json_encode([
+                'draw' => intval($draw),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => [],
+                'error' => 'Terjadi kesalahan saat memuat data'
+            ]);
+        }
+    }
+
+    /**
+     * API: Get bus rental bookings for DataTables
+     */
+    public function api_get_bus_bookings_datatables()
+    {
+        // Set JSON header
+        header('Content-Type: application/json');
+        
+        // Get DataTables parameters
+        $draw = $this->input->post('draw');
+        $start = $this->input->post('start');
+        $length = $this->input->post('length');
+        $search = $this->input->post('search')['value'] ?? '';
+        
+        try {
+            // Get paginated data
+            $bookings = $this->M_booking->get_bus_rental_bookings($length, $start, $search);
+            $total_records = $this->M_booking->count_bus_rental_bookings();
+            $filtered_records = $search ? $this->M_booking->count_bus_rental_bookings($search) : $total_records;
+            
+            // Prepare response
+            $response = [
+                'draw' => intval($draw),
+                'recordsTotal' => $total_records,
+                'recordsFiltered' => $filtered_records,
+                'data' => $bookings
+            ];
+            
+            // Debug log the first booking's created_at value
+            if (!empty($bookings)) {
+                log_message('debug', 'First booking created_at: ' . print_r($bookings[0]->created_at ?? 'null', true));
+            }
+            
+            // Debug log the response
+            log_message('debug', 'API Response: ' . print_r($response, true));
+            
+            echo json_encode($response);
+            
+        } catch (Exception $e) {
+            log_message('error', 'Error in api_get_bus_bookings_datatables: ' . $e->getMessage());
+            echo json_encode([
+                'draw' => intval($draw),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => [],
+                'error' => 'Terjadi kesalahan saat memuat data'
+            ]);
         }
     }
 }

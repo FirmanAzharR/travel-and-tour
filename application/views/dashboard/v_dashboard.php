@@ -134,6 +134,157 @@
 }
 </style>
 
+<!-- Add Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart Container -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Trend Booking Bulan Agustus <?= date('Y') ?></h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area" style="height: 400px;">
+                    <canvas id="bookingTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+$(document).ready(function() {
+    // Initialize Chart
+    var ctx = document.getElementById('bookingTrendChart').getContext('2d');
     
+    // Generate array of days in August
+    var currentYear = new Date().getFullYear();
+    var daysInAugust = new Date(currentYear, 7, 0).getDate();
+    var augustDays = [];
+    for (var i = 1; i <= daysInAugust; i++) {
+        augustDays.push(i + ' Ags');
+    }
+
+    var bookingChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: augustDays,
+            datasets: [{
+                label: 'Jumlah Booking',
+                data: [],
+                backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                borderColor: 'rgba(78, 115, 223, 1)',
+                pointRadius: 3,
+                pointBackgroundColor: 'rgba(78, 115, 223, 1)',
+                pointBorderColor: 'rgba(78, 115, 223, 1)',
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)',
+                pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Tanggal'
+                    },
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Jumlah Booking'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        stepSize: 1
+                    },
+                    grid: {
+                        color: 'rgb(234, 236, 244)',
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineColor: 'rgb(234, 236, 244)',
+                        zeroLineBorderDash: [2]
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgb(255,255,255)',
+                    bodyColor: '#858796',
+                    titleMarginBottom: 10,
+                    titleColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Jumlah Booking: ' + context.parsed.y;
+                        },
+                        title: function(context) {
+                            return 'Tanggal ' + (context[0].dataIndex + 1) + ' Agustus';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Load data via AJAX
+    function loadBookingData() {
+        $.ajax({
+            url: '<?= site_url('dashboard/get_monthly_booking_data') ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Ensure we have data for all days, filling with 0 if no bookings
+                var dailyData = Array(daysInAugust).fill(0);
+                response.forEach(function(count, index) {
+                    if (index < daysInAugust) {
+                        dailyData[index] = count;
+                    }
+                });
+                bookingChart.data.datasets[0].data = dailyData;
+                bookingChart.update();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading booking data:', error);
+            }
+        });
+    }
+
+    // Initial load
+    loadBookingData();
+
+    // Refresh data every 5 minutes
+    setInterval(loadBookingData, 300000);
+});
 </script>

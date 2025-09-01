@@ -117,4 +117,72 @@ class Dashboard extends CI_Controller {
         echo "<h2>Last Query:</h2>";
         echo $this->db->last_query();
     }
+
+    public function get_monthly_booking_data() {
+        $year = date('Y');
+        $month = 8; // August
+        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $daily_data = array_fill(1, $days_in_month, 0);
+        
+        // Get daily data for city tour bookings in August
+        $city_tour = $this->db->select('DAY(created_at) as day, COUNT(id) as count')
+            ->from('city_tour_booking')
+            ->where('YEAR(created_at)', $year)
+            ->where('MONTH(created_at)', $month)
+            ->where('deleted_at IS NULL')
+            ->group_by('DAY(created_at)')
+            ->get()->result_array();
+            
+        // Get daily data for airport travel bookings in August
+        $airport_travel = $this->db->select('DAY(created_at) as day, COUNT(id) as count')
+            ->from('airport_travel_booking')
+            ->where('YEAR(created_at)', $year)
+            ->where('MONTH(created_at)', $month)
+            ->where('deleted_at IS NULL')
+            ->group_by('DAY(created_at)')
+            ->get()->result_array();
+            
+        // Get daily data for bus rentals in August
+        $bus_rental = $this->db->select('DAY(created_at) as day, COUNT(id) as count')
+            ->from('rent_bus_booking')
+            ->where('YEAR(created_at)', $year)
+            ->where('MONTH(created_at)', $month)
+            ->where('deleted_at IS NULL')
+            ->group_by('DAY(created_at)')
+            ->get()->result_array();
+            
+        // Get daily data for car rentals in August
+        $car_rental = $this->db->select('DAY(created_at) as day, COUNT(id) as count')
+            ->from('rent_car_booking')
+            ->where('YEAR(created_at)', $year)
+            ->where('MONTH(created_at)', $month)
+            ->where('deleted_at IS NULL')
+            ->group_by('DAY(created_at)')
+            ->get()->result_array();
+            
+        // Combine all booking types
+        $all_bookings = [];
+        $sources = [$city_tour, $airport_travel, $bus_rental, $car_rental];
+        
+        foreach ($sources as $source) {
+            foreach ($source as $item) {
+                $day = (int)$item['day'];
+                if (!isset($all_bookings[$day])) {
+                    $all_bookings[$day] = 0;
+                }
+                $all_bookings[$day] += (int)$item['count'];
+            }
+        }
+        
+        // Fill in the daily data array
+        foreach ($all_bookings as $day => $count) {
+            $daily_data[$day] = $count;
+        }
+        
+        // Convert to indexed array for Chart.js
+        $result = array_values($daily_data);
+        
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
 }

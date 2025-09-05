@@ -23,7 +23,7 @@
 					<h1 class="mb-4">
 						Your Journey <br>
 						Starts With <br>
-						<span class="accent-text">Wak Trans Travel</span>
+						<span class="accent-text">Wak Trans Tour And Travel Yogyakarta</span>
 					</h1>
 
 					<p class="mb-4 mb-md-5">
@@ -33,7 +33,7 @@
 					</p>
 
 					<div class="hero-buttons">
-						<a href="#booking" class="btn btn-primary me-0 me-sm-2 mx-1">Book Now</a>
+						<a href="#travel-wisata-jogja" class="btn btn-primary me-0 me-sm-2 mx-1">Book Now</a>
 						<a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn btn-link mt-2 mt-sm-0 glightbox">
 							<i class="bi bi-play-circle me-1"></i>
 							Watch Our Tours
@@ -69,8 +69,7 @@
 						<i class="bi bi-trophy"></i>
 					</div>
 					<div class="stat-content">
-						<h4>3x Award Winner</h4>
-						<p class="mb-0">Best Tour Operator</p>
+						<h4>Best Tour Operator</h4>
 					</div>
 				</div>
 			</div>
@@ -80,8 +79,7 @@
 						<i class="bi bi-briefcase"></i>
 					</div>
 					<div class="stat-content">
-						<h4>5000+ Tours</h4>
-						<p class="mb-0">Completed Successfully</p>
+						<h4>1000+ Tours Completed Successfully</h4>
 					</div>
 				</div>
 			</div>
@@ -92,7 +90,6 @@
 					</div>
 					<div class="stat-content">
 						<h4>12,500+ Travelers</h4>
-						<p class="mb-0">Happy Customers</p>
 					</div>
 				</div>
 			</div>
@@ -103,7 +100,6 @@
 					</div>
 					<div class="stat-content">
 						<h4>98% Satisfaction</h4>
-						<p class="mb-0">Customer Rating</p>
 					</div>
 				</div>
 			</div>
@@ -198,8 +194,8 @@
 
   <div class="container">
 		<div class="section-header text-center position-relative" data-aos="fade-up">
-			<span class="section-badge">Temukan berbagai pilihan destinasi menarik untuk perjalanan liburan Anda berikutnya</span>
 			<h3 class="section-title fw-bold">Destinasi Pilihan</h3>
+			<span class="section-badge">Temukan berbagai pilihan destinasi menarik untuk perjalanan liburan Anda berikutnya</span>
 		</div>
 
     <div class="d-flex justify-content-center">
@@ -231,14 +227,10 @@
           <!-- Destination Card 1 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (1).png" class="card-img-top" alt="Bali">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata1.png" class="card-img-top" alt="Bali">
               <div class="card-body">
                 <h5 class="card-title">Bali</h5>
-                <p class="card-text">Nikmati keindahan pantai, budaya, dan spiritual di Pulau Dewata yang mempesona</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">3-7 Hari</span>
-                  <span class="price">Mulai Rp 3.5jt</span>
-                </div>
+                <p class="card-text">Nikmati keindahan pantai, budaya, dan spiritual di Pulau Dewata yang mempesona</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -247,14 +239,10 @@
           <!-- Destination Card 2 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (2).png" class="card-img-top" alt="Raja Ampat">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata2.png" class="card-img-top" alt="Raja Ampat">
               <div class="card-body">
                 <h5 class="card-title">Raja Ampat</h5>
-                <p class="card-text">Surga bawah laut dengan keanekaragaman hayati terkaya di dunia</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">4-6 Hari</span>
-                  <span class="price">Mulai Rp 7.5jt</span>
-                </div>
+                <p class="card-text">Surga bawah laut dengan keanekaragaman hayati terkaya di dunia</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -263,14 +251,10 @@
           <!-- Destination Card 3 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (3).png" class="card-img-top" alt="Bromo">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata3.png" class="card-img-top" alt="Bromo">
               <div class="card-body">
                 <h5 class="card-title">Bromo</h5>
-                <p class="card-text">Saksikan sunrise spektakuler di atas lautan awan dengan pemandangan gunung berapi aktif</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">2-3 Hari</span>
-                  <span class="price">Mulai Rp 1.8jt</span>
-                </div>
+                <p class="card-text">Saksikan sunrise spektakuler di atas lautan awan dengan pemandangan gunung berapi aktif</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -279,14 +263,10 @@
           <!-- Destination Card 4 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (4).png" class="card-img-top" alt="Labuan Bajo">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata4.jpg" class="card-img-top" alt="Labuan Bajo">
               <div class="card-body">
                 <h5 class="card-title">Labuan Bajo</h5>
-                <p class="card-text">Petualangan eksotis melihat Komodo dan menjelajahi pulau-pulau menakjubkan</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">3-5 Hari</span>
-                  <span class="price">Mulai Rp 5.2jt</span>
-                </div>
+                <p class="card-text">Petualangan eksotis melihat Komodo dan menjelajahi pulau-pulau menakjubkan</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -295,14 +275,10 @@
           <!-- Destination Card 5 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (5).png" class="card-img-top" alt="Danau Toba">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata5.png" class="card-img-top" alt="Danau Toba">
               <div class="card-body">
                 <h5 class="card-title">Danau Toba</h5>
-                <p class="card-text">Danau vulkanik terbesar di dunia dengan keindahan alam dan budaya Batak yang kaya</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">3-4 Hari</span>
-                  <span class="price">Mulai Rp 2.5jt</span>
-                </div>
+                <p class="card-text">Danau vulkanik terbesar di dunia dengan keindahan alam dan budaya Batak yang kaya</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -311,14 +287,10 @@
           <!-- Destination Card 6 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata (6).png" class="card-img-top" alt="Dieng">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata6.png" class="card-img-top" alt="Dieng">
               <div class="card-body">
                 <h5 class="card-title">Dieng Plateau</h5>
-                <p class="card-text">Negeri di atas awan dengan pemandangan sunrise, telaga warna, dan candi kuno</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">2-3 Hari</span>
-                  <span class="price">Mulai Rp 1.5jt</span>
-                </div>
+                <p class="card-text">Negeri di atas awan dengan pemandangan sunrise, telaga warna, dan candi kuno</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -334,14 +306,10 @@
           <!-- City Tour Card 1 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (1).PNG" class="card-img-top" alt="Yogyakarta">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour.png" class="card-img-top" alt="Yogyakarta">
               <div class="card-body">
                 <h5 class="card-title">Yogyakarta</h5>
-                <p class="card-text">Jelajahi kota budaya dengan Keraton, Malioboro, Candi Prambanan dan Borobudur</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-3 Hari</span>
-                  <span class="price">Mulai Rp 850rb</span>
-                </div>
+                <p class="card-text">Jelajahi kota budaya dengan Keraton, Malioboro, Candi Prambanan dan Borobudur</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -350,14 +318,10 @@
           <!-- City Tour Card 2 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (2).PNG" class="card-img-top" alt="Jakarta">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour1.png" class="card-img-top" alt="Jakarta">
               <div class="card-body">
                 <h5 class="card-title">Jakarta</h5>
-                <p class="card-text">Nikmati ibu kota dengan Monas, Ancol, museum-museum dan pusat perbelanjaan modern</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-2 Hari</span>
-                  <span class="price">Mulai Rp 750rb</span>
-                </div>
+                <p class="card-text">Nikmati ibu kota dengan Monas, Ancol, museum-museum dan pusat perbelanjaan modern</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -366,14 +330,10 @@
           <!-- City Tour Card 3 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (3).PNG" class="card-img-top" alt="Bandung">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour2.png" class="card-img-top" alt="Bandung">
               <div class="card-body">
                 <h5 class="card-title">Bandung</h5>
-                <p class="card-text">Kota dengan suasana sejuk, wisata kuliner, factory outlet, dan pemandangan alam</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-3 Hari</span>
-                  <span class="price">Mulai Rp 800rb</span>
-                </div>
+                <p class="card-text">Kota dengan suasana sejuk, wisata kuliner, factory outlet, dan pemandangan alam</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -382,14 +342,10 @@
           <!-- City Tour Card 4 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (4).PNG" class="card-img-top" alt="Surabaya">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour3.png" class="card-img-top" alt="Surabaya">
               <div class="card-body">
                 <h5 class="card-title">Surabaya</h5>
-                <p class="card-text">Kota pahlawan dengan Jembatan Suramadu, Tugu Pahlawan, dan wisata kuliner khas</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-2 Hari</span>
-                  <span class="price">Mulai Rp 700rb</span>
-                </div>
+                <p class="card-text">Kota pahlawan dengan Jembatan Suramadu, Tugu Pahlawan, dan wisata kuliner khas</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -398,14 +354,10 @@
           <!-- City Tour Card 5 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (5).PNG" class="card-img-top" alt="Malang">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour4.png" class="card-img-top" alt="Malang">
               <div class="card-body">
                 <h5 class="card-title">Malang</h5>
-                <p class="card-text">Kota sejuk dengan Jatim Park, Museum Angkut, dan wisata alam Batu</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-3 Hari</span>
-                  <span class="price">Mulai Rp 850rb</span>
-                </div>
+                <p class="card-text">Kota sejuk dengan Jatim Park, Museum Angkut, dan wisata alam Batu</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -414,14 +366,10 @@
           <!-- City Tour Card 6 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
             <div class="card destination-card">
-              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour (6).PNG" class="card-img-top" alt="Solo">
+              <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour5.png" class="card-img-top" alt="Solo">
               <div class="card-body">
                 <h5 class="card-title">Solo</h5>
-                <p class="card-text">Kota budaya dengan Keraton Kasunanan, Mangkunegaran, dan batik tradisional</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                  <span class="badge bg-primary">1-2 Hari</span>
-                  <span class="price">Mulai Rp 700rb</span>
-                </div>
+                <p class="card-text">Kota budaya dengan Keraton Kasunanan, Mangkunegaran, dan batik tradisional</p>                
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>

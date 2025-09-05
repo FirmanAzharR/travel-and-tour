@@ -2,7 +2,7 @@
     <div
         class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
         <a href="/#travel-wisata-jogja" class="logo d-flex align-items-center me-auto me-xl-0">
-     	   <img src="<?= base_url('landing-page/') ?>assets/img/base/logo.png" alt="Customer 5" >
+     	   <img src="<?= base_url('landing-page/') ?>assets/img/base/logo.jpg" alt="Customer 5" >
         </a>
         <nav id="navmenu" class="navmenu">
             <ul>

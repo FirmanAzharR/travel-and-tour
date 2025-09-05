@@ -12,7 +12,7 @@
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-    <div class="row align-items-center">
+    <div class="row ">
       <div class="col-lg-6">
 				<div class="hero-content" data-aos="fade-up" data-aos-delay="200">
 					<div class="company-badge mb-4">
@@ -115,7 +115,7 @@
 </section><!-- /Hero Section -->
 
 <!-- About Section -->
-<section id="about" class="about section">
+<!-- <section id="about" class="about section">
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -188,18 +188,19 @@
 
   </div>
 
-</section><!-- /About Section -->
+</section> -->
+<!-- /About Section -->
 
 <!-- Destinations Section -->
 <section id="features" class="features section">
 
   <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Destinasi Pilihan</h2>
-    <p>Temukan berbagai pilihan destinasi menarik untuk perjalanan liburan Anda berikutnya</p>
-  </div><!-- End Section Title -->
 
   <div class="container">
+		<div class="section-header text-center position-relative" data-aos="fade-up">
+			<span class="section-badge">Temukan berbagai pilihan destinasi menarik untuk perjalanan liburan Anda berikutnya</span>
+			<h3 class="section-title fw-bold">Destinasi Pilihan</h3>
+		</div>
 
     <div class="d-flex justify-content-center">
 
@@ -683,56 +684,55 @@
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
     <div class="row g-4">
-
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-card d-flex">
-          <div class="icon flex-shrink-0">
-            <i class="bi bi-globe2"></i>
-          </div>
-          <div>
-            <h3>Paket Wisata Domestik</h3>
-            <p>Jelajahi keindahan Indonesia dari Sabang sampai Merauke dengan paket wisata yang dirancang khusus untuk memenuhi kebutuhan liburan Anda. Dari pantai eksotis Bali hingga keajaiban alam Raja Ampat.</p>
-          </div>
-        </div>
-      </div><!-- End Service Card -->
-
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-card d-flex">
-          <div class="icon flex-shrink-0">
-            <i class="bi bi-airplane"></i>
-          </div>
-          <div>
-            <h3>Paket Wisata Internasional</h3>
-            <p>Wujudkan impian traveling ke luar negeri dengan paket wisata internasional kami. Dari keindahan Asia Tenggara hingga kemegahan Eropa, semua diatur dengan detail untuk kenyamanan perjalanan Anda.</p>
-          </div>
-        </div>
-      </div><!-- End Service Card -->
-
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="service-card d-flex">
-          <div class="icon flex-shrink-0">
-            <i class="bi bi-people"></i>
-          </div>
-          <div>
-            <h3>Private & Custom Tour</h3>
-            <p>Ingin liburan yang lebih personal? Kami menawarkan layanan private tour dan custom itinerary sesuai dengan preferensi, budget, dan waktu Anda. Nikmati fleksibilitas dan privasi selama perjalanan.</p>
-          </div>
-        </div>
-      </div><!-- End Service Card -->
-
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="service-card d-flex">
-          <div class="icon flex-shrink-0">
-            <i class="bi bi-building"></i>
-          </div>
-          <div>
-            <h3>Corporate & MICE</h3>
-            <p>Layanan khusus untuk kebutuhan korporasi, meeting, incentive, conference, dan exhibition. Tim kami berpengalaman dalam mengelola event perusahaan dari skala kecil hingga besar dengan profesionalisme tinggi.</p>
-          </div>
-        </div>
-      </div><!-- End Service Card -->
-
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+    <div class="service-card d-flex">
+      <div class="icon flex-shrink-0">
+        <i class="bi bi-globe2"></i>
+      </div>
+      <div>
+        <h3>Paket Wisata Domestik</h3>
+        <p>Jelajahi keindahan Indonesia dari Sabang sampai Merauke dengan paket wisata yang dirancang khusus untuk memenuhi kebutuhan liburan Anda. Dari pantai eksotis Bali hingga keajaiban alam Raja Ampat, Lombok, dan Labuan Bajo dengan pelayanan terbaik.</p>
+      </div>
     </div>
+  </div><!-- End Service Card -->
+
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+    <div class="service-card d-flex">
+      <div class="icon flex-shrink-0">
+        <i class="bi bi-car-front"></i>
+      </div>
+      <div>
+        <h3>Rental Mobil & Transportasi</h3>
+        <p>Nikmati perjalanan nyaman dengan layanan rental mobil kami, tersedia dengan sopir berpengalaman maupun lepas kunci. Ideal untuk perjalanan dalam kota, luar kota, atau eksplorasi destinasi wisata dengan fleksibilitas penuh sesuai jadwal Anda.</p>
+      </div>
+    </div>
+  </div><!-- End Service Card -->
+
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+    <div class="service-card d-flex">
+      <div class="icon flex-shrink-0">
+        <i class="bi bi-people"></i>
+      </div>
+      <div>
+        <h3>Private & Custom Tour</h3>
+        <p>Ingin liburan yang lebih personal? Kami menawarkan layanan private tour dan custom itinerary sesuai dengan preferensi, budget, dan waktu Anda. Nikmati fleksibilitas dan privasi selama perjalanan ke destinasi favorit di Indonesia.</p>
+      </div>
+    </div>
+  </div><!-- End Service Card -->
+
+  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+    <div class="service-card d-flex">
+      <div class="icon flex-shrink-0">
+        <i class="bi bi-airplane-engines"></i>
+      </div>
+      <div>
+        <h3>Layanan Antar-Jemput Bandara</h3>
+        <p>Hindari kerumitan transportasi dengan layanan antar-jemput bandara kami yang tepat waktu dan nyaman. Tersedia untuk individu maupun rombongan, dengan armada berkualitas dan sopir profesional untuk memastikan perjalanan Anda dimulai dan diakhiri dengan menyenangkan.</p>
+      </div>
+    </div>
+  </div><!-- End Service Card -->
+</div>
+
 
   </div>
 
@@ -740,19 +740,15 @@
 
 
 <!-- Pricing Section -->
-<section id="pricing" class="pricing section light-background">
+<!-- <section id="pricing" class="pricing section light-background">
 
-  <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
     <h2>Pricing</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-  </div><!-- End Section Title -->
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
     <div class="row g-4 justify-content-center">
 
-      <!-- Basic Plan -->
       <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
         <div class="pricing-card">
           <h3>Basic Plan</h3>
@@ -787,7 +783,6 @@
         </div>
       </div>
 
-      <!-- Standard Plan -->
       <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
         <div class="pricing-card popular">
           <div class="popular-badge">Most Popular</div>
@@ -827,7 +822,6 @@
         </div>
       </div>
 
-      <!-- Premium Plan -->
       <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
         <div class="pricing-card">
           <h3>Premium Plan</h3>
@@ -874,10 +868,11 @@
 
   </div>
 
-</section><!-- /Pricing Section -->
+</section> -->
+<!-- /Pricing Section -->
 
 <!-- Faq Section -->
-<section class="faq-9 faq section light-background" id="faq">
+<!-- <section class="faq-9 faq section light-background" id="faq">
 
   <div class="container">
     <div class="row">
@@ -906,7 +901,7 @@
                 gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
           <div class="faq-item">
             <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
@@ -916,7 +911,7 @@
                 elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
           <div class="faq-item">
             <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
@@ -927,7 +922,7 @@
                 sed odio morbi quis</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
           <div class="faq-item">
             <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
@@ -937,7 +932,7 @@
                 elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
           <div class="faq-item">
             <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
@@ -947,7 +942,7 @@
                 Purus gravida quis blandit turpis cursus in</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
           <div class="faq-item">
             <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
@@ -956,14 +951,15 @@
                 Distinctio ipsam dolore et.</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
-          </div><!-- End Faq item-->
+          </div>
 
         </div>
       </div>
 
     </div>
   </div>
-</section><!-- /Faq Section -->
+</section> -->
+<!-- /Faq Section -->
 
 <!-- Call To Action 2 Section -->
 <section id="call-to-action-2" class="call-to-action-2 section dark-background">

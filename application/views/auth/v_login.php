@@ -7,8 +7,7 @@
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up" style="margin-top: 50px;">
-        <h2>Sign in or Register your account</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Sign in your account</h2>
     </div><!-- End Section Title -->
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -17,8 +16,7 @@
             <div class="col-lg-5">
                 <div class="contact-form" id="signin-form" data-aos="fade-up" data-aos-delay="300">
                     <h3>Sign In</h3>
-                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum
-                        primis.
+                    <p>Login untuk masuk ke akun anda
                     </p>
                     <?php 
                         if($this->session->flashdata('message')) {
@@ -44,10 +42,10 @@
 
                             <div class="col-12 text-center">
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Sign In</button><br><br>
+                                    <button type="submit" class="btn btn-primary">Sign In</button>
                                 </div>
-                                <label for="register"> Don't have an account ?</label><a href="#"
-                                    id="show-register">Register here</a>
+                                <!-- <label for="register"> Don't have an account ?</label><a href="#"
+                                    id="show-register">Register here</a> -->
                             </div>
 
                         </div>
@@ -89,7 +87,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-7">
+            <!-- <div class="col-lg-7">
                 <div class="info-box" data-aos="fade-up" data-aos-delay="200">
                     <h3>Contact Info</h3>
                     <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum
@@ -129,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>

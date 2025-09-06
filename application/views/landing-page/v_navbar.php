@@ -18,6 +18,7 @@
 				<li><a href="#carter-bus" class="booking-menu">Carter Haice/Mini Bus</a></li>
 				</ul>
 				<li><a href="#about">About</a></li>
+				<li><a href="#gallery">Gallery</a></li>
                 <?php $user = $this->session->userdata('user_data'); ?>
                 <?php if(isset($user['role']) && $user['role'] === 'CUSTOMER'): ?>
                     <li><a href="#booking-history">Booking History</a></li>

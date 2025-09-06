@@ -229,8 +229,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata1.png" class="card-img-top" alt="Bali">
               <div class="card-body">
-                <h5 class="card-title">Bali</h5>
-                <p class="card-text">Nikmati keindahan pantai, budaya, dan spiritual di Pulau Dewata yang mempesona</p>                
+                <!-- <h5 class="card-title">Bali</h5>
+                <p class="card-text">Nikmati keindahan pantai, budaya, dan spiritual di Pulau Dewata yang mempesona</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -241,8 +241,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata2.png" class="card-img-top" alt="Raja Ampat">
               <div class="card-body">
-                <h5 class="card-title">Raja Ampat</h5>
-                <p class="card-text">Surga bawah laut dengan keanekaragaman hayati terkaya di dunia</p>                
+                <!-- <h5 class="card-title">Raja Ampat</h5>
+                <p class="card-text">Surga bawah laut dengan keanekaragaman hayati terkaya di dunia</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -253,8 +253,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata3.png" class="card-img-top" alt="Bromo">
               <div class="card-body">
-                <h5 class="card-title">Bromo</h5>
-                <p class="card-text">Saksikan sunrise spektakuler di atas lautan awan dengan pemandangan gunung berapi aktif</p>                
+                <!-- <h5 class="card-title">Bromo</h5>
+                <p class="card-text">Saksikan sunrise spektakuler di atas lautan awan dengan pemandangan gunung berapi aktif</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -265,8 +265,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata4.jpg" class="card-img-top" alt="Labuan Bajo">
               <div class="card-body">
-                <h5 class="card-title">Labuan Bajo</h5>
-                <p class="card-text">Petualangan eksotis melihat Komodo dan menjelajahi pulau-pulau menakjubkan</p>                
+                <!-- <h5 class="card-title">Labuan Bajo</h5>
+                <p class="card-text">Petualangan eksotis melihat Komodo dan menjelajahi pulau-pulau menakjubkan</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -277,8 +277,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata5.png" class="card-img-top" alt="Danau Toba">
               <div class="card-body">
-                <h5 class="card-title">Danau Toba</h5>
-                <p class="card-text">Danau vulkanik terbesar di dunia dengan keindahan alam dan budaya Batak yang kaya</p>                
+                <!-- <h5 class="card-title">Danau Toba</h5>
+                <p class="card-text">Danau vulkanik terbesar di dunia dengan keindahan alam dan budaya Batak yang kaya</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -289,8 +289,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata6.png" class="card-img-top" alt="Dieng">
               <div class="card-body">
-                <h5 class="card-title">Dieng Plateau</h5>
-                <p class="card-text">Negeri di atas awan dengan pemandangan sunrise, telaga warna, dan candi kuno</p>                
+                <!-- <h5 class="card-title">Dieng Plateau</h5>
+                <p class="card-text">Negeri di atas awan dengan pemandangan sunrise, telaga warna, dan candi kuno</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -308,8 +308,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour.png" class="card-img-top" alt="Yogyakarta">
               <div class="card-body">
-                <h5 class="card-title">Yogyakarta</h5>
-                <p class="card-text">Jelajahi kota budaya dengan Keraton, Malioboro, Candi Prambanan dan Borobudur</p>                
+                <!-- <h5 class="card-title">Yogyakarta</h5>
+                <p class="card-text">Jelajahi kota budaya dengan Keraton, Malioboro, Candi Prambanan dan Borobudur</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -320,8 +320,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour1.png" class="card-img-top" alt="Jakarta">
               <div class="card-body">
-                <h5 class="card-title">Jakarta</h5>
-                <p class="card-text">Nikmati ibu kota dengan Monas, Ancol, museum-museum dan pusat perbelanjaan modern</p>                
+                <!-- <h5 class="card-title">Jakarta</h5>
+                <p class="card-text">Nikmati ibu kota dengan Monas, Ancol, museum-museum dan pusat perbelanjaan modern</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -332,8 +332,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour2.png" class="card-img-top" alt="Bandung">
               <div class="card-body">
-                <h5 class="card-title">Bandung</h5>
-                <p class="card-text">Kota dengan suasana sejuk, wisata kuliner, factory outlet, dan pemandangan alam</p>                
+                <!-- <h5 class="card-title">Bandung</h5>
+                <p class="card-text">Kota dengan suasana sejuk, wisata kuliner, factory outlet, dan pemandangan alam</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -344,8 +344,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour3.png" class="card-img-top" alt="Surabaya">
               <div class="card-body">
-                <h5 class="card-title">Surabaya</h5>
-                <p class="card-text">Kota pahlawan dengan Jembatan Suramadu, Tugu Pahlawan, dan wisata kuliner khas</p>                
+                <!-- <h5 class="card-title">Surabaya</h5>
+                <p class="card-text">Kota pahlawan dengan Jembatan Suramadu, Tugu Pahlawan, dan wisata kuliner khas</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -356,8 +356,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour4.png" class="card-img-top" alt="Malang">
               <div class="card-body">
-                <h5 class="card-title">Malang</h5>
-                <p class="card-text">Kota sejuk dengan Jatim Park, Museum Angkut, dan wisata alam Batu</p>                
+                <!-- <h5 class="card-title">Malang</h5>
+                <p class="card-text">Kota sejuk dengan Jatim Park, Museum Angkut, dan wisata alam Batu</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -368,8 +368,8 @@
             <div class="card destination-card">
               <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour5.png" class="card-img-top" alt="Solo">
               <div class="card-body">
-                <h5 class="card-title">Solo</h5>
-                <p class="card-text">Kota budaya dengan Keraton Kasunanan, Mangkunegaran, dan batik tradisional</p>                
+                <!-- <h5 class="card-title">Solo</h5>
+                <p class="card-text">Kota budaya dengan Keraton Kasunanan, Mangkunegaran, dan batik tradisional</p>                 -->
                 <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>
               </div>
             </div>
@@ -440,7 +440,7 @@
       <div class="col-lg-8 mx-auto text-center">
         <h2 class="display-4 mb-4">Wujudkan Liburan Impian Anda Bersama Kami</h2>
         <p class="mb-4">Jangan biarkan momen berharga berlalu begitu saja. Saatnya menjelajah keindahan Indonesia dengan pengalaman perjalanan yang tak terlupakan, didampingi oleh tim profesional kami.</p>
-        <a href="#" class="btn btn-cta">Booking Sekarang</a>
+        <a href="#travel-wisata-jogja" class="btn btn-cta">Booking Sekarang</a>
       </div>
 
       <!-- Abstract Background Elements -->
@@ -935,9 +935,138 @@
 <?php include APPPATH . 'views/booking/v_carter_bus.php'; ?>
 <!-- End Booking Section -->
 
+
+<section id="gallery" class="gallery section">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header text-center position-relative" data-aos="fade-up">
+      <span class="section-badge">GALERI PERJALANAN</span>
+      <h2 class="section-title fw-bold">Momen <span class="text-primary">Tak Terlupakan</span></h2>
+      <p class="mt-3 mb-5">Jelajahi berbagai pengalaman perjalanan yang telah kami dokumentasikan dari berbagai destinasi wisata di Indonesia</p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="row g-4 gallery-grid">
+        <!-- Image 1 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/about-2.webp" class="img-fluid" alt="Candi Borobudur">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/about-2.webp" class="glightbox" title="Candi Borobudur - Magelang, Jawa Tengah">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 2 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata1.png" class="img-fluid" alt="Pantai Kuta">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata1.png" class="glightbox" title="Pantai Kuta - Bali">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 3 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata2.png" class="img-fluid" alt="Raja Ampat">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata2.png" class="glightbox" title="Raja Ampat - Papua Barat">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 4 - Wide Size (Spans 2 columns) -->
+        <div class="col-lg-8 col-md-12 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata3.png" class="img-fluid" alt="Gunung Bromo">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata3.png" class="glightbox" title="Gunung Bromo - Jawa Timur">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 5 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata4.jpg" class="img-fluid" alt="Labuan Bajo">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata4.jpg" class="glightbox" title="Labuan Bajo - Nusa Tenggara Timur">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 6 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata5.png" class="img-fluid" alt="Danau Toba">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata5.png" class="glightbox" title="Danau Toba - Sumatera Utara">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 7 - Normal Size -->
+        <div class="col-lg-4 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/wisata6.png" class="img-fluid" alt="Dieng Plateau">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/wisata6.png" class="glightbox" title="Dieng Plateau - Jawa Tengah">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 8 - Normal Size -->
+        <div class="col-lg-6 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour.png" class="img-fluid" alt="Malioboro">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/city-tour.png" class="glightbox" title="Jalan Malioboro - Yogyakarta">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image 9 - Normal Size -->
+        <div class="col-lg-6 col-md-6 gallery-item">
+          <div class="gallery-card">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/city-tour1.png" class="img-fluid" alt="Monas">
+            <div class="gallery-info">
+              <a href="<?= base_url('landing-page/') ?>assets/img/base/city-tour1.png" class="glightbox" title="Monumen Nasional - Jakarta">
+                <i class="bi bi-zoom-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section><!-- /Gallery Section -->
+
 <!-- Sign In Section -->
 <?php include APPPATH . 'views/auth/v_login.php'; ?>
 <!-- End Sign In Section -->
+
+
+
 
 </main>
 
@@ -992,7 +1121,145 @@ $(window).on('load', function() {
         }, 500);
     });
 });
+
+	document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GLightbox
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true
+    });
+    
+    // Optional: Add animation when scrolling to gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    const animateGalleryItems = () => {
+      galleryItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.opacity = 1;
+          item.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    };
+    
+    // Initialize with a small delay
+    setTimeout(animateGalleryItems, 300);
+    
+    // Optional: Add intersection observer for lazy loading effect
+    if ('IntersectionObserver' in window) {
+      const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            galleryObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.1
+      });
+      
+      galleryItems.forEach(item => {
+        galleryObserver.observe(item);
+        item.style.opacity = 0;
+        item.style.transform = 'translateY(30px)';
+      });
+    }
+  });
 </script>
+
+<style>
+  /* Gallery Styles */
+  .gallery-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+  }
+  
+  .gallery-card img {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency */
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  
+  /* Make the wide images taller */
+  .col-lg-8 .gallery-card img,
+  .col-lg-6 .gallery-card img {
+    height: 350px;
+  }
+  
+  .gallery-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+  
+  .gallery-card:hover .gallery-info {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .gallery-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  .gallery-info h5 {
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .gallery-info p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  
+  .gallery-info a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .gallery-info a:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .gallery-item {
+      margin-bottom: 15px;
+    }
+    
+    .gallery-card img {
+      height: 250px;
+    }
+    
+    .col-lg-8 .gallery-card img,
+    .col-lg-6 .gallery-card img {
+      height: 300px;
+    }
+  }
+</style>
 </body>
 
 </html>

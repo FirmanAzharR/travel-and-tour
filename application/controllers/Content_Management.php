@@ -50,6 +50,31 @@ class Content_Management extends CI_Controller
         }
     }
 
+    public function public_gallery_list()
+    {
+        // Public endpoint that returns gallery images as JSON (no auth)
+        header('Content-Type: application/json');
+
+        $images = $this->m_content->get_gallery_images();
+        $data = [];
+        if ($images) {
+            foreach ($images as $img) {
+                $data[] = [
+                    'id' => $img->id,
+                    'url_image' => base_url($img->url_image),
+                    'path' => $img->url_image,
+                    'created_at' => $img->created_at ?? null
+                ];
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
+        return;
+    }
+
     /**
      * Ambil object logo aktif dari database
      */

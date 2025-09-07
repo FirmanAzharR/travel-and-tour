@@ -7,6 +7,7 @@ class Master_Data extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_car');
+    $this->load->model('m_artikel');
         // $this->load->model('m_motor');
         // $this->load->model('m_bus');
         // $this->load->model('m_tour_package');
@@ -86,6 +87,43 @@ class Master_Data extends CI_Controller
             log_message('error', 'Error in Master_Data/load_view: ' . $e->getMessage());
             show_error('An error occurred while loading the view. Please try again later.', 500);
         }
+    }
+
+    public function public_artikel_list()
+    {
+        // Public endpoint that returns artikel list as JSON (no auth expected)
+        header('Content-Type: application/json');
+        $artikel = $this->m_artikel->get_all_artikel();
+        $data = [];
+
+        if ($artikel) {
+            // allow both array of arrays (result_array) or array of objects (result)
+            foreach ($artikel as $art) {
+                $id = isset($art['id']) ? $art['id'] : (isset($art->id) ? $art->id : null);
+                $title = isset($art['title']) ? $art['title'] : (isset($art->title) ? $art->title : '');
+                // some code use 'subtitle' or 'sub_title'
+                $subtitle = isset($art['subtitle']) ? $art['subtitle'] : (isset($art['sub_title']) ? $art['sub_title'] : '');
+                $imagePath = isset($art['image']) ? $art['image'] : (isset($art->image) ? $art->image : '');
+                $created_at = isset($art['created_at']) ? $art['created_at'] : (isset($art->created_at) ? $art->created_at : '');
+                $description = isset($art['description']) ? $art['description'] : (isset($art->description) ? $art->description : '');
+
+                $data[] = [
+                    'id' => $id,
+                    'title' => $title,
+                    'sub_title' => $subtitle,
+                    'path' => $imagePath,
+                    'image' => $imagePath ? base_url($imagePath) : '',
+                    'created_at' => $created_at,
+                    'description' => $description
+                ];
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
+        return;
     }
 
     public function get_cars()

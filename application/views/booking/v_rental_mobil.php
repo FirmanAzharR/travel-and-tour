@@ -69,10 +69,10 @@
               </div>
 
               <div class="col-12 text-center mt-4">
-                <button type="submit" class="btn-rental">
-                  <i class="fas fa-check-circle"></i> Booking Sekarang
-                </button>
-              </div>
+									<button type="submit" class="btn-booking">
+									<i class="fas fa-check-circle me-2"></i>Booking Sekarang
+									</button>
+								</div>
             </div>
           </form>
         </div>

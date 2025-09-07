@@ -2,7 +2,7 @@
     <div
         class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
         <a href="/#travel-wisata-jogja" class="logo d-flex align-items-center me-auto me-xl-0">
-     	   <img src="<?= base_url('landing-page/') ?>assets/img/base/logo.png" alt="Customer 5" >
+     	   <img src="<?= base_url('landing-page/') ?>assets/img/base/logo.jpg" alt="Customer 5" >
         </a>
         <nav id="navmenu" class="navmenu">
             <ul>
@@ -18,6 +18,7 @@
 				<li><a href="#carter-bus" class="booking-menu">Carter Haice/Mini Bus</a></li>
 				</ul>
 				<li><a href="#about">About</a></li>
+				<li><a href="#gallery">Gallery</a></li>
                 <?php $user = $this->session->userdata('user_data'); ?>
                 <?php if(isset($user['role']) && $user['role'] === 'CUSTOMER'): ?>
                     <li><a href="#booking-history">Booking History</a></li>

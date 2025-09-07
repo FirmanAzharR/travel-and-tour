@@ -86,12 +86,11 @@
                           </div>
                       </div>
 
-                      <div class="submit-container">
-                          <button type="submit" class="btn modern-btn">
-                              <i class="fab fa-whatsapp"></i>
-                              <span>Booking Sekarang</span>
-                          </button>
-                      </div>
+                      <div class="col-12 text-center mt-4">
+						<button type="submit" class="btn-booking">
+							<i class="fas fa-check-circle me-2"></i>Booking Sekarang
+						</button>
+					</div>
                   </form>
               </div>
           </div>
@@ -294,6 +293,25 @@
   position: relative;
   overflow: hidden;
 }
+/* Styling untuk tombol */
+	.btn-booking {
+		background-color: #0d6efd;
+		color: white;
+		border: none;
+		padding: 12px 30px;
+		border-radius: 8px;
+		font-weight: 600;
+		font-size: 16px;
+		transition: all 0.3s ease;
+		margin-top: 10px;
+		box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+	}
+	
+	.btn-booking:hover {
+		background-color: #0b5ed7;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 15px rgba(13, 110, 253, 0.3);
+	}
 
 .travel-section::before {
   content: '';

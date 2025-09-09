@@ -312,8 +312,8 @@ $(function() {
     function renderCard(pkg) {
         var imageUrl = pkg.image ? baseUrl + pkg.image : baseUrl +
             'landing-page/assets/img/base/default-tour.png';
-        var title = pkg.name || 'Nama Paket';
-        var desc = pkg.description || '-';
+        var title = pkg.name || '';
+        var desc = pkg.description || '';
         var price = pkg.price ? 'Rp ' + parseFloat(pkg.price).toLocaleString('id-ID') : 'Rp 0';
 
         var html = '';
@@ -323,7 +323,7 @@ $(function() {
         html += '    <div class="card-body">';
         html += '      <h5 class="card-title">' + title + '</h5>';
         html += '      <p class="card-text">' + desc + '</p>';
-        html += '      <p class="fw-bold">' + price + '</p>';
+        // html += '      <p class="fw-bold">' + price + '</p>';
         html += '      <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>';
         html += '    </div>';
         html += '  </div>';
@@ -1073,9 +1073,6 @@ $(function() {
 <!-- Sign In Section -->
 <?php include APPPATH . 'views/auth/v_login.php'; ?>
 <!-- End Sign In Section -->
-
-
-
 
 </main>
 

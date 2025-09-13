@@ -50,6 +50,90 @@ class Content_Management extends CI_Controller
         }
     }
 
+    public function public_gallery_list()
+    {
+        // Public endpoint that returns gallery images as JSON (no auth)
+        header('Content-Type: application/json');
+
+        $images = $this->m_content->get_gallery_images();
+        $data = [];
+        if ($images) {
+            foreach ($images as $img) {
+                $data[] = [
+                    'id' => $img->id,
+                    'url_image' => base_url($img->url_image),
+                    'path' => $img->url_image,
+                    'created_at' => $img->created_at ?? null
+                ];
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
+        return;
+    }
+
+    /**
+     * Return active popup images as JSON (no token required)
+     * Uses M_content->get_popup_images()
+     */
+    public function public_popup_list()
+    {
+        header('Content-Type: application/json');
+
+        $images = $this->m_content->get_popup_images();
+        $data = [];
+        if ($images) {
+            foreach ($images as $img) {
+                $data[] = [
+                    'id' => $img->id,
+                    'url_image' => base_url($img->url_image),
+                    'path' => $img->url_image,
+                    'created_at' => isset($img->created_at) ? $img->created_at : null
+                ];
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
+        return;
+    }
+
+    /* Video  */
+    public function get_video_data()
+    {
+        $video = $this->m_content->get_video();
+        if (!$video) {
+            return null;
+        }
+
+        // If result is an object with property 'link_video'
+        if (is_object($video) && property_exists($video, 'link_video')) {
+            return $video->link_video;
+        }
+
+        // If result is an associative array with 'link_video'
+        if (is_array($video)) {
+            if (isset($video['link_video'])) {
+                return $video['link_video'];
+            }
+            // If it's a list, try the first element
+            $first = reset($video);
+            if (is_object($first) && property_exists($first, 'link_video')) {
+                return $first->link_video;
+            }
+            if (is_array($first) && isset($first['link_video'])) {
+                return $first['link_video'];
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Ambil object logo aktif dari database
      */
@@ -75,6 +159,56 @@ class Content_Management extends CI_Controller
                 'message' => 'Logo tidak ditemukan'
             ]);
         }
+    }
+
+    /**
+     * Return video link as JSON (no token required)
+     */
+    public function get_video_link()
+    {
+        header('Content-Type: application/json');
+        $link = $this->get_video_data();
+        if ($link) {
+            echo json_encode(['status' => 'success', 'link_video' => $link]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'No video', 'link_video' => null]);
+        }
+    }
+
+    /**
+     * Return contact data as JSON (no token required)
+     * Fields: whatsapp, email, alamat, fb, ig, tiktok, twitter
+     */
+    public function get_contact_data()
+    {
+        header('Content-Type: application/json');
+
+        $contact = $this->m_content->get_contact();
+
+        if (!$contact) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Kontak tidak ditemukan',
+                'data' => (object)[]
+            ]);
+            return;
+        }
+
+        // Ensure properties exist and provide null defaults
+        $data = [
+            'whatsapp' => isset($contact->whatsapp) ? $contact->whatsapp : null,
+            'email'    => isset($contact->email) ? $contact->email : null,
+            'alamat'   => isset($contact->alamat) ? $contact->alamat : null,
+            'fb'       => isset($contact->fb) ? $contact->fb : null,
+            'ig'       => isset($contact->ig) ? $contact->ig : null,
+            'tiktok'   => isset($contact->tiktok) ? $contact->tiktok : null,
+            'twitter'  => isset($contact->twitter) ? $contact->twitter : null,
+        ];
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
     }
 
     public function upload_logo()

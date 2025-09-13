@@ -64,6 +64,72 @@ class Tour_Package extends CI_Controller
             ->set_output(json_encode($output));
     }
 
+    /**
+     * Publicly accessible variant of list_tour_package.
+     * Accepts GET or POST (uses input->get_post) so it can be called without token/login.
+     */
+    public function list_tour_package_public()
+    {
+        // allow both GET and POST parameters
+        $length = $this->input->get_post('length') ?? 10;
+        $start = $this->input->get_post('start') ?? 0;
+
+        $searchRaw = $this->input->get_post('search');
+        $search = '';
+        if (is_array($searchRaw) && isset($searchRaw['value'])) {
+            $search = $searchRaw['value'];
+        } elseif (is_string($searchRaw)) {
+            $search = $searchRaw;
+        }
+
+        $order = $this->input->get_post('order');
+        $order_col = $order[0]['column'] ?? 0;
+        $order_dir = $order[0]['dir'] ?? 'asc';
+
+        $list = $this->M_tour_package->get_datatable_data(
+            $length,
+            $start,
+            $search,
+            $order_col,
+            $order_dir
+        );
+
+        $data = array();
+        $no = $start;
+        foreach ($list as $package) {
+            $no++;
+            $row = array();
+            $row['DT_RowId'] = 'row_' . $package['id'];
+            $row['id'] = $no;
+            $row['name'] = $package['name'];
+            $row['type'] = $package['type'];
+            $row['description'] = $package['description'];
+            $row['duration'] = $package['duration'] ?? '-';
+            $row['price'] = $package['price'] ?? 0;
+            $row['image'] = $package['image'] ? $package['image'] : '';
+            $row['actions'] = '<div class="btn-group">
+                                <button class="btn btn-sm btn-primary edit-btn" data-id="' . $package['id'] . '">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger delete-btn" data-id="' . $package['id'] . '">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>';
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => intval($this->input->get_post('draw') ?? 1),
+            "recordsTotal" => $this->M_tour_package->count_all(),
+            "recordsFiltered" => $this->M_tour_package->count_filtered($search),
+            "data" => $data,
+        );
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($output));
+    }
+
     public function get($id)
     {
         $package = $this->M_tour_package->get_by_id($id);
@@ -226,5 +292,54 @@ class Tour_Package extends CI_Controller
         $this->output
              ->set_content_type('application/json')
              ->set_output(json_encode($response));
+    }
+
+    /**
+     * Public booking endpoint used by landing page.
+     * Expects POST: tour_package_id, nama_pemesan, nomor_telepon
+     * Inserts into `package_booking` and returns JSON.
+     */
+    public function book()
+    {
+        $response = ['status' => false, 'message' => ''];
+
+        try {
+            $tour_package_id = $this->input->post('tour_package_id');
+            $nama = trim($this->input->post('nama_pemesan'));
+            $phone = trim($this->input->post('nomor_telepon'));
+
+            if (empty($tour_package_id) || empty($nama) || empty($phone)) {
+                throw new Exception('Data tidak lengkap');
+            }
+
+            // generate simple booking code: PKB + timestamp + random 3
+            $booking_code = 'PKB' . date('YmdHis') . rand(100, 999);
+
+            $data = [
+                'tour_package_id' => $tour_package_id,
+                'nama_pemesan' => $nama,
+                'nomor_telepon' => $phone,
+                'booking_code' => $booking_code,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+
+            $this->db->insert('package_booking', $data);
+            $insert_id = $this->db->insert_id();
+
+            if ($insert_id) {
+                $response['status'] = true;
+                $response['message'] = 'Booking berhasil';
+                $response['data'] = array_merge(['id' => $insert_id], $data);
+            } else {
+                throw new Exception('Gagal menyimpan booking');
+            }
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
+            $this->output->set_status_header(400);
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 }

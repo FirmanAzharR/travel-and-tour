@@ -8,6 +8,71 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+    /* Fixed-size destination cards for consistent layout */
+    .destination-card {
+        width: 100%;
+        /* allows grid column to control actual width */
+        max-width: 360px;
+        /* optional ceiling so cards don't stretch too wide */
+        height: 420px;
+        /* fixed card height to keep rows aligned */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: .5rem;
+    }
+
+    .destination-card .card-img-top {
+        width: 100%;
+        height: 220px;
+        /* fixed image height */
+        object-fit: cover;
+        /* keep aspect ratio and crop to fill */
+        display: block;
+    }
+
+    .destination-card .card-body {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(100% - 220px);
+        /* remaining height after image */
+    }
+
+    /* Truncate long text to keep cards uniform */
+    .destination-card .card-title {
+        font-size: 1rem;
+        line-height: 1.2;
+        max-height: 2.4em;
+        /* approx 2 lines */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .destination-card .card-text {
+        font-size: .9rem;
+        color: #6c757d;
+        max-height: 3.6em;
+        /* approx 3 lines */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin-bottom: .5rem;
+    }
+
+    /* Ensure booking button stays at bottom when content is short */
+    .destination-card .btn {
+        margin-top: 0.5rem;
+    }
+    </style>
 </head>
 <section id="hero" class="hero section">
 
@@ -35,8 +100,7 @@
 
                     <div class="hero-buttons">
                         <a href="#travel-wisata-jogja" class="btn btn-primary me-0 me-sm-2 mx-1">Book Now</a>
-                        <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
-                            class="btn btn-link mt-2 mt-sm-0 glightbox">
+                        <a id="watch-tours-btn" href="#" role="button" class="btn btn-link mt-2 mt-sm-0">
                             <i class="bi bi-play-circle me-1"></i>
                             Watch Our Tours
                         </a>
@@ -159,6 +223,64 @@
                                 <div>
                                     <h4 class="profile-name">Mario Smith</h4>
                                     <p class="profile-position">CEO &amp; Founder</p>
+                                    <script>
+                                    // Fetch site contact data once and expose as `window.siteContact`
+                                    (function() {
+                                        var contactApi = '<?= base_url('Content_Management/get_contact_data') ?>';
+                                        window.siteContact = {
+                                            whatsapp: '6288213761173', // default fallback
+                                            email: null,
+                                            alamat: null,
+                                            fb: null,
+                                            ig: null,
+                                            tiktok: null,
+                                            twitter: null
+                                        };
+
+                                        try {
+                                            fetch(contactApi, {
+                                                    method: 'GET',
+                                                    headers: {
+                                                        'Accept': 'application/json'
+                                                    }
+                                                })
+                                                .then(function(resp) {
+                                                    return resp.json();
+                                                })
+                                                .then(function(res) {
+                                                    if (!res || res.status !== 'success' || !res.data) return;
+                                                    var c = res.data || {};
+                                                    var wa = c.whatsapp || c.whatsapp_number || '';
+                                                    if (wa) {
+                                                        wa = wa.toString().trim().replace(/\s+/g, '');
+                                                        if (wa.charAt(0) === '+') wa = wa.substr(1);
+                                                        if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
+                                                        if (wa) window.siteContact.whatsapp = wa;
+                                                    }
+                                                    window.siteContact.email = c.email || null;
+                                                    window.siteContact.alamat = c.alamat || null;
+                                                    window.siteContact.fb = c.fb || null;
+                                                    window.siteContact.ig = c.ig || null;
+                                                    window.siteContact.tiktok = c.tiktok || null;
+                                                    window.siteContact.twitter = c.twitter || null;
+
+                                                    // Update visible contact number if element exists
+                                                    var contactEl = document.querySelector('.contact-number');
+                                                    if (contactEl && window.siteContact.whatsapp) {
+                                                        var display = window.siteContact.whatsapp;
+                                                        if (display.indexOf('62') === 0) display = '+' +
+                                                            display;
+                                                        contactEl.textContent = display;
+                                                    }
+                                                })
+                                                .catch(function(err) {
+                                                    console.warn('Failed to load contact data', err);
+                                                });
+                                        } catch (e) {
+                                            console.warn('Contact fetch error', e);
+                                        }
+                                    })();
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -323,8 +445,10 @@ $(function() {
         html += '    <div class="card-body">';
         html += '      <h5 class="card-title">' + title + '</h5>';
         html += '      <p class="card-text">' + desc + '</p>';
-        html += '      <p class="fw-bold">' + price + '</p>';
-        html += '      <a href="#" class="btn btn-primary w-100 mt-3">Booking</a>';
+        // html += '      <p class="fw-bold">' + price + '</p>';
+        html +=
+            '      <a href="#" class="btn btn-primary w-100 mt-3 open-booking" data-bs-toggle="modal" data-bs-target="#bookingModal" data-id="' +
+            pkg.id + '" data-name="' + title.replace(/"/g, '&quot;') + '">Booking</a>';
         html += '    </div>';
         html += '  </div>';
         html += '</div>';
@@ -1105,6 +1229,24 @@ $(function() {
     </div>
 </div>
 
+<!-- Video Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoModalLabel">Watch Our Tours</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div style="position:relative;padding-top:56.25%;">
+                    <iframe id="videoModalIframe" src="about:blank" frameborder="0" allow="autoplay; encrypted-media"
+                        allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var artikelModalEl = document.getElementById('artikelModal');
@@ -1151,6 +1293,145 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div>
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Booking Paket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <input type="hidden" name="tour_package_id" id="bp_tour_package_id" />
+                    <div class="mb-3">
+                        <label for="bp_nama" class="form-label">Nama Pemesan</label>
+                        <input type="text" class="form-control" id="bp_nama" name="nama_pemesan" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="bp_telepon" class="form-label">Nomor Telepon</label>
+                        <input type="tel" class="form-control" id="bp_telepon" name="nomor_telepon" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" id="bp_kirim" class="btn btn-primary">Kirim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+    // Prefill modal when booking button clicked
+    $(document).on('click', '.open-booking', function(e) {
+        var btn = $(this);
+        var id = btn.data('id');
+        var name = btn.data('name');
+        $('#bp_tour_package_id').val(id);
+        $('#bookingModalLabel').text('Booking Paket: ' + name);
+        // clear previous values
+        $('#bp_nama').val('');
+        $('#bp_telepon').val('');
+    });
+
+    // Submit booking
+    $('#bp_kirim').on('click', function() {
+        var form = $('#bookingForm');
+        if (!form[0].checkValidity()) {
+            form[0].reportValidity();
+            return;
+        }
+
+        var postData = form.serialize();
+        var url = '<?= base_url("Tour_Package/book") ?>';
+
+        $.post(url, postData)
+            .done(function(res) {
+                if (!res || !res.status) {
+                    var msg = (res && res.message) ? res.message : 'Gagal melakukan booking';
+                    Swal.fire('Gagal', msg, 'error');
+                    return;
+                }
+
+                // build WhatsApp message and open
+                var data = res.data || {};
+                var pkgId = data.tour_package_id || '';
+                var nama = encodeURIComponent(data.nama_pemesan || $('#bp_nama').val());
+                var tel = encodeURIComponent(data.nomor_telepon || $('#bp_telepon').val());
+
+                // Attempt to get package name from modal title (falls back to id)
+                var pkgName = $('#bookingModalLabel').text().replace('Booking Paket: ', '') ||
+                    pkgId;
+
+                var waMessage = 'nama: ' + decodeURIComponent(nama) + ' , telepon: ' +
+                    decodeURIComponent(tel) + ' , paket: ' + pkgName;
+
+                // Use richer flow similar to rental booking: show loading, then open WhatsApp with detailed message
+                Swal.fire({
+                    title: 'Mengirim data booking!',
+                    html: 'Menyiapkan pesan WhatsApp...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timer: 1200,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                }).then((result) => {
+                    // WhatsApp number in international format (no leading zero)
+                    const waNumber = (window.siteContact && window.siteContact.whatsapp) ?
+                        window.siteContact.whatsapp : '6288213761173'; // fallback
+
+                    const bookingCode = encodeURIComponent(data.booking_code || '');
+                    const customerName = encodeURIComponent(data.nama_pemesan ||
+                        decodeURIComponent(nama));
+                    const customerPhone = encodeURIComponent(data.nomor_telepon ||
+                        decodeURIComponent(tel));
+                    const packageName = encodeURIComponent(pkgName || '');
+
+                    // Build message - use %0A for new lines
+                    let message = `Halo, saya ${customerName}%0A`;
+                    message +=
+                        `Saya sudah melakukan pemesanan paket dengan detail sebagai berikut:%0A%0A`;
+                    message += `*Kode Booking*: ${bookingCode}%0A`;
+                    message += `*Nama Pemesan*: ${customerName}%0A`;
+                    message += `*No. Telepon*: ${customerPhone}%0A`;
+                    message += `*Paket*: ${packageName}%0A%0A`;
+                    message += `Terima kasih.`;
+
+                    const whatsappUrl = `https://wa.me/${waNumber}?text=${message}`;
+
+                    // close modal then open WhatsApp in new tab
+                    $('#bookingModal').modal('hide');
+                    window.open(whatsappUrl, '_blank');
+
+                    // Show success dialog with booking code
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Mengirim Booking !',
+                        html: `<div class="text-start"><p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p><div class="alert alert-info mt-3"><strong>Kode Booking:</strong> ${data.booking_code || ''}</div></div>`,
+                        confirmButtonText: 'Selesai'
+                    }).then(() => {
+                        // reset form fields in modal
+                        $('#bookingForm')[0].reset();
+                        $('#bookingModalLabel').text('Booking Paket');
+                    });
+                });
+            })
+            .fail(function(xhr) {
+                var msg = 'Gagal menyimpan booking';
+                try {
+                    var j = JSON.parse(xhr.responseText);
+                    if (j && j.message) msg = j.message;
+                } catch (e) {}
+                Swal.fire('Error', msg, 'error');
+            });
+    });
+});
+</script>
 
 <script>
 // Load article into iframe when modal opened, clear when closed
@@ -1230,6 +1511,75 @@ document.addEventListener('DOMContentLoaded', function() {
             }, index * 100);
         });
     };
+
+    // When user clicks the Watch button fetch the video link and open in modal
+    (function() {
+        var btn = document.getElementById('watch-tours-btn');
+        if (!btn) return;
+        var apiUrl = '<?= base_url('Content_Management/get_video_link') ?>';
+
+        function getYouTubeEmbed(link) {
+            if (!link) return null;
+            var m = link.match(
+                /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/))([A-Za-z0-9_-]{6,11})/
+            );
+            if (m && m[1]) return 'https://www.youtube.com/embed/' + m[1] + '?autoplay=1';
+            return null;
+        }
+
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Watch button clicked, fetching video link...');
+
+            fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(function(resp) {
+                    return resp.json();
+                })
+                .then(function(data) {
+                    var link = data && data.link_video ? data.link_video : null;
+                    console.log('Fetched video link:', link);
+                    var embed = getYouTubeEmbed(link);
+                    var iframe = document.getElementById('videoModalIframe');
+
+                    if (embed) {
+                        iframe.src = embed;
+                    } else if (link) {
+                        iframe.src = link;
+                    } else {
+                        iframe.src = 'https://www.youtube.com';
+                    }
+
+                    var videoModalEl = document.getElementById('videoModal');
+                    if (videoModalEl) {
+                        var modal = new bootstrap.Modal(videoModalEl);
+                        modal.show();
+                    }
+                })
+                .catch(function(err) {
+                    console.error('Error fetching video link', err);
+                    var iframe = document.getElementById('videoModalIframe');
+                    if (iframe) iframe.src = 'https://www.youtube.com';
+                    var videoModalEl = document.getElementById('videoModal');
+                    if (videoModalEl) {
+                        var modal = new bootstrap.Modal(videoModalEl);
+                        modal.show();
+                    }
+                });
+        });
+
+        var videoModalEl = document.getElementById('videoModal');
+        if (videoModalEl) {
+            videoModalEl.addEventListener('hidden.bs.modal', function() {
+                var iframe = document.getElementById('videoModalIframe');
+                if (iframe) iframe.src = 'about:blank';
+            });
+        }
+    })();
 
     // Initialize with a small delay
     setTimeout(animateGalleryItems, 300);

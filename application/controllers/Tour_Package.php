@@ -293,4 +293,53 @@ class Tour_Package extends CI_Controller
              ->set_content_type('application/json')
              ->set_output(json_encode($response));
     }
+
+    /**
+     * Public booking endpoint used by landing page.
+     * Expects POST: tour_package_id, nama_pemesan, nomor_telepon
+     * Inserts into `package_booking` and returns JSON.
+     */
+    public function book()
+    {
+        $response = ['status' => false, 'message' => ''];
+
+        try {
+            $tour_package_id = $this->input->post('tour_package_id');
+            $nama = trim($this->input->post('nama_pemesan'));
+            $phone = trim($this->input->post('nomor_telepon'));
+
+            if (empty($tour_package_id) || empty($nama) || empty($phone)) {
+                throw new Exception('Data tidak lengkap');
+            }
+
+            // generate simple booking code: PKB + timestamp + random 3
+            $booking_code = 'PKB' . date('YmdHis') . rand(100, 999);
+
+            $data = [
+                'tour_package_id' => $tour_package_id,
+                'nama_pemesan' => $nama,
+                'nomor_telepon' => $phone,
+                'booking_code' => $booking_code,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+
+            $this->db->insert('package_booking', $data);
+            $insert_id = $this->db->insert_id();
+
+            if ($insert_id) {
+                $response['status'] = true;
+                $response['message'] = 'Booking berhasil';
+                $response['data'] = array_merge(['id' => $insert_id], $data);
+            } else {
+                throw new Exception('Gagal menyimpan booking');
+            }
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
+            $this->output->set_status_header(400);
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
 }

@@ -14,8 +14,14 @@ class Master_Data extends CI_Controller
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload');
         $this->load->library('auth_libraries');
-        $this->auth_libraries->is_logged_in();
-        $this->auth_libraries->is_admin();
+        // Skip auth checks for public endpoints
+        $current_method = strtolower($this->router->method);
+        $public_methods = ['public_artikel_list'];
+
+        if (!in_array($current_method, $public_methods)) {
+            $this->auth_libraries->is_logged_in();
+            $this->auth_libraries->is_admin();
+        }
     }
 
     public function index()

@@ -281,6 +281,29 @@
                                         }
                                     })();
                                     </script>
+
+                                    <!-- Popup Modal markup (will be populated dynamically) -->
+                                    <div class="modal fade" id="sitePopupModal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-body p-0 text-center position-relative">
+                                                    <button type="button"
+                                                        class="btn-close position-absolute top-0 end-0 m-3 bg-white rounded-circle p-1 shadow-sm"
+                                                        style="width:40px;height:40px;" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                    <img src="" alt="Popup Image" id="sitePopupImage"
+                                                        class="img-fluid w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                    // Popup configuration - uses external script to run
+                                    window.__sitePopupApi = '<?= base_url('Content_Management/public_popup_list') ?>';
+                                    window.__sitePopupStorageKey = 'sitePopupShown_v1';
+                                    </script>
+                                    <script src="<?= base_url('landing-page/assets/js/site-popup.js') ?>"></script>
                                 </div>
                             </div>
                         </div>

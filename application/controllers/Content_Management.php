@@ -75,6 +75,34 @@ class Content_Management extends CI_Controller
         return;
     }
 
+    /**
+     * Return active popup images as JSON (no token required)
+     * Uses M_content->get_popup_images()
+     */
+    public function public_popup_list()
+    {
+        header('Content-Type: application/json');
+
+        $images = $this->m_content->get_popup_images();
+        $data = [];
+        if ($images) {
+            foreach ($images as $img) {
+                $data[] = [
+                    'id' => $img->id,
+                    'url_image' => base_url($img->url_image),
+                    'path' => $img->url_image,
+                    'created_at' => isset($img->created_at) ? $img->created_at : null
+                ];
+            }
+        }
+
+        echo json_encode([
+            'status' => 'success',
+            'data' => $data
+        ]);
+        return;
+    }
+
     /* Video  */
     public function get_video_data()
     {

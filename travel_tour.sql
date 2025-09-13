@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2025 at 04:48 AM
+-- Generation Time: Sep 13, 2025 at 06:57 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -78,7 +78,8 @@ INSERT INTO `airport_travel_booking` (`id`, `wa_number`, `booking_date`, `pickup
 (33, '283', '1977-04-30', 'Veniam neque volupt', 'TaShya Bush', NULL, 'Facilis laborum eos ', 32, 'Consequatur eos del', 'Odio facere enim ips', '967', NULL, NULL, '2025-08-08 02:35:51', NULL, 'Alice Melton', 'Aliquid consequatur', NULL, 1, 'TB-20250808-3314'),
 (34, '699', '1975-11-28', 'Aut qui laborum Dol', 'Tamara Owens', NULL, '11:19', 8, 'Delectus excepturi ', '65', '725', NULL, NULL, '2025-08-08 05:29:37', NULL, 'Hedwig Dickerson', '15:36', NULL, 1, 'TB-20250808-7679'),
 (35, '499', '2023-03-25', 'Ipsum in dignissimos', 'Robert Gilliam', NULL, NULL, 50, 'Ekonomi', '38', '974', NULL, NULL, '2025-08-08 10:29:58', NULL, 'Jolene George', NULL, '09:20', 1, NULL),
-(36, '990', '1985-04-24', 'Dolor corporis sint ', 'Allegra Everett', NULL, NULL, 48, NULL, NULL, NULL, NULL, 'pulang_pergi', '2025-08-08 10:30:12', NULL, 'Xandra West', '05:49', NULL, 1, 'TB-20250808-2332');
+(36, '990', '1985-04-24', 'Dolor corporis sint ', 'Allegra Everett', NULL, NULL, 48, NULL, NULL, NULL, NULL, 'pulang_pergi', '2025-08-08 10:30:12', NULL, 'Xandra West', '05:49', NULL, 1, 'TB-20250808-2332'),
+(37, '477', '2015-11-17', 'Eius suscipit quas q', 'Carlos Miller', NULL, NULL, 35, NULL, NULL, NULL, NULL, 'pulang_pergi', '2025-09-13 16:17:55', NULL, 'Slade Rocha', '03:09', NULL, 13, 'TB-20250913-8924');
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,12 @@ INSERT INTO `city_tour_booking` (`id`, `wa_number`, `booking_date`, `pickup_addr
 (44, '195', '1976-04-24 17:00:00', 'Reiciendis aut elit', 33, 'Velit minim et numq', 'Eum ut deserunt adip', 'Maiores anim anim ip', 'WTR-20250807150549-7795', 1, 'Oren Cleveland', '2025-08-18 06:46:06', NULL),
 (45, '296', '2024-01-30 17:00:00', 'Autem at saepe sint', 60, 'Tempore tempore ve', 'Irure nulla ipsam pl', 'Amet eum quis volup', 'WTR-20250808093512-6504', 1, 'Harper Tanner', '2025-08-18 06:46:06', NULL),
 (46, '569', '2004-07-17 17:00:00', 'Fuga Quis veritatis', 96, 'Velit in irure nisi ', 'Rem corrupti tempor', 'Sit consectetur eu', 'WTR-20250808093534-2247', 1, 'Nero Bass', '2025-08-18 06:46:06', NULL),
-(47, '+1 (387) 409-4491', '2021-04-01 17:00:00', 'Dolores dicta pariat', 63, 'Amet eius eius iust', 'Aliqua Incidunt vo', 'Avanza', 'WTR-20250808122746-1782', 1, 'Ryan Travis', '2025-08-18 06:46:06', NULL);
+(47, '+1 (387) 409-4491', '2021-04-01 17:00:00', 'Dolores dicta pariat', 63, 'Amet eius eius iust', 'Aliqua Incidunt vo', 'Avanza', 'WTR-20250808122746-1782', 1, 'Ryan Travis', '2025-08-18 06:46:06', NULL),
+(48, '+1 (736) 787-7377', '2017-11-25 17:00:00', 'Culpa illum volupta', 62, 'Aliqua Dolore numqu', 'Ad fugiat tempor ex', 'Bus', 'WTR-20250913181714-3201', 13, 'Hashim Hancock', '2025-09-13 16:17:14', NULL),
+(49, '+1 (736) 787-7377', '2017-11-25 17:00:00', 'Culpa illum volupta', 62, 'Aliqua Dolore numqu', 'Ad fugiat tempor ex', 'Bus', 'WTR-20250913181722-9599', 13, 'Hashim Hancock', '2025-09-13 16:17:22', NULL),
+(50, '+1 (271) 623-4093', '2006-08-25 17:00:00', 'Quia aliqua Ut quia', 69, 'Minima quia ex omnis', 'Rerum ducimus dicta', 'Bus', 'WTR-20250913181740-4623', 13, 'Austin Mcconnell', '2025-09-13 16:17:40', NULL),
+(51, '+1 (271) 623-4093', '2006-08-25 17:00:00', 'Quia aliqua Ut quia', 69, 'Minima quia ex omnis', 'Rerum ducimus dicta', 'Bus', 'WTR-20250913181846-8230', 13, 'Austin Mcconnell', '2025-09-13 16:18:46', NULL),
+(52, '+1 (399) 772-6437', '2024-02-08 17:00:00', 'Similique aut eos vo', 54, 'Aliquip ex velit in ', 'Harum accusamus aut ', 'Avanza', 'WTR-20250913181929-8233', 13, 'Macy Webster', '2025-09-13 16:19:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -142,7 +148,7 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `whatsapp`, `email`, `alamat`, `fb`, `ig`, `tiktok`, `twitter`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '6281234567891', 'firman.doe@example.com', 'Pasar Minggu, No. 12, Jakarta', 'http://facebook.com/firmandoe', 'http://instagram.com/firmandoe', 'http://tiktok.com/@firmandoe', 'http://twitter.com/firmandoe', '2025-08-10 13:30:07', '2025-08-10 13:31:35', NULL);
+(1, '083122494952', 'firman.doe@example.com', 'Pasar Minggu, No. 12, Jakarta', 'http://facebook.com/firmandoe', 'http://instagram.com/firmandoe', 'http://tiktok.com/@firmandoe', 'http://twitter.com/firmandoe', '2025-08-10 13:30:07', '2025-09-13 22:36:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -207,7 +213,7 @@ CREATE TABLE `image_logo` (
 --
 
 INSERT INTO `image_logo` (`id`, `url_image`, `created_at`, `updated_at`) VALUES
-(4, 'media_uploads/logo-image/3ecfb917ef015d8a62b49e446d4b1a45.png', '2025-08-09 20:52:22', '2025-08-10 01:09:45');
+(4, 'media_uploads/logo-image/647acdecac613307908b69a3d5fab18f.jpg', '2025-08-09 20:52:22', '2025-09-13 08:03:38');
 
 -- --------------------------------------------------------
 
@@ -265,8 +271,9 @@ CREATE TABLE `master_artikel` (
 --
 
 INSERT INTO `master_artikel` (`id`, `title`, `subtitle`, `description`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(10, 'kjlkj', 'kjlkjlk', 'lkjlkj', 'media_uploads/artikel-image/60f651ddf14d5f47bd086cac7f0ee134.png', '2025-08-17 12:27:21', '2025-08-17 19:27:21', '2025-08-17 12:42:47'),
-(11, 'popopopo11', 'popopopo1111', 'popopop11', 'media_uploads/artikel-image/d108828bed0cf87786fc77a8f6633c5a.png', '2025-08-17 12:42:08', '2025-08-17 19:42:39', NULL);
+(10, 'test1', 'test1', 'test1', 'media_uploads/artikel-image/60f651ddf14d5f47bd086cac7f0ee134.png', '2025-08-17 12:27:21', '2025-08-17 19:27:21', '2025-09-13 06:52:02'),
+(11, 'title', 'subtitle', 'description', 'media_uploads/artikel-image/d108828bed0cf87786fc77a8f6633c5a.png', '2025-08-17 12:42:08', '2025-08-17 19:42:39', '2025-09-13 06:51:59'),
+(12, 'test artikel', 'test sub judul', 'test deskripsi', 'media_uploads/artikel-image/a48fd6707ed2da532f4bb44fe0e51a71.jpeg', '2025-09-13 06:52:28', '2025-09-13 13:52:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -315,11 +322,11 @@ CREATE TABLE `master_car` (
 --
 
 INSERT INTO `master_car` (`id`, `name`, `description`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Toyota Avanza', 'Mobil keluarga irit bahan bakar dan nyaman digunakan untuk perjalanan jauh.', 'media_uploads/cars-image/9324d0cd7cbeaeebb0a3a61781af10bc.png', '2025-08-03 06:43:23', '2025-08-13 15:23:30', NULL),
-(2, 'Honda Mobilio', 'Mobil MPV dengan desain elegan dan performa tangguh.', 'media_uploads/cars-image/3df19d3949f4e585116e27add850dc8f.png', '2025-08-03 06:43:23', '2025-08-13 15:23:45', NULL),
+(1, 'Toyota Avanza', 'Mobil keluarga irit bahan bakar dan nyaman digunakan untuk perjalanan jauh.', 'media_uploads/cars-image/9324d0cd7cbeaeebb0a3a61781af10bc.png', '2025-08-03 06:43:23', '2025-08-13 15:23:30', '2025-09-06 19:16:52'),
+(2, 'Honda Mobilio', 'Mobil MPV dengan desain elegan dan performa tangguh.', 'media_uploads/cars-image/3df19d3949f4e585116e27add850dc8f.png', '2025-08-03 06:43:23', '2025-08-13 15:23:45', '2025-09-06 19:16:56'),
 (3, 'Suzuki Ertiga', 'Mobil serbaguna dengan fitur lengkap dan kabin luas.', 'media_uploads/cars-image/115e22b424d449d8dc8d6f528154da7c.png', '2025-08-03 06:43:23', '2025-08-13 15:23:17', NULL),
-(4, 'Daihatsu Xenia', 'Mobil dengan kapasitas besar cocok untuk rombongan.', 'media_uploads/cars-image/2e5a2a0868604966b15187e7c26cfec4.png', '2025-08-03 06:43:23', '2025-08-13 15:23:05', NULL),
-(5, 'Mitsubishi Xpander x', 'Mobil stylish dengan suspensi nyaman dan kabin lega.', 'media_uploads/cars-image/d4afd3b866426e56e52bc972e0f96aab.png', '2025-08-03 06:43:23', '2025-08-13 15:22:23', NULL),
+(4, 'Daihatsu Xenia', 'Mobil dengan kapasitas besar cocok untuk rombongan.', 'media_uploads/cars-image/2e5a2a0868604966b15187e7c26cfec4.png', '2025-08-03 06:43:23', '2025-08-13 15:23:05', '2025-09-06 19:17:05'),
+(5, 'Mitsubishi Xpander x', 'Mobil stylish dengan suspensi nyaman dan kabin lega.', 'media_uploads/cars-image/d4afd3b866426e56e52bc972e0f96aab.png', '2025-08-03 06:43:23', '2025-08-13 15:22:23', '2025-09-06 19:17:01'),
 (6, 'test1', 'kdalksjdla', 'media_uploads/cars-image/2ea26b1bf95e9e60693e759ed3301b71.png', '2025-08-13 07:53:42', NULL, '2025-08-13 08:31:29');
 
 -- --------------------------------------------------------
@@ -371,10 +378,39 @@ CREATE TABLE `master_tour_package` (
 --
 
 INSERT INTO `master_tour_package` (`id`, `name`, `type`, `description`, `image`, `created_at`, `updated_at`, `deleted_at`, `duration`, `price`) VALUES
-(10, 'kjlkjlk', 'wisata', 'kjlkjl', 'media_uploads/tour-package-image/5fbc33ab7c46e64d3ab22119c3568287.png', '2025-08-17 11:42:58', '2025-08-17 19:03:53', NULL, '1 Hari', '200000'),
+(10, 'kjlkjlk', 'wisata', 'kjlkjl', 'media_uploads/tour-package-image/5fbc33ab7c46e64d3ab22119c3568287.png', '2025-08-17 11:42:58', '2025-09-07 02:18:01', NULL, '1 Hari', '200000'),
 (11, 'test1', 'wisata', 'klklklkjppp', 'media_uploads/tour-package-image/f969117301f2aa27dfe132beea3ba92f.png', '2025-08-17 11:53:37', '2025-08-17 19:03:35', NULL, '1 Hari', '300000'),
 (12, 'paket 3', 'city_tour', 'lsdk;alskd;al', 'media_uploads/tour-package-image/66fd7611998b8dd15f20369fefe6d07d.png', '2025-08-17 11:59:02', '2025-08-17 19:03:19', NULL, '2 Hari', '900000'),
 (13, 'Paket 10', 'wisata', 'test', 'media_uploads/tour-package-image/037174b9178c8f56e92effbccb9df25b.png', '2025-08-17 12:02:53', '2025-08-17 19:02:53', NULL, '2 Hari', '750000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_booking`
+--
+
+CREATE TABLE `package_booking` (
+  `id` int(11) NOT NULL,
+  `tour_package_id` int(11) DEFAULT NULL,
+  `nama_pemesan` varchar(100) DEFAULT NULL,
+  `nomor_telepon` varchar(100) DEFAULT NULL,
+  `booking_code` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `package_booking`
+--
+
+INSERT INTO `package_booking` (`id`, `tour_package_id`, `nama_pemesan`, `nomor_telepon`, `booking_code`, `created_at`) VALUES
+(1, 1, 'firman', '082236778929', 'PKB20250913165246787', '2025-09-13 09:52:46'),
+(2, 4, 'firman', '082236778929', 'PKB20250913170701621', '2025-09-13 10:07:01'),
+(3, 4, 'firman', '082236778929', 'PKB20250913171155777', '2025-09-13 10:11:55'),
+(4, 2, 'firman', '08312244972', 'PKB20250913171443105', '2025-09-13 10:14:43'),
+(5, 4, 'firman', '0887636717819', 'PKB20250913172435186', '2025-09-13 10:24:35'),
+(6, 1, 'uiuyiu', '092-3091092', 'PKB20250913172533822', '2025-09-13 10:25:33'),
+(7, 2, 'ytuyt', 'uytu', 'PKB20250913173305352', '2025-09-13 10:33:05'),
+(8, 1, 'kjkjhkjh', '03492039', 'PKB20250913173647506', '2025-09-13 10:36:47');
 
 -- --------------------------------------------------------
 
@@ -403,12 +439,12 @@ INSERT INTO `popup_image` (`id`, `url_image`, `created_at`, `updated_at`, `delet
 (6, 'media_uploads/popup-images/582c13dc3e3f11905f6348240a29a7ff.png', '2025-08-10 08:59:23', '2025-08-10 13:59:47', '2025-08-10 08:59:47'),
 (7, 'media_uploads/popup-images/3fb703a0030eaab2972544c851dc7b3e.png', '2025-08-10 09:00:18', '2025-08-10 14:08:57', '2025-08-10 09:08:57'),
 (8, 'media_uploads/popup-images/98cbe62e7040b86597087464b701ec89.png', '2025-08-10 09:02:19', '2025-08-13 21:38:49', '2025-08-13 16:38:49'),
-(9, 'media_uploads/popup-images/48e45852a75c09e0d285334eeed61c87.png', '2025-08-10 09:02:25', '2025-08-10 09:02:25', NULL),
-(10, 'media_uploads/popup-images/415f9232d27091dc02fe1cb9d46dbff8.png', '2025-08-10 09:02:30', '2025-08-10 09:02:30', NULL),
+(9, 'media_uploads/popup-images/48e45852a75c09e0d285334eeed61c87.png', '2025-08-10 09:02:25', '2025-09-13 23:38:16', '2025-09-13 18:38:16'),
+(10, 'media_uploads/popup-images/415f9232d27091dc02fe1cb9d46dbff8.png', '2025-08-10 09:02:30', '2025-09-13 23:38:13', '2025-09-13 18:38:13'),
 (11, 'media_uploads/popup-images/9a321ed5bb79dbafdd8460a6f60e3339.png', '2025-08-10 09:03:03', '2025-08-10 09:03:03', NULL),
 (12, 'media_uploads/popup-images/1ecf1a7e2359850523088a327746429c.png', '2025-08-10 09:08:41', '2025-08-10 14:09:00', '2025-08-10 09:09:00'),
 (13, 'media_uploads/popup-images/d3b2ba341a4540cd3be4b352d21d7048.png', '2025-08-10 09:09:38', '2025-08-10 14:09:44', '2025-08-10 09:09:44'),
-(14, 'media_uploads/popup-images/1630fc0cfd6a91d3ea12a22af574fcd2.png', '2025-08-10 09:10:17', '2025-08-10 09:10:17', NULL),
+(14, 'media_uploads/popup-images/1630fc0cfd6a91d3ea12a22af574fcd2.png', '2025-08-10 09:10:17', '2025-09-13 23:38:10', '2025-09-13 18:38:10'),
 (15, 'media_uploads/popup-images/74c7b8b4856fe28c86f74969b45f4180.png', '2025-08-10 09:23:52', '2025-08-10 14:23:56', '2025-08-10 09:23:56');
 
 -- --------------------------------------------------------
@@ -588,7 +624,7 @@ CREATE TABLE `video_header` (
 --
 
 INSERT INTO `video_header` (`id`, `link_video`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'https://www.youtube.com/watch?v=Fve_lHIPa-I&list=RDFve_lHIPa-I&start_radio=1', '2025-08-10 13:21:00', '2025-08-10 08:21:12', NULL);
+(1, 'https://www.youtube.com/watch?v=4ZKgq7Aw34s&list=RDeyb1h5LVHhg&index=2', '2025-08-10 13:21:00', '2025-09-13 15:14:19', NULL);
 
 --
 -- Indexes for dumped tables
@@ -667,6 +703,12 @@ ALTER TABLE `master_tour_package`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `package_booking`
+--
+ALTER TABLE `package_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `popup_image`
 --
 ALTER TABLE `popup_image`
@@ -722,13 +764,13 @@ ALTER TABLE `video_header`
 -- AUTO_INCREMENT for table `airport_travel_booking`
 --
 ALTER TABLE `airport_travel_booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `city_tour_booking`
 --
 ALTER TABLE `city_tour_booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -764,7 +806,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `master_artikel`
 --
 ALTER TABLE `master_artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `master_bus`
@@ -789,6 +831,12 @@ ALTER TABLE `master_motorcycle`
 --
 ALTER TABLE `master_tour_package`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `package_booking`
+--
+ALTER TABLE `package_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `popup_image`

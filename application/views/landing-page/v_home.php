@@ -12,66 +12,295 @@
     <style>
     /* Fixed-size destination cards for consistent layout */
     .destination-card {
-        width: 100%;
-        /* allows grid column to control actual width */
-        max-width: 360px;
-        /* optional ceiling so cards don't stretch too wide */
-        height: 420px;
-        /* fixed card height to keep rows aligned */
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border-radius: .5rem;
-    }
+    width: 100%;
+    height: auto; /* Hapus fixed height untuk konten yang lebih fleksibel */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
 
-    .destination-card .card-img-top {
-        width: 100%;
-        height: 220px;
-        /* fixed image height */
-        object-fit: cover;
-        /* keep aspect ratio and crop to fill */
-        display: block;
-    }
+	.destination-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	}
 
-    .destination-card .card-body {
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: calc(100% - 220px);
-        /* remaining height after image */
-    }
+	/* Buat container untuk gambar dengan posisi relatif untuk icon zoom */
+	.destination-card .img-container {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		height: 280px; /* Tinggi gambar yang lebih besar */
+	}
 
-    /* Truncate long text to keep cards uniform */
-    .destination-card .card-title {
-        font-size: 1rem;
-        line-height: 1.2;
-        max-height: 2.4em;
-        /* approx 2 lines */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
+	.destination-card .card-img-top {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
 
-    .destination-card .card-text {
-        font-size: .9rem;
-        color: #6c757d;
-        max-height: 3.6em;
-        /* approx 3 lines */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        margin-bottom: .5rem;
-    }
+	.destination-card:hover .card-img-top {
+		transform: scale(1.05);
+	}
 
-    /* Ensure booking button stays at bottom when content is short */
-    .destination-card .btn {
-        margin-top: 0.5rem;
-    }
+	/* Icon zoom yang muncul saat hover */
+	.destination-card .zoom-icon {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background-color: rgba(255, 255, 255, 0.8);
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		cursor: pointer;
+		color: #333;
+		z-index: 2;
+	}
+
+	.destination-card:hover .zoom-icon {
+		opacity: 1;
+	}
+
+	/* Konten card yang lebih informatif */
+	.destination-card .card-body {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.destination-card .card-title {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-bottom: 0.75rem;
+		color: #333;
+	}
+
+	.destination-card .card-text {
+		font-size: 1rem;
+		color: #6c757d;
+		margin-bottom: 1rem;
+		/* Tampilkan 4 baris dan tambahkan ellipsis jika lebih panjang */
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.destination-card .btn {
+		margin-top: 0.75rem;
+		font-weight: 500;
+		padding: 0.6rem 1.5rem;
+	}
+
+	/* Style untuk modal gambar */
+	.destination-image-modal .modal-content {
+		border: none;
+		border-radius: 0.75rem;
+		overflow: hidden;
+	}
+
+	.destination-image-modal .modal-body {
+		padding: 0;
+	}
+
+	.destination-image-modal .modal-header {
+		border: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 10;
+		background: transparent;
+	}
+
+	.destination-image-modal .btn-close {
+		background-color: rgba(255, 255, 255, 0.8);
+		border-radius: 50%;
+		margin: 1rem;
+		opacity: 0.8;
+		padding: 0.75rem;
+	}
+
+	.destination-image-modal .modal-img {
+		width: 100%;
+		max-height: 80vh;
+		object-fit: contain;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		.destination-card .img-container {
+			height: 220px;
+		}
+	}
+
+	/* Polaroid Gallery Styles */
+.polaroid-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+  grid-gap: 20px;
+  grid-auto-flow: dense;
+}
+
+/* Item size variations */
+.polaroid-item {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.polaroid-item-wide {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.polaroid-item-tall {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.polaroid-item-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Polaroid Card Styling */
+.polaroid-card {
+  position: relative;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  height: 100%;
+  transition: all 0.3s ease;
+  transform: rotate(0deg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rotating effect for polaroid cards */
+.polaroid-item:nth-child(odd) .polaroid-card {
+  transform: rotate(-1deg);
+}
+
+.polaroid-item:nth-child(even) .polaroid-card {
+  transform: rotate(1deg);
+}
+
+.polaroid-item:nth-child(3n) .polaroid-card {
+  transform: rotate(0deg);
+}
+
+.polaroid-card:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.polaroid-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  flex: 1;
+}
+
+.polaroid-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.polaroid-card:hover .polaroid-image img {
+  transform: scale(1.05);
+}
+
+.polaroid-caption {
+  padding: 10px 0 5px;
+  text-align: center;
+}
+
+.polaroid-caption h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.polaroid-caption p {
+  margin: 5px 0 0;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.polaroid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.polaroid-card:hover .polaroid-overlay {
+  opacity: 1;
+}
+
+.polaroid-button {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.polaroid-card:hover .polaroid-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .polaroid-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 200px;
+    grid-gap: 15px;
+  }
+  
+  .polaroid-item-wide,
+  .polaroid-item-large {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .polaroid-caption h5 {
+    font-size: 0.9rem;
+  }
+  
+  .polaroid-caption p {
+    font-size: 0.75rem;
+  }
+}
     </style>
 </head>
 <section id="hero" class="hero section">
@@ -191,13 +420,11 @@
 
             <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
                 <span class="about-meta">MORE ABOUT US</span>
-                <h2 class="about-title">Voluptas enim suscipit temporibus</h2>
-                <p class="about-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                    architecto
-                    beatae vitae dicta sunt explicabo.</p>
+                <h2 class="about-title">Jelajahi Dunia, Temukan Dirimu</h2>
+                <p class="about-description">Berdiri sejak 2019, Wak Trans Tour & Travel adalah pionir perjalanan transformatif berbasis di Yogyakarta. Kami tidak hanya menawarkan destinasi, tapi menciptakan perjalanan yang mengubah perspektif dan memperkaya jiwa melalui layanan open trip, private trip, honeymoon, family gathering, hingga eksplorasi internasional..</p>
+                <p class="about-description">Setiap perjalanan adalah sebuah cerita yang belum ditulis. Di Wak Trans, kami percaya bahwa momen terbaik dalam hidup terjadi ketika kita berani melangkah keluar dari zona nyaman. Dengan filosofi "Jelajahi Dunia, Temukan Dirimu", kami merancang setiap perjalanan sebagai kesempatan untuk menemukan keajaiban dunia sekaligus merefleksikan diri.</p>
 
-                <div class="row feature-list-wrapper">
+                <!-- <div class="row feature-list-wrapper">
                     <div class="col-md-6">
                         <ul class="feature-list">
                             <li><i class="bi bi-check-circle-fill"></i> Lorem ipsum dolor sit amet</li>
@@ -212,9 +439,9 @@
                             <li><i class="bi bi-check-circle-fill"></i> Ut enim ad minim veniam</li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="info-wrapper">
+                <!-- <div class="info-wrapper">
                     <div class="row gy-4">
                         <div class="col-lg-5">
                             <div class="profile d-flex align-items-center gap-3">
@@ -224,7 +451,6 @@
                                     <h4 class="profile-name">Mario Smith</h4>
                                     <p class="profile-position">CEO &amp; Founder</p>
                                     <script>
-                                    // Fetch site contact data once and expose as `window.siteContact`
                                     (function() {
                                         var contactApi = '<?= base_url('Content_Management/get_contact_data') ?>';
                                         window.siteContact = {
@@ -264,7 +490,6 @@
                                                     window.siteContact.tiktok = c.tiktok || null;
                                                     window.siteContact.twitter = c.twitter || null;
 
-                                                    // Update visible contact number if element exists
                                                     var contactEl = document.querySelector('.contact-number');
                                                     if (contactEl && window.siteContact.whatsapp) {
                                                         var display = window.siteContact.whatsapp;
@@ -282,7 +507,6 @@
                                     })();
                                     </script>
 
-                                    <!-- Popup Modal markup (will be populated dynamically) -->
                                     <div class="modal fade" id="sitePopupModal" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
@@ -299,7 +523,6 @@
                                     </div>
 
                                     <script>
-                                    // Popup configuration - uses external script to run
                                     window.__sitePopupApi = '<?= base_url('Content_Management/public_popup_list') ?>';
                                     window.__sitePopupStorageKey = 'sitePopupShown_v1';
                                     </script>
@@ -317,7 +540,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="col-xl-6" data-aos="fade-up" data-aos-delay="300">
@@ -328,10 +551,10 @@
                         <img src="<?= base_url('landing-page/') ?>assets/img/about-2.webp" alt="Team Discussion"
                             class="img-fluid small-image rounded-4">
                     </div>
-                    <div class="experience-badge floating">
+                    <!-- <div class="experience-badge floating">
                         <h3>15+ <span>Years</span></h3>
                         <p>Of experience in business service</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -397,55 +620,137 @@
 
 <script>
 $(function() {
-    var baseUrl = '<?= base_url() ?>';
-    var api = baseUrl + 'Content_Management/public_gallery_list';
+  var baseUrl = '<?= base_url() ?>';
+  var api = baseUrl + 'Content_Management/public_gallery_list';
 
-    function renderGalleryItem(img) {
-        var imageUrl = img.path ? baseUrl + img.path : img.url_image;
-        var html = '';
-        html += '<div class="col-lg-4 col-md-6 gallery-item">';
-        html += '  <div class="gallery-card">';
-        html += '    <img src="' + imageUrl + '" class="img-fluid" alt="Gallery Image">';
-        html += '    <div class="gallery-info">';
-        html += '      <a href="' + imageUrl +
-            '" class="glightbox" title="Gallery Image"><i class="bi bi-zoom-in"></i></a>';
-        html += '    </div>';
-        html += '  </div>';
-        html += '</div>';
-        return html;
+  function renderGalleryItem(img, index) {
+    var imageUrl = img.path ? baseUrl + img.path : img.url_image;
+    var html = '';
+    
+    // Menentukan ukuran dan posisi card berdasarkan indeks
+    var sizeClass = '';
+    
+    // Membuat pola grid yang bervariasi
+    if (index % 7 === 0) {
+      sizeClass = 'polaroid-item-large'; // Item besar setiap 7 item
+    } else if (index % 5 === 0) {
+      sizeClass = 'polaroid-item-wide'; // Item lebar setiap 5 item
+    } else if (index % 3 === 0) {
+      sizeClass = 'polaroid-item-tall'; // Item tinggi setiap 3 item
+    } else {
+      sizeClass = 'polaroid-item'; // Item standar untuk sisanya
     }
+    
+    html += '<div class="' + sizeClass + '">';
+    html += '  <div class="polaroid-card">';
+    html += '    <div class="polaroid-image">';
+    html += '      <img src="' + imageUrl + '" class="img-fluid" alt="Gallery Image">';
+    html += '    </div>';
+    html += '    <a href="' + imageUrl + '" class="polaroid-overlay glightbox" title="' + (img.title || 'Gallery Image') + '">';
+    html += '      <i class="bi bi-zoom-in"></i>';
+    html += '    </a>';
+    html += '  </div>';
+    html += '</div>';
+    return html;
+  }
 
-    $.ajax({
-        url: api,
-        type: 'GET',
-        dataType: 'json',
-        success: function(res) {
-            if (!res || res.status !== 'success') {
-                $('#dynamic-gallery-grid').html(
-                    '<div class="col-12"><p>Tidak ada gambar gallery.</p></div>');
-                return;
-            }
+  $.ajax({
+    url: api,
+    type: 'GET',
+    dataType: 'json',
+    success: function(res) {
+      if (!res || res.status !== 'success') {
+        $('#dynamic-gallery-grid').html('<div class="col-12"><p>Tidak ada gambar gallery.</p></div>');
+        return;
+      }
 
-            var html = '';
-            res.data.forEach(function(img) {
-                html += renderGalleryItem(img);
-            });
+      var html = '';
+      res.data.forEach(function(img, index) {
+        html += renderGalleryItem(img, index);
+      });
 
-            if (html === '') html = '<div class="col-12"><p>Tidak ada gambar gallery.</p></div>';
-            $('#dynamic-gallery-grid').html(html);
+      if (html === '') html = '<div class="col-12"><p>Tidak ada gambar gallery.</p></div>';
+      $('#dynamic-gallery-grid').html(html);
 
-            // re-init lightbox for dynamically added items
-            if (typeof GLightbox === 'function') {
-                GLightbox({
-                    selector: '.glightbox'
-                });
-            }
-        },
-        error: function() {
-            $('#dynamic-gallery-grid').html(
-                '<div class="col-12"><p>Gagal memuat galeri.</p></div>');
-        }
-    });
+      // re-init lightbox for dynamically added items
+      if (typeof GLightbox === 'function') {
+        GLightbox({
+          selector: '.glightbox'
+        });
+      }
+    },
+    error: function() {
+      $('#dynamic-gallery-grid').html('<div class="col-12"><p>Gagal memuat galeri.</p></div>');
+    }
+  });
+  
+  // Fungsi untuk artikel dengan pola yang sama
+  function renderArtikelItem(a, index) {
+    var imgUrl = a.path ? baseUrl + a.path : (a.image ? baseUrl + a.image : baseUrl + 'landing-page/assets/img/base/default-article.png');
+    var title = a.title || 'Judul Artikel';
+    var subtitle = a.sub_title || '';
+    var subtitleShort = subtitle && subtitle.length > 25 ? subtitle.substring(0, 25) + '...' : subtitle;
+    var description = a.description || a.content || a.body || a.excerpt || '';
+
+    // encode values untuk dimasukkan ke data-attribute
+    var dTitle = encodeURIComponent(title);
+    var dSubtitle = encodeURIComponent(subtitle);
+    var dDesc = encodeURIComponent(description);
+    var dImg = encodeURIComponent(imgUrl);
+    
+    var html = '';
+    
+    // Menentukan ukuran dan posisi card berdasarkan indeks
+    var sizeClass = '';
+    
+    // Membuat pola grid yang bervariasi
+    if (index % 7 === 0) {
+      sizeClass = 'polaroid-item-large'; // Item besar setiap 7 item
+    } else if (index % 5 === 0) {
+      sizeClass = 'polaroid-item-wide'; // Item lebar setiap 5 item
+    } else if (index % 3 === 0) {
+      sizeClass = 'polaroid-item-tall'; // Item tinggi setiap 3 item
+    } else {
+      sizeClass = 'polaroid-item'; // Item standar untuk sisanya
+    }
+    
+    html += '<div class="' + sizeClass + '">';
+    html += '  <div class="polaroid-card">';
+    html += '    <div class="polaroid-image">';
+    html += '      <img src="' + imgUrl + '" class="img-fluid" alt="' + title + '">';
+    html += '    </div>';
+    html += '    <div class="polaroid-caption">';
+    html += '      <h5>' + title + '</h5>';
+    html += '      <p>' + subtitleShort + '</p>';
+    html += '    </div>';
+    html += '    <div class="polaroid-button">';
+    html += '      <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#artikelModal" data-title="' + dTitle + '" data-subtitle="' + dSubtitle + '" data-desc="' + dDesc + '" data-img="' + dImg + '">Baca</button>';
+    html += '    </div>';
+    html += '  </div>';
+    html += '</div>';
+    return html;
+  }
+
+  $.ajax({
+    url: baseUrl + 'Master_Data/public_artikel_list',
+    type: 'GET',
+    dataType: 'json',
+    success: function(res) {
+      if (!res || res.status !== 'success') {
+        $('#dynamic-artikel-grid').html('<div class="col-12"><p>Tidak ada artikel.</p></div>');
+        return;
+      }
+      var html = '';
+      res.data.forEach(function(a, index) {
+        html += renderArtikelItem(a, index);
+      });
+      if (html === '') html = '<div class="col-12"><p>Tidak ada artikel.</p></div>';
+      $('#dynamic-artikel-grid').html(html);
+    },
+    error: function() {
+      $('#dynamic-artikel-grid').html('<div class="col-12"><p>Gagal memuat artikel.</p></div>');
+    }
+  });
 });
 </script>
 
@@ -758,7 +1063,7 @@ $(function() {
                         <p>
                             <i class="bi bi-quote quote-icon-left"></i>
                             <span>Liburan keluarga kami ke Yogyakarta jadi sangat berkesan berkat layanan tour yang luar
-                                biasa ini. Guide sangat ramah dan mengerti kebutuhan anak-anak. Semua destinasi yang
+                                biasa dari Wak Trans. Guide sangat ramah dan mengerti kebutuhan anak-anak. Semua destinasi yang
                                 dikunjungi sesuai ekspektasi, bahkan lebih! Akomodasi nyaman dan makanan enak. Pasti
                                 akan menggunakan jasa mereka lagi untuk trip berikutnya.</span>
                             <i class="bi bi-quote quote-icon-right"></i>
@@ -803,9 +1108,8 @@ $(function() {
                         </div>
                         <p>
                             <i class="bi bi-quote quote-icon-left"></i>
-                            <span>Paket honeymoon ke Labuan Bajo yang kami pilih benar-benar sempurna! Pemandangan
-                                sunset di Pulau Padar, snorkeling dengan manta ray, dan kunjungan ke Pulau Komodo jadi
-                                momen tak terlupakan. Tim tour sangat perhatian dengan detail kecil yang membuat
+                            <span>Paket honeymoon ke Yogyakarta yang kami pilih benar-benar sempurna! Pemandangan
+                                sunset kunjungan ke tempat-tempat wisata jadi momen tak terlupakan. Tim tour sangat perhatian dengan detail kecil yang membuat
                                 perjalanan kami spesial. Terima kasih untuk pengalaman honeymoon yang magical!</span>
                             <i class="bi bi-quote quote-icon-right"></i>
                         </p>
@@ -1177,45 +1481,46 @@ $(function() {
 <!-- End Booking Section -->
 
 
+<!-- Gallery Section dengan Layout Polaroid & Grid Dinamis -->
 <section id="gallery" class="gallery section">
-    <div class="container" data-aos="fade-up">
-        <div class="section-header text-center position-relative" data-aos="fade-up">
-            <span class="section-badge fw-bold text-primary">GALERI PERJALANAN</span>
-            <br>
-            <br>
-            <h2 class="section-title fw-bold">Momen <span class="text-primary">Tak Terlupakan</span></h2>
-            <p class="mt-3 mb-5">Jelajahi berbagai pengalaman perjalanan yang telah kami dokumentasikan dari berbagai
-                destinasi wisata di Indonesia</p>
-        </div>
-
-        <!-- Gallery Grid -->
-        <div class="gallery-container" data-aos="fade-up" data-aos-delay="200">
-            <div class="row g-4 gallery-grid" id="dynamic-gallery-grid">
-                <!-- gallery images will be loaded here via AJAX -->
-            </div>
-        </div>
-
-        <br>
-        <hr>
-        <br>
-
-        <!-- Artikel Grid -->
-        <div class="section-header text-center position-relative" data-aos="fade-up">
-            <span class="section-badge fw-bold text-primary">Rekomendasi Tempat Wisata</span>
-            <br>
-            <br>
-            <h2 class="section-title fw-bold">Wisata <span class="text-primary">Yogyakarta</span></h2>
-            <p class="mt-3 mb-5">Jelajahi berbagai tempat wisata di yogyakarta</p>
-        </div>
-
-        <div class="gallery-container" data-aos="fade-up" data-aos-delay="200">
-            <div class="row g-4 gallery-grid" id="dynamic-artikel-grid">
-                <!-- artikel images will be loaded here via AJAX -->
-            </div>
-        </div>
-
+  <div class="container" data-aos="fade-up">
+    <div class="section-header text-center position-relative" data-aos="fade-up">
+      <span class="section-badge fw-bold text-primary">GALERI PERJALANAN</span>
+      <br>
+      <br>
+      <h2 class="section-title fw-bold">Momen <span class="text-primary">Tak Terlupakan</span></h2>
+      <p class="mt-3 mb-5">Jelajahi berbagai pengalaman perjalanan yang telah kami dokumentasikan dari berbagai
+        destinasi wisata di Indonesia</p>
     </div>
-</section><!-- /Gallery and Artikel Section -->
+
+    <!-- Gallery Grid dengan Layout Polaroid -->
+    <div class="gallery-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="polaroid-gallery" id="dynamic-gallery-grid">
+        <!-- gallery images will be loaded here via AJAX -->
+      </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <!-- Artikel Grid -->
+    <div class="section-header text-center position-relative" data-aos="fade-up">
+      <span class="section-badge fw-bold text-primary">Rekomendasi Tempat Wisata</span>
+      <br>
+      <br>
+      <h2 class="section-title fw-bold">Wisata <span class="text-primary">Yogyakarta</span></h2>
+      <p class="mt-3 mb-5">Jelajahi berbagai tempat wisata di yogyakarta</p>
+    </div>
+
+    <div class="gallery-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="polaroid-gallery" id="dynamic-artikel-grid">
+        <!-- artikel images will be loaded here via AJAX -->
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- Sign In Section -->
 <?php include APPPATH . 'views/auth/v_login.php'; ?>

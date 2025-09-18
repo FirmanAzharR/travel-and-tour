@@ -2,7 +2,7 @@
 //change name file
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Master_Data extends CI_Controller
+class Master_data extends CI_Controller
 {
     public function __construct()
     {
@@ -91,7 +91,7 @@ class Master_Data extends CI_Controller
             $this->load->view($view_file, $data);
             
         } catch (Exception $e) {
-            log_message('error', 'Error in Master_Data/load_view: ' . $e->getMessage());
+            log_message('error', 'Error in Master_data/load_view: ' . $e->getMessage());
             show_error('An error occurred while loading the view. Please try again later.', 500);
         }
     }

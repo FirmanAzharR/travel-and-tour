@@ -152,24 +152,37 @@
                                     }
                                 }).then((result) => {
                                     // Use WhatsApp number from window.siteContact
-                                    const waNumber = (window.siteContact && window.siteContact.whatsapp) ? window.siteContact.whatsapp : '';
-                                    const customerName = encodeURIComponent(data.customer_name);
-                                    const bookingCode = encodeURIComponent(data.booking_code);
+                                    const waNumber = (window.siteContact && window
+                                            .siteContact.whatsapp) ? window.siteContact
+                                        .whatsapp : '';
+                                    const customerName = encodeURIComponent(data
+                                        .customer_name);
+                                    const bookingCode = encodeURIComponent(data
+                                        .booking_code);
                                     let message = `Halo, saya ${customerName}%0A`;
                                     message +=
                                         `Saya sudah melakukan pemesanan tiket wisata dengan detail sebagai berikut:%0A%0A`;
                                     message += `*Kode Booking*: ${bookingCode}%0A`;
                                     message += `*Nama*: ${customerName}%0A`;
-                                    message += `*No. WhatsApp*: ${encodeURIComponent(data.wa_number)}%0A`;
-                                    message += `*Tujuan Wisata*: ${encodeURIComponent(data.tour_destination)}%0A`;
-                                    message += `*Tanggal*: ${encodeURIComponent(data.booking_date)}%0A`;
-                                    message += `*Waktu Jemput*: ${encodeURIComponent(data.pickup_time || '-') }%0A`;
-                                    message += `*Durasi*: ${encodeURIComponent(data.duration || '-') }%0A`;
-                                    message += `*Jumlah Penumpang*: ${encodeURIComponent(data.total_passenger)}%0A`;
-                                    message += `*Tipe Mobil*: ${encodeURIComponent(data.car_type || '-') }%0A`;
-                                    message += `*Alamat Penjemputan*: ${encodeURIComponent(data.pickup_address || '-') }%0A%0A`;
+                                    message +=
+                                        `*No. WhatsApp*: ${encodeURIComponent(data.wa_number)}%0A`;
+                                    message +=
+                                        `*Tujuan Wisata*: ${encodeURIComponent(data.tour_destination)}%0A`;
+                                    message +=
+                                        `*Tanggal*: ${encodeURIComponent(data.booking_date)}%0A`;
+                                    message +=
+                                        `*Waktu Jemput*: ${encodeURIComponent(data.pickup_time || '-') }%0A`;
+                                    message +=
+                                        `*Durasi*: ${encodeURIComponent(data.duration || '-') }%0A`;
+                                    message +=
+                                        `*Jumlah Penumpang*: ${encodeURIComponent(data.total_passenger)}%0A`;
+                                    message +=
+                                        `*Tipe Mobil*: ${encodeURIComponent(data.car_type || '-') }%0A`;
+                                    message +=
+                                        `*Alamat Penjemputan*: ${encodeURIComponent(data.pickup_address || '-') }%0A%0A`;
                                     message += `Terima kasih.`;
-                                    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+                                    window.open(`https://wa.me/${waNumber}?text=${message}`,
+                                        '_blank');
                                     bookingForm.reset();
                                 });
                             } else {
@@ -206,7 +219,9 @@
                                 'Accept': 'application/json'
                             }
                         })
-                        .then(function(resp) { return resp.json(); })
+                        .then(function(resp) {
+                            return resp.json();
+                        })
                         .then(function(res) {
                             if (res && res.status === 'success' && res.data && res.data.whatsapp) {
                                 var wa = res.data.whatsapp.toString().trim().replace(/\s+/g, '');

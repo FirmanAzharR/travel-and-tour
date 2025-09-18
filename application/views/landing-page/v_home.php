@@ -503,7 +503,7 @@
                     </div>
 
                     <script>
-                    window.__sitePopupApi = '<?= base_url('Content_Management/public_popup_list') ?>';
+                    window.__sitePopupApi = '<?= base_url('Content_management/public_popup_list') ?>';
                     </script>
                     <script>
                     // Popup akan selalu muncul setiap load, tanpa cek localStorage
@@ -609,7 +609,7 @@
 <script>
 $(function() {
     var baseUrl = '<?= base_url() ?>';
-    var api = baseUrl + 'Content_Management/public_gallery_list';
+    var api = baseUrl + 'Content_management/public_gallery_list';
 
     function renderGalleryItem(img, index) {
         var imageUrl = img.path ? baseUrl + img.path : img.url_image;
@@ -729,7 +729,7 @@ $(function() {
     }
 
     $.ajax({
-        url: baseUrl + 'Master_Data/public_artikel_list',
+        url: baseUrl + 'Master_data/public_artikel_list',
         type: 'GET',
         dataType: 'json',
         success: function(res) {
@@ -756,7 +756,7 @@ $(function() {
 <script>
 $(function() {
     var baseUrl = '<?= base_url() ?>';
-    var apiUrl = baseUrl + 'Tour_Package/list_tour_package_public';
+    var apiUrl = baseUrl + 'Tour_package/list_tour_package_public';
 
     function renderCard(pkg) {
         var imageUrl = pkg.image ? baseUrl + pkg.image : baseUrl +
@@ -828,7 +828,7 @@ $(function() {
 <script>
 $(function() {
     var base = '<?= base_url() ?>';
-    var api = base + 'Master_Data/public_artikel_list';
+    var api = base + 'Master_data/public_artikel_list';
 
     function renderArtikel(a) {
         var imgUrl = a.path ? base + a.path : (a.image ? base + a.image : base +
@@ -1674,7 +1674,7 @@ $(function() {
         // Pastikan siteContact.whatsapp sudah diisi dari API sebelum submit booking
         function proceedBooking() {
             var postData = form.serialize();
-            var url = '<?= base_url("Tour_Package/book") ?>';
+            var url = '<?= base_url("Tour_package/book") ?>';
 
             $.post(url, postData)
                 .done(function(res) {
@@ -1758,7 +1758,7 @@ $(function() {
 
         // Jika whatsapp belum diisi, fetch ulang dari API
         if (!window.siteContact || !window.siteContact.whatsapp) {
-            var contactApi = '<?= base_url('Content_Management/get_contact_data') ?>';
+            var contactApi = '<?= base_url('Content_management/get_contact_data') ?>';
             fetch(contactApi, {
                     method: 'GET',
                     headers: {
@@ -1871,7 +1871,7 @@ document.addEventListener('DOMContentLoaded', function() {
     (function() {
         var btn = document.getElementById('watch-tours-btn');
         if (!btn) return;
-        var apiUrl = '<?= base_url('Content_Management/get_video_link') ?>';
+        var apiUrl = '<?= base_url('Content_management/get_video_link') ?>';
 
         function getYouTubeEmbed(link) {
             if (!link) return null;

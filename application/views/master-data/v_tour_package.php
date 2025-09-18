@@ -116,7 +116,7 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": baseUrl + "Tour_Package/list_tour_package",
+            "url": baseUrl + "Tour_package/list_tour_package",
             "type": "POST"
         },
         "language": {
@@ -207,7 +207,7 @@ $(document).ready(function() {
         var id = $(this).data('id');
         
         $.ajax({
-            url: baseUrl + 'Tour_Package/get/' + id,
+            url: baseUrl + 'Tour_package/get/' + id,
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -255,7 +255,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: baseUrl + 'Tour_Package/delete/' + id,
+                    url: baseUrl + 'Tour_package/delete/' + id,
                     type: 'POST',
                     dataType: 'json',
                     success: function(response) {
@@ -299,7 +299,7 @@ $(document).ready(function() {
         $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...');
         
         $.ajax({
-            url: baseUrl + 'Tour_Package/save',
+            url: baseUrl + 'Tour_package/save',
             type: 'POST',
             data: formData,
             processData: false,

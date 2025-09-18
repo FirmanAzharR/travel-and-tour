@@ -2,7 +2,7 @@
 //change name file
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Tour_Package extends CI_Controller
+class Tour_package extends CI_Controller
 {
     public function __construct()
     {

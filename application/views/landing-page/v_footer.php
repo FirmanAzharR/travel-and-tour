@@ -29,7 +29,7 @@
 
                 <script>
                 (function() {
-                    var api = '<?= base_url('Content_Management/get_contact_data') ?>';
+                    var api = '<?= base_url('Content_management/get_contact_data') ?>';
                     fetch(api, {
                             method: 'GET',
                             headers: {

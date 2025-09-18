@@ -44,8 +44,10 @@
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Sign In</button>
                                 </div>
-                                <!-- <label for="register"> Don't have an account ?</label><a href="#"
-                                    id="show-register">Register here</a> -->
+                                <div style="margin-top: 16px;">
+                                    <label for="register"> Don't have an account ?</label><a href="#"
+                                        id="show-register"> Register here</a>
+                                </div>
                             </div>
 
                         </div>
@@ -79,7 +81,7 @@
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Register</button><br><br>
                                 </div>
-                                <label for="register"> Have an account ?</label><a href="#" id="show-signin">SignIn
+                                <label for="register"> Have an account ?</label><a href="#" id="show-signin"> SignIn
                                     here</a>
                             </div>
 
@@ -87,47 +89,44 @@
                     </form>
                 </div>
             </div>
-            <!-- <div class="col-lg-7">
+            <div class="col-lg-7">
                 <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Contact Info</h3>
-                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum
-                        primis.
-                    </p>
-
+                    <h3>Selamat Datang Kembali!</h3>
+                    <p>Masuk ke akun Anda untuk mengakses fitur eksklusif, melakukan pemesanan, dan menikmati layanan
+                        terbaik dari kami.<br><br>
+                        Jika belum punya akun, silakan daftar terlebih dahulu. Data Anda aman dan tidak akan dibagikan
+                        ke pihak lain.</p>
                     <div class="info-item" data-aos="fade-up" data-aos-delay="300">
                         <div class="icon-box">
-                            <i class="bi bi-geo-alt"></i>
+                            <i class="bi bi-person-check"></i>
                         </div>
                         <div class="content">
-                            <h4>Our Location</h4>
-                            <p>A108 Adam Street</p>
-                            <p>New York, NY 535022</p>
+                            <h4>Mudah & Aman</h4>
+                            <p>Login dengan email dan password yang sudah terdaftar. Sistem kami menjaga kerahasiaan
+                                data Anda.</p>
                         </div>
                     </div>
-
                     <div class="info-item" data-aos="fade-up" data-aos-delay="400">
                         <div class="icon-box">
-                            <i class="bi bi-telephone"></i>
+                            <i class="bi bi-shield-lock"></i>
                         </div>
                         <div class="content">
-                            <h4>Phone Number</h4>
-                            <p>+1 5589 55488 55</p>
-                            <p>+1 6678 254445 41</p>
+                            <h4>Lupa Password?</h4>
+                            <p>Gunakan fitur reset password jika Anda lupa kata sandi. Kami akan membantu Anda mengakses
+                                akun kembali.</p>
                         </div>
                     </div>
-
                     <div class="info-item" data-aos="fade-up" data-aos-delay="500">
                         <div class="icon-box">
-                            <i class="bi bi-envelope"></i>
+                            <i class="bi bi-people"></i>
                         </div>
                         <div class="content">
-                            <h4>Email Address</h4>
-                            <p>info@example.com</p>
-                            <p>contact@example.com</p>
+                            <h4>Belum Punya Akun?</h4>
+                            <p>Daftar sekarang untuk mendapatkan pengalaman terbaik dan promo menarik dari kami.</p>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
 
     </div>

@@ -9,7 +9,7 @@
                 <li><a href="#hero" class="active">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <!-- <li><a href="#contact">Contact</a></li> -->
                 <li class="dropdown"><a href="#"><span>Booking</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>

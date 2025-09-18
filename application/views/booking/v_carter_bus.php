@@ -83,120 +83,130 @@
             if (carterBusForm) {
               carterBusForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Memproses...';
                 submitBtn.disabled = true;
-                
-                Swal.fire({
-                  title: 'Memproses...',
-                  allowOutsideClick: false,
-                  didOpen: () => { Swal.showLoading(); }
-                });
-                
-                const formData = new FormData(this);
-                
-                // Send AJAX request
-                fetch('<?= site_url('booking/booking_carter_bus') ?>', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                  },
-                  body: new URLSearchParams(formData).toString()
-                })
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Network response was not ok');
+
+                // Helper: get WhatsApp number from API if not set
+                function ensureWhatsAppNumber(callback) {
+                  if (window.siteContact && window.siteContact.whatsapp) {
+                    callback();
+                    return;
                   }
-                  return response.json();
-                })
-                .then(data => {
-                  if (data.status === 'success') {
-                    Swal.fire({
-                            title: 'Booking Berhasil!',
-                            html: 'Menyiapkan tiket Anda...',
-                            allowOutsideClick: false,
-                            showConfirmButton: false,
-                            timer: 1500,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                    }).then((result) => {
-                       // This will be called when timer finishes or user clicks outside
-                            const waNumber =
-                                '6288213761173'; // WhatsApp number with country code
-                            const customerName = encodeURIComponent(data.customer_name);
-                            const bookingCode = encodeURIComponent(data.booking_code);
-                            const waNumberCustomer = encodeURIComponent(data.wa_number);
-                            const totalPassengers = encodeURIComponent(data.total_passengers);
-                            const bookingDate = encodeURIComponent(data.booking_date_start);
-                            const returnDate = encodeURIComponent(data.booking_date_end);
-                            const pickupAddress = encodeURIComponent(data.pickup_address);
-                            
-                            // Generate PDF and send WhatsApp message
-                            if(result){
-                            
-                                // Create WhatsApp message with PDF link
-                                let message = `Halo, saya ${customerName}%0A`;
-                                message +=
-                                    `Saya sudah melakukan pemesanan carter bus dengan detail sebagai berikut:%0A%0A`;
-                                message += `*Kode Booking*: ${bookingCode}%0A`;
-                                message += `*Nama Customer*: ${customerName}%0A`;
-                                message += `*No. WhatsApp*: ${waNumberCustomer}%0A`;
-                                message += `*Total Penumpang*: ${totalPassengers}%0A`;
-                                message +=
-                                    `*Tanggal Sewa*: ${bookingDate} s/d ${returnDate}%0A`;
-                                message +=
-                                    `*Alamat Penjemputan*: ${pickupAddress}%0A`;
+                  var contactApi = '<?= base_url('Content_Management/get_contact_data') ?>';
+                  fetch(contactApi, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                  })
+                  .then(function(resp) { return resp.json(); })
+                  .then(function(res) {
+                    if (res && res.status === 'success' && res.data && res.data.whatsapp) {
+                      var wa = res.data.whatsapp.toString().trim().replace(/\s+/g, '');
+                      if (wa.charAt(0) === '+') wa = wa.substr(1);
+                      if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
+                      window.siteContact = window.siteContact || {};
+                      window.siteContact.whatsapp = wa;
+                    }
+                    callback();
+                  })
+                  .catch(function() { callback(); });
+                }
 
-                                message += `Terima kasih.`;
-
-                                console.log('Final WhatsApp message:', message);
-
-                                // Open WhatsApp with the message
-                                const whatsappUrl = `https://wa.me/${waNumber}?text=${message}`;
-                                console.log('Opening WhatsApp URL:', whatsappUrl);
-                                window.open(whatsappUrl, '_blank');
-
-                                // Show success message
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Booking Berhasil!',
-                                    html: `
-                                <div class="text-start">
-                                 <p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p>
-                                    <div class="alert alert-info mt-3">
-                                         <strong>Kode Booking:</strong> ${data.booking_code}
-                                    </div>
-                                 </div>`,
-                                    confirmButtonText: 'Selesai'
-                                }).then(() => {
-                                    // Reset form
-                                    carterBusForm.reset();
-                                });
-                            
-                            } 
-                    });
-                  } else {
-                    throw new Error(data.message || 'Terjadi kesalahan');
-                  }
-                })
-                .catch(error => {
-                  console.error('Error:', error);
+                function proceedBooking() {
                   Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.message || 'Terjadi kesalahan saat memproses permintaan',
-                    showConfirmButton: true
+                    title: 'Memproses...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
                   });
-                })
-                .finally(() => {
-                  submitBtn.textContent = originalText;
-                  submitBtn.disabled = false;
-                });
+
+                  const formData = new FormData(carterBusForm);
+
+                  fetch('<?= site_url('booking/booking_carter_bus') ?>', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams(formData).toString()
+                  })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+                    if (data.status === 'success') {
+                      Swal.fire({
+                              title: 'Booking Berhasil!',
+                              html: 'Menyiapkan tiket Anda...',
+                              allowOutsideClick: false,
+                              showConfirmButton: false,
+                              timer: 1500,
+                              timerProgressBar: true,
+                              didOpen: () => {
+                                  Swal.showLoading();
+                              }
+                      }).then((result) => {
+                        // Use WhatsApp number from window.siteContact
+                        const waNumber = (window.siteContact && window.siteContact.whatsapp) ? window.siteContact.whatsapp : '';
+                        const customerName = encodeURIComponent(data.customer_name);
+                        const bookingCode = encodeURIComponent(data.booking_code);
+                        const waNumberCustomer = encodeURIComponent(data.wa_number);
+                        const totalPassengers = encodeURIComponent(data.total_passengers);
+                        const bookingDate = encodeURIComponent(data.booking_date_start);
+                        const returnDate = encodeURIComponent(data.booking_date_end);
+                        const pickupAddress = encodeURIComponent(data.pickup_address);
+                        let message = `Halo, saya ${customerName}%0A`;
+                        message +=
+                            `Saya sudah melakukan pemesanan carter bus dengan detail sebagai berikut:%0A%0A`;
+                        message += `*Kode Booking*: ${bookingCode}%0A`;
+                        message += `*Nama Customer*: ${customerName}%0A`;
+                        message += `*No. WhatsApp*: ${waNumberCustomer}%0A`;
+                        message += `*Total Penumpang*: ${totalPassengers}%0A`;
+                        message +=
+                            `*Tanggal Sewa*: ${bookingDate} s/d ${returnDate}%0A`;
+                        message +=
+                            `*Alamat Penjemputan*: ${pickupAddress}%0A`;
+                        message += `Terima kasih.`;
+                        const whatsappUrl = `https://wa.me/${waNumber}?text=${message}`;
+                        window.open(whatsappUrl, '_blank');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Booking Berhasil!',
+                            html: `
+                        <div class="text-start">
+                         <p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p>
+                            <div class="alert alert-info mt-3">
+                                 <strong>Kode Booking:</strong> ${data.booking_code}
+                            </div>
+                         </div>`,
+                            confirmButtonText: 'Selesai'
+                        }).then(() => {
+                            carterBusForm.reset();
+                        });
+                      });
+                    } else {
+                      throw new Error(data.message || 'Terjadi kesalahan');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: error.message || 'Terjadi kesalahan saat memproses permintaan',
+                      showConfirmButton: true
+                    });
+                  })
+                  .finally(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                  });
+                }
+                ensureWhatsAppNumber(proceedBooking);
               });
             }
           });

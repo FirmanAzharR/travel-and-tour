@@ -1,4 +1,5 @@
 <?php 
+//change name file
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Content_Management extends CI_Controller

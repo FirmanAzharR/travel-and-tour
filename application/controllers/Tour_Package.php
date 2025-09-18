@@ -1,4 +1,5 @@
 <?php
+//change name file
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Tour_Package extends CI_Controller

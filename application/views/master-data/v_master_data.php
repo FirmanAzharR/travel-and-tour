@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <!-- Motor Card -->
+            <!-- Motor Card
             <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-success shadow h-100 py-2 clickable-card-master-data" data-url="master-data-motor">
                     <div class="card-body">
@@ -40,7 +40,7 @@
             </div>
 
             <!-- Bus/Mini Bus Card -->
-            <div class="col-3 flex-shrink-0 px-2">
+            <!-- <div class="col-3 flex-shrink-0 px-2">
                 <div class="card border-left-warning shadow h-100 py-2 clickable-card-master-data" data-url="master-data-bus">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  -->
 
             <!-- Tour Package Card -->
             <div class="col-3 flex-shrink-0 px-2">

@@ -1555,6 +1555,159 @@ $(function() {
     </div>
 </div>
 
+<!-- booking-history.php -->
+<section id="booking-history" class="booking-history section py-5 position-relative">
+    <!-- Watermark Coming Soon Overlay -->
+    <div class="coming-soon-overlay">
+        <div class="coming-soon-content">
+            <div class="coming-soon-icon mb-3">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h2 class="coming-soon-title">Coming Soon</h2>
+            <p class="coming-soon-text">Fitur ini sedang dalam pengembangan dan akan segera tersedia</p>                       
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-header text-center position-relative mb-5" data-aos="fade-up">
+            <h2 class="section-title fw-bold">Riwayat <span class="text-primary">Booking</span></h2>
+            <p class="mt-3">Lihat dan kelola semua riwayat pemesanan Anda di satu tempat</p>
+        </div>
+
+        <!-- Ringkasan Booking -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box mb-3">
+                            <i class="bi bi-calendar-check text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Total Booking</h5>
+                        <h2 class="mb-0" id="total-booking">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box mb-3">
+                            <i class="bi bi-hourglass-split text-warning" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Menunggu Konfirmasi</h5>
+                        <h2 class="mb-0" id="pending-booking">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box mb-3">
+                            <i class="bi bi-check-circle text-success" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Booking Selesai</h5>
+                        <h2 class="mb-0" id="completed-booking">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter dan Pencarian -->
+        <div class="row mb-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-md-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="filter-status" class="form-label">Status</label>
+                                <select class="form-select" id="filter-status">
+                                    <option value="">Semua Status</option>
+                                    <option value="pending">Menunggu Konfirmasi</option>
+                                    <option value="confirmed">Terkonfirmasi</option>
+                                    <option value="completed">Selesai</option>
+                                    <option value="cancelled">Dibatalkan</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabel Riwayat Booking -->
+        <div class="card border-0 shadow-sm" data-aos="fade-up" data-aos-delay="500">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="booking-history-table" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kode Booking</th>
+                                <th>Paket/Layanan</th>
+                                <th>Tanggal Booking</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan dimuat melalui AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Booking -->
+    <div class="modal fade" id="bookingDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="booking-detail-content">
+                        <!-- Content will be loaded via AJAX -->
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-danger" id="btn-cancel-booking">Batalkan Booking</button>
+                    <button type="button" class="btn btn-primary" id="btn-download-invoice">Download Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal fade" id="notifyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dapatkan Notifikasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Masukkan email Anda untuk mendapatkan notifikasi saat fitur ini tersedia:</p>
+                    <form id="notifyForm">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="notify-email" placeholder="Email Anda" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Kirim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <!-- Video Modal -->
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -1960,6 +2113,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+$(document).ready(function() {
+    // Cek apakah section booking history ada di halaman
+    const bookingHistorySection = $('#booking-history');
+    if (!bookingHistorySection.length) return;
+    
+    // Fungsi untuk mengecek apakah user sedang login sebagai CUSTOMER
+    function isCustomerLoggedIn() {
+        // Ambil dari elemen navbar yang menunjukkan status login
+        return $('a:contains("Logged In as")').length > 0 && 
+               !$('a[href="<?= base_url("dashboard") ?>"]').length;
+    }
+    
+    // Fungsi untuk mengecek apakah fitur booking history sudah aktif
+    function isBookingHistoryEnabled() {
+        // Cek apakah ada item menu booking history di navbar
+        return $('li a[href="#booking-history"]').length > 0;
+    }
+    
+    // Fungsi untuk menampilkan atau menyembunyikan booking history section
+    function toggleBookingHistorySection() {
+        const isCustomer = isCustomerLoggedIn();
+        const isEnabled = isBookingHistoryEnabled();
+        
+        if (isCustomer && isEnabled) {
+            // User adalah customer dan fitur tersedia di menu
+            bookingHistorySection.show();
+            
+            // Tentukan apakah fitur masih dalam pengembangan
+            const isInDevelopment = true; // Ganti dengan false jika fitur sudah siap
+            
+            if (isInDevelopment) {
+                // Tampilkan watermark coming soon
+                $('.coming-soon-overlay').show();
+            } else {
+                // Sembunyikan watermark coming soon
+                $('.coming-soon-overlay').hide();
+            }
+        } else {
+            // Sembunyikan section jika user bukan customer atau fitur tidak ada di menu
+            bookingHistorySection.hide();
+        }
+    }
+    
+    // Jalankan fungsi saat halaman dimuat
+    toggleBookingHistorySection();
+    
+    // Optional: Tambahkan event listener jika ada perubahan status login
+    $(document).on('userLoginStatusChanged', function() {
+        toggleBookingHistorySection();
+    });
+});
 </script>
 
 <style>
@@ -2108,6 +2314,161 @@ document.addEventListener('DOMContentLoaded', function() {
     .col-lg-8 .gallery-card img,
     .col-lg-6 .gallery-card img {
         height: 300px;
+    }
+}
+
+
+.coming-soon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.coming-soon-content {
+    text-align: center;
+    color: white;
+    max-width: 600px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out;
+}
+
+.coming-soon-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: #ffc107;
+    animation: pulse 2s infinite;
+}
+
+.coming-soon-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #f06, #0af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.coming-soon-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Countdown Styles */
+.coming-soon-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f06, #0af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.notify-me-btn {
+    border: 2px solid white;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.notify-me-btn:hover {
+    background: white;
+    color: #333;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .coming-soon-title {
+        font-size: 2.5rem;
+    }
+    
+    .coming-soon-text {
+        font-size: 1rem;
+    }
+    
+    .countdown-number {
+        font-size: 2rem;
+    }
+    
+    .coming-soon-countdown {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .coming-soon-title {
+        font-size: 2rem;
+    }
+    
+    .coming-soon-icon {
+        font-size: 3rem;
+    }
+    
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.7rem;
     }
 }
 </style>

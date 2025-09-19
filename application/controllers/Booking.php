@@ -729,4 +729,55 @@ class Booking extends CI_Controller {
             ]);
         }
     }
+
+
+    /**
+     * API: Get bus rental bookings for DataTables
+     */
+    public function api_get_airport_bookings_datatables()
+    {
+        // Set JSON header
+        header('Content-Type: application/json');
+        
+        // Get DataTables parameters
+        $draw = $this->input->post('draw');
+        $start = $this->input->post('start');
+        $length = $this->input->post('length');
+        $search = $this->input->post('search')['value'] ?? '';
+        
+        try {
+            // Get paginated data
+            $bookings = $this->M_booking->get_airport_bookings($length, $start, $search);
+            $total_records = $this->M_booking->count_airport_bookings();
+            $filtered_records = $search ? $this->M_booking->count_airport_bookings_search($search) : $total_records;
+            
+            // Prepare response
+            $response = [
+                'draw' => intval($draw),
+                'recordsTotal' => $total_records,
+                'recordsFiltered' => $filtered_records,
+                'data' => $bookings
+            ];
+            
+            // Debug log the first booking's created_at value
+            if (!empty($bookings)) {
+                log_message('debug', 'First booking created_at: ' . print_r($bookings[0]->created_at ?? 'null', true));
+            }
+            
+            // Debug log the response
+            log_message('debug', 'API Response: ' . print_r($response, true));
+            
+            echo json_encode($response);
+            
+        } catch (Exception $e) {
+            log_message('error', 'Error in api_get_bus_bookings_datatables: ' . $e->getMessage());
+            echo json_encode([
+                'draw' => intval($draw),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => [],
+                'error' => 'Terjadi kesalahan saat memuat data'
+            ]);
+        }
+    }
 }

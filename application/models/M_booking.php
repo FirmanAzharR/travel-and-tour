@@ -250,4 +250,74 @@ class M_booking extends CI_Model
         
         return ['table_exists' => false];
     }
+
+
+        /**
+     * Get airport travel bookings with search and pagination
+     * @param int $length Number of records per page
+     * @param int $start Offset for pagination
+     * @param string $search Search term
+     * @return array Array of booking records
+     */
+    public function get_airport_bookings($length = 10, $start = 0, $search = '')
+    {
+        $this->db->select('*');
+        $this->db->from('airport_travel_booking');
+        $this->db->where('deleted_at', null);
+        if (!empty($search)) {
+            $this->db->group_start();
+            $this->db->like('customer_name', $search);
+            $this->db->or_like('wa_number', $search);
+            $this->db->or_like('airport_name', $search);
+            $this->db->or_like('booking_code', $search);
+            $this->db->or_like('pickup_address', $search);
+            $this->db->or_like('destination_address', $search);
+            $this->db->or_like('flight_number', $search);
+            $this->db->or_like('services', $search);
+            $this->db->or_like('booking_type', $search);
+            $this->db->group_end();
+        }
+        $this->db->order_by('booking_date', 'DESC');
+        if ($length != -1) {
+            $this->db->limit($length, $start);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+     /**
+     * Count total airport travel bookings (all, no search)
+     * @return int Total number of records
+     */
+    public function count_airport_bookings()
+    {
+        $this->db->from('airport_travel_booking');
+        $this->db->where('deleted_at', null);
+        return $this->db->count_all_results();
+    }
+
+    /**
+     * Count total airport travel bookings with optional search filter
+     * @param string $search Search term
+     * @return int Total number of records
+     */
+    public function count_airport_bookings_search($search = '')
+    {
+        $this->db->from('airport_travel_booking');
+        $this->db->where('deleted_at', null);
+        if (!empty($search)) {
+            $this->db->group_start();
+            $this->db->like('customer_name', $search);
+            $this->db->or_like('wa_number', $search);
+            $this->db->or_like('airport_name', $search);
+            $this->db->or_like('booking_code', $search);
+            $this->db->or_like('pickup_address', $search);
+            $this->db->or_like('destination_address', $search);
+            $this->db->or_like('flight_number', $search);
+            $this->db->or_like('services', $search);
+            $this->db->or_like('booking_type', $search);
+            $this->db->group_end();
+        }
+        return $this->db->count_all_results();
+    }
 }

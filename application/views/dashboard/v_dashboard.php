@@ -167,7 +167,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Chart Container -->
-<div class="row mt-4">
+<!-- <div class="row mt-4">
     <div class="col-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -180,7 +180,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script>
 $(document).ready(function() {

@@ -21,4 +21,11 @@ class Home extends CI_Controller
         $data['content'] = 'auth/v_login';
         $this->load->view('landing-page/v_layout', $data);
     }
+
+    public function get_title_description()
+    {
+        $this->load->model('M_title_description'); // Load the model
+        $data = $this->M_title_description->get_data(); // Fetch data from the model
+        echo json_encode($data); // Return data as JSON
+    }
 }

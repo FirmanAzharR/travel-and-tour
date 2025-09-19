@@ -83,10 +83,6 @@
                                 <div class="input-wrapper">
                                     <select id="car-type" class="form-control modern-input" name="car-type" required>
                                         <option value="">Pilih tipe kendaraan</option>
-                                        <option value="Avanza">Avanza (7 seat)</option>
-                                        <option value="Innova">Innova (8 seat)</option>
-                                        <option value="Hiace">Hiace (16 seat)</option>
-                                        <option value="Bus">Bus (25+ seat)</option>
                                     </select>
                                 </div>
                             </div>
@@ -240,6 +236,25 @@
                 }
             });
         }
+
+        const carTypeSelect = document.getElementById('car-type');
+
+        // Fetch car types from the server
+        fetch('<?= base_url('car/list_cars') ?>')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.data) {
+                    data.data.forEach(car => {
+                        const option = document.createElement('option');
+                        option.value = car.id;
+                        option.textContent = `${car.name}`;
+                        carTypeSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching car types:', error);
+            });
     });
     </script>
 </section>

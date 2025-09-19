@@ -422,16 +422,35 @@
 
             <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
                 <span class="about-meta">MORE ABOUT US</span>
-                <h2 class="about-title">Jelajahi Dunia, Temukan Dirimu</h2>
-                <p class="about-description">Berdiri sejak 2019, Wak Trans Tour & Travel adalah pionir perjalanan
-                    transformatif berbasis di Yogyakarta. Kami tidak hanya menawarkan destinasi, tapi menciptakan
-                    perjalanan yang mengubah perspektif dan memperkaya jiwa melalui layanan open trip, private trip,
-                    honeymoon, family gathering, hingga eksplorasi internasional..</p>
+                <h2 class="about-title"></h2>
+                <p class="about-description"></p>
+                <p class="about-description"></p>
 
-                <p class="about-description">Setiap perjalanan adalah sebuah cerita yang belum ditulis. Di Wak Trans,
-                    kami percaya bahwa momen terbaik dalam hidup terjadi ketika kita berani melangkah keluar dari zona
-                    nyaman. Dengan filosofi "Jelajahi Dunia, Temukan Dirimu", kami merancang setiap perjalanan sebagai
-                    kesempatan untuk menemukan keajaiban dunia sekaligus merefleksikan diri.</p>
+                <script>
+                (function() {
+                    var api = '<?= base_url('Home/get_title_description') ?>';
+                    fetch(api, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(function(r) {
+                            return r.json();
+                        })
+                        .then(function(res) {
+                            if (!res || !res[0]) return;
+                            var d = res[0];
+
+                            // Update title and description dynamically
+                            if (d.title) document.querySelector('.about-title').textContent = d.title;
+                            if (d.description) document.querySelectorAll('.about-description').forEach(function(
+                                el, index) {
+                                el.textContent = index === 0 ? d.description : '';
+                            });
+                        });
+                })();
+                </script>
 
                 <!-- Kontak Ringkas ala Footer -->
                 <style>
@@ -947,26 +966,8 @@ $(function() {
         <div class="row content justify-content-center align-items-center position-relative">
             <div class="col-lg-8 mx-auto text-center">
                 <h2 class="display-4 mb-4">Wujudkan Liburan Impian Anda Bersama Kami</h2>
-                <p class="mb-4">Jangan biarkan momen berharga berlalu begitu saja. Saatnya menjelajah keindahan
-                    Indonesia dengan pengalaman perjalanan yang tak terlupakan, didampingi oleh tim profesional kami.
-                </p>
-                <a href="#travel-wisata-jogja" class="btn btn-cta">Booking Sekarang</a>
-            </div>
-
-            <!-- Abstract Background Elements -->
-            <div class="shape shape-1">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M47.1,-57.1C59.9,-45.6,68.5,-28.9,71.4,-10.9C74.2,7.1,71.3,26.3,61.5,41.1C51.7,55.9,35,66.2,16.9,69.2C-1.3,72.2,-21,67.8,-36.9,57.9C-52.8,48,-64.9,32.6,-69.1,15.1C-73.3,-2.4,-69.5,-22,-59.4,-37.1C-49.3,-52.2,-32.8,-62.9,-15.7,-64.9C1.5,-67,34.3,-68.5,47.1,-57.1Z"
-                        transform="translate(100 100)"></path>
-                </svg>
-            </div>
-
-            <div class="shape shape-2">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M41.3,-49.1C54.4,-39.3,66.6,-27.2,71.1,-12.1C75.6,3,72.4,20.9,63.3,34.4C54.2,47.9,39.2,56.9,23.2,62.3C7.1,67.7,-10,69.4,-24.8,64.1C-39.7,58.8,-52.3,46.5,-60.1,31.5C-67.9,16.4,-70.9,-1.4,-66.3,-16.6C-61.8,-31.8,-49.7,-44.3,-36.3,-54C-22.9,-63.7,-8.2,-70.6,3.6,-75.1C15.4,-79.6,28.2,-58.9,41.3,-49.1Z"
-                        transform="translate(100 100)"></path>
+                d="M41.3,-49.1C54.4,-39.3,66.6,-27.2,71.1,-12.1C75.6,3,72.4,20.9,63.3,34.4C54.2,47.9,39.2,56.9,23.2,62.3C7.1,67.7,-10,69.4,-24.8,64.1C-39.7,58.8,-52.3,46.5,-60.1,31.5C-67.9,16.4,-70.9,-1.4,-66.3,-16.6C-61.8,-31.8,-49.7,-44.3,-36.3,-54C-22.9,-63.7,-8.2,-70.6,3.6,-75.1C15.4,-79.6,28.2,-58.9,41.3,-49.1Z"
+                transform="translate(100 100)"></path>
                 </svg>
             </div>
 
@@ -1564,7 +1565,7 @@ $(function() {
                 <i class="fas fa-tools"></i>
             </div>
             <h2 class="coming-soon-title">Coming Soon</h2>
-            <p class="coming-soon-text">Fitur ini sedang dalam pengembangan dan akan segera tersedia</p>                       
+            <p class="coming-soon-text">Fitur ini sedang dalam pengembangan dan akan segera tersedia</p>
         </div>
     </div>
 
@@ -1627,7 +1628,7 @@ $(function() {
                                     <option value="cancelled">Dibatalkan</option>
                                 </select>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -1697,7 +1698,8 @@ $(function() {
                     <p>Masukkan email Anda untuk mendapatkan notifikasi saat fitur ini tersedia:</p>
                     <form id="notifyForm">
                         <div class="mb-3">
-                            <input type="email" class="form-control" id="notify-email" placeholder="Email Anda" required>
+                            <input type="email" class="form-control" id="notify-email" placeholder="Email Anda"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Kirim</button>
                     </form>
@@ -2119,32 +2121,32 @@ $(document).ready(function() {
     // Cek apakah section booking history ada di halaman
     const bookingHistorySection = $('#booking-history');
     if (!bookingHistorySection.length) return;
-    
+
     // Fungsi untuk mengecek apakah user sedang login sebagai CUSTOMER
     function isCustomerLoggedIn() {
         // Ambil dari elemen navbar yang menunjukkan status login
-        return $('a:contains("Logged In as")').length > 0 && 
-               !$('a[href="<?= base_url("dashboard") ?>"]').length;
+        return $('a:contains("Logged In as")').length > 0 &&
+            !$('a[href="<?= base_url("dashboard") ?>"]').length;
     }
-    
+
     // Fungsi untuk mengecek apakah fitur booking history sudah aktif
     function isBookingHistoryEnabled() {
         // Cek apakah ada item menu booking history di navbar
         return $('li a[href="#booking-history"]').length > 0;
     }
-    
+
     // Fungsi untuk menampilkan atau menyembunyikan booking history section
     function toggleBookingHistorySection() {
         const isCustomer = isCustomerLoggedIn();
         const isEnabled = isBookingHistoryEnabled();
-        
+
         if (isCustomer && isEnabled) {
             // User adalah customer dan fitur tersedia di menu
             bookingHistorySection.show();
-            
+
             // Tentukan apakah fitur masih dalam pengembangan
             const isInDevelopment = true; // Ganti dengan false jika fitur sudah siap
-            
+
             if (isInDevelopment) {
                 // Tampilkan watermark coming soon
                 $('.coming-soon-overlay').show();
@@ -2157,10 +2159,10 @@ $(document).ready(function() {
             bookingHistorySection.hide();
         }
     }
-    
+
     // Jalankan fungsi saat halaman dimuat
     toggleBookingHistorySection();
-    
+
     // Optional: Tambahkan event listener jika ada perubahan status login
     $(document).on('userLoginStatusChanged', function() {
         toggleBookingHistorySection();
@@ -2414,6 +2416,7 @@ $(document).ready(function() {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2425,10 +2428,12 @@ $(document).ready(function() {
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(1.1);
         opacity: 0.8;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -2440,15 +2445,15 @@ $(document).ready(function() {
     .coming-soon-title {
         font-size: 2.5rem;
     }
-    
+
     .coming-soon-text {
         font-size: 1rem;
     }
-    
+
     .countdown-number {
         font-size: 2rem;
     }
-    
+
     .coming-soon-countdown {
         gap: 1rem;
     }
@@ -2458,20 +2463,42 @@ $(document).ready(function() {
     .coming-soon-title {
         font-size: 2rem;
     }
-    
+
     .coming-soon-icon {
         font-size: 3rem;
     }
-    
+
     .countdown-number {
         font-size: 1.5rem;
     }
-    
+
     .countdown-label {
         font-size: 0.7rem;
     }
 }
 </style>
-</body>
 
-</html>
+<script>
+(function() {
+    var api = '<?= base_url('Home/get_title_description') ?>';
+    fetch(api, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(function(r) {
+            return r.json();
+        })
+        .then(function(res) {
+            if (!res || !res[0]) return;
+            var d = res[0];
+
+            // Update title and description dynamically
+            if (d.title) document.querySelector('.about-title').textContent = d.title;
+            if (d.description) document.querySelectorAll('.about-description').forEach(function(el, index) {
+                el.textContent = index === 0 ? d.description : '';
+            });
+        });
+})();
+</script>

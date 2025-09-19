@@ -309,61 +309,61 @@
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row ">
-            <div class="col-lg-6">
-                <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
-                    <div class="company-badge mb-4">
-                        <i class="bi bi-compass-fill me-2"></i>
-                        Explore Jogja with Comfort
-                    </div>
-
-                    <h1 class="mb-4">
-                        Your Journey <br>
-                        Starts With <br>
-                        <span class="accent-text">Wak Trans Tour And Travel Yogyakarta</span>
-                    </h1>
-
-                    <p class="mb-4 mb-md-5">
-                        Discover the beauty of Yogyakarta with our premium transportation service.
-                        Comfortable vehicles, experienced drivers, and customizable tour packages
-                        to make your Jogja adventure unforgettable.
-                    </p>
-
-                    <div class="hero-buttons">
-                        <a href="#travel-wisata-jogja" class="btn btn-primary me-0 me-sm-2 mx-1">Book Now</a>
-                        <a id="watch-tours-btn" href="#" role="button" class="btn btn-link mt-2 mt-sm-0">
-                            <i class="bi bi-play-circle me-1"></i>
-                            Watch Our Tours
-                        </a>
-                    </div>
-                </div>
+    <div class="row">
+    <div class="col-lg-6">
+        <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+            <div class="company-badge mb-4">
+                <i class="bi bi-compass-fill me-2"></i>
+                Jelajahi Jogja dengan Nyaman
             </div>
 
+            <h1 class="mb-4">
+                Perjalanan Anda <br>
+                Dimulai Bersama <br>
+                <span class="accent-text">Wak Trans Tour And Travel Yogyakarta</span>
+            </h1>
 
-            <div class="col-lg-6">
-                <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-                    <img src="<?= base_url('landing-page/') ?>assets/img/base/main3.png" class="image-fluid"
-                        alt="Hero Image">
+            <p class="mb-4 mb-md-5">
+                Temukan keindahan Yogyakarta dengan layanan transportasi premium kami.
+                Kendaraan nyaman, pengemudi berpengalaman, dan paket wisata yang dapat
+                disesuaikan untuk membuat petualangan Jogja Anda tak terlupakan.
+            </p>
 
-                    <div class="customers-badge">
-                        <div class="customer-avatars">
-                            <img src="<?= base_url('landing-page/') ?>assets/img/avatar-1.webp" alt="Customer 1"
-                                class="avatar">
-                            <img src="<?= base_url('landing-page/') ?>assets/img/avatar-2.webp" alt="Customer 2"
-                                class="avatar">
-                            <img src="<?= base_url('landing-page/') ?>assets/img/avatar-3.webp" alt="Customer 3"
-                                class="avatar">
-                            <img src="<?= base_url('landing-page/') ?>assets/img/avatar-4.webp" alt="Customer 4"
-                                class="avatar">
-                            <img src="<?= base_url('landing-page/') ?>assets/img/avatar-5.webp" alt="Customer 5"
-                                class="avatar">
-                            <span class="avatar more">3+</span>
-                        </div>
-                        <p class="mb-0 mt-2">Trusted by 3,000+ travelers for the best Yogyakarta experience</p>
-                    </div>
-                </div>
+            <div class="hero-buttons">
+                <a href="#travel-wisata-jogja" class="btn btn-primary me-0 me-sm-2 mx-1">Pesan Sekarang</a>
+                <a id="watch-tours-btn" href="#" role="button" class="btn btn-link mt-2 mt-sm-0">
+                    <i class="bi bi-play-circle me-1"></i>
+                    Lihat Tur Kami
+                </a>
             </div>
         </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
+            <img src="<?= base_url('landing-page/') ?>assets/img/base/main3.png" class="image-fluid"
+                alt="Gambar Utama">
+
+            <div class="customers-badge">
+                <div class="customer-avatars">
+                    <img src="<?= base_url('landing-page/') ?>assets/img/avatar-1.webp" alt="Pelanggan 1"
+                        class="avatar">
+                    <img src="<?= base_url('landing-page/') ?>assets/img/avatar-2.webp" alt="Pelanggan 2"
+                        class="avatar">
+                    <img src="<?= base_url('landing-page/') ?>assets/img/avatar-3.webp" alt="Pelanggan 3"
+                        class="avatar">
+                    <img src="<?= base_url('landing-page/') ?>assets/img/avatar-4.webp" alt="Pelanggan 4"
+                        class="avatar">
+                    <img src="<?= base_url('landing-page/') ?>assets/img/avatar-5.webp" alt="Pelanggan 5"
+                        class="avatar">
+                    <span class="avatar more">3+</span>
+                </div>
+                <p class="mb-0 mt-2">Dipercaya oleh lebih dari 3.000 wisatawan untuk pengalaman terbaik di Yogyakarta</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
             <div class="col-lg-3 col-md-6">
@@ -1456,24 +1456,19 @@ $(function() {
 
 <!-- Call To Action 2 Section -->
 <section id="call-to-action-2" class="call-to-action-2 section dark-background">
-
     <div class="container">
         <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
             <div class="col-xl-10">
                 <div class="text-center">
-                    <h3>Call To Action</h3>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                        id est
-                        laborum.</p>
-                    <a class="cta-btn" href="#">Call To Action</a>
+                    <h3>Mulai Petualangan Anda Sekarang</h3>
+                    <p>Jangan menunda kebahagiaan Anda. Waktu berlalu begitu cepat, dan momen berharga bersama keluarga dan orang tercinta tidak akan datang dua kali. Jadikan liburan Anda  menjadi pengalaman tak terlupakan dengan layanan premium kami.</p>
+                    <a class="cta-btn" href="#travel-wisata-jogja">Booking Sekarang</a>
                 </div>
             </div>
         </div>
     </div>
-
-</section><!-- /Call To Action 2 Section -->
+</section>
+<!-- /Call To Action 2 Section -->
 
 <!-- Booking Section -->
 <?php include APPPATH . 'views/booking/v_travel_wisata_jogja.php'; ?>

@@ -469,38 +469,127 @@
                 }
                 </style>
                 <div class="about-contact-box mt-4 p-3 rounded shadow-sm" style="background:#f8f9fa;">
-                    <div class="row align-items-center">
-                        <div class="col-12 col-md-4 mb-2 mb-md-0 text-center text-md-start">
-                            <i class="bi bi-geo-alt me-2 text-primary"></i>
-                            <span class="fw-semibold contact-link">Yogyakarta</span>
-                        </div>
-                        <div class="col-12 col-md-4 mb-2 mb-md-0 text-center">
-                            <i class="bi bi-telephone me-2 text-success"></i>
-                            <a href="https://wa.me/6283197511897"
-                                class="text-decoration-none text-dark fw-semibold contact-link" target="_blank">+62
-                                831-9751-1897</a>
-                        </div>
-                        <div class="col-12 col-md-4 text-center text-md-end">
-                            <i class="bi bi-envelope me-2 text-danger"></i>
-                            <a href="mailto:info@waktrans.com"
-                                class="text-decoration-none text-dark fw-semibold contact-link">info@waktrans.com</a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col text-center">
-                            <a href="https://wa.me/6283197511897" class="me-2 text-success" target="_blank"
-                                aria-label="WhatsApp"><i class="bi bi-whatsapp fs-5"></i></a>
-                            <a href="#" class="me-2 text-danger" target="_blank" aria-label="Instagram"><i
-                                    class="bi bi-instagram fs-5"></i></a>
-                            <a href="#" class="me-2 text-primary" target="_blank" aria-label="Facebook"><i
-                                    class="bi bi-facebook fs-5"></i></a>
-                            <a href="#" class="me-2 text-dark" target="_blank" aria-label="TikTok"><i
-                                    class="bi bi-music-note-beamed fs-5"></i></a>
-                            <a href="#" class="text-info" target="_blank" aria-label="Twitter"><i
-                                    class="bi bi-twitter fs-5"></i></a>
-                        </div>
-                    </div>
-                </div>
+    <div class="row align-items-center">
+        <div class="col-12 col-md-4 mb-2 mb-md-0 text-center text-md-start">
+            <i class="bi bi-geo-alt me-2 text-primary"></i>
+            <span class="fw-semibold contact-link" id="about-alamat">Yogyakarta</span>
+        </div>
+        <div class="col-12 col-md-4 mb-2 mb-md-0 text-center">
+            <i class="bi bi-telephone me-2 text-success"></i>
+            <a href="https://wa.me/6283197511897" id="about-whatsapp-link"
+                class="text-decoration-none text-dark fw-semibold contact-link" target="_blank">
+                <span id="about-whatsapp-text">+62 831-9751-1897</span>
+            </a>
+        </div>
+        <div class="col-12 col-md-4 text-center text-md-end">
+            <i class="bi bi-envelope me-2 text-danger"></i>
+            <a href="mailto:info@waktrans.com" id="about-email-link"
+                class="text-decoration-none text-dark fw-semibold contact-link">
+                <span id="about-email-text">info@waktrans.com</span>
+            </a>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-center">
+            <a href="https://wa.me/6283197511897" id="about-social-whatsapp" class="me-2 text-success" target="_blank"
+                aria-label="WhatsApp"><i class="bi bi-whatsapp fs-5"></i></a>
+            <a href="#" id="about-social-instagram" class="me-2 text-danger" target="_blank" aria-label="Instagram"><i
+                    class="bi bi-instagram fs-5"></i></a>
+            <a href="#" id="about-social-facebook" class="me-2 text-primary" target="_blank" aria-label="Facebook"><i
+                    class="bi bi-facebook fs-5"></i></a>
+            <a href="#" id="about-social-tiktok" class="me-2 text-dark" target="_blank" aria-label="TikTok"><i
+                    class="bi bi-music-note-beamed fs-5"></i></a>
+            <a href="#" id="about-social-twitter" class="text-info" target="_blank" aria-label="Twitter"><i
+                    class="bi bi-twitter fs-5"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Script untuk memperbarui data kontak -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Cek apakah data kontak sudah ada di window.siteContact
+			if (window.siteContact) {
+				updateAboutContactInfo(window.siteContact);
+			} else {
+				// Ambil data kontak dari API
+				fetch('<?= base_url('Content_management/get_contact_data') ?>', {
+					method: 'GET',
+					headers: {
+						'Accept': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(res => {
+					if (res.status === 'success' && res.data) {
+						// Simpan data kontak di variabel global
+						window.siteContact = res.data;
+						// Update elemen kontak
+						updateAboutContactInfo(res.data);
+					}
+				})
+				.catch(error => console.error('Error fetching contact data:', error));
+			}
+
+			// Fungsi untuk memperbarui informasi kontak
+			function updateAboutContactInfo(data) {
+				// Update alamat
+				if (data.alamat) {
+					const alamatEl = document.getElementById('about-alamat');
+					if (alamatEl) alamatEl.textContent = data.alamat;
+				}
+
+				// Update WhatsApp
+				if (data.whatsapp) {
+					// Format nomor WhatsApp
+					let wa = data.whatsapp.toString().trim().replace(/\s+/g, '');
+					if (wa.charAt(0) === '+') wa = wa.substr(1);
+					if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
+
+					// Format untuk tampilan
+					const displayNumber = (wa.indexOf('62') === 0) ? 
+						'+' + wa.replace(/(\d{2})(\d{3})(\d{4})(\d{4})/, '$1 $2-$3-$4') : 
+						wa;
+
+					// Update link dan teks WhatsApp
+					const waLinkEl = document.getElementById('about-whatsapp-link');
+					const waTextEl = document.getElementById('about-whatsapp-text');
+					const waSocialEl = document.getElementById('about-social-whatsapp');
+
+					if (waLinkEl) waLinkEl.href = 'https://wa.me/' + wa;
+					if (waTextEl) waTextEl.textContent = displayNumber;
+					if (waSocialEl) waSocialEl.href = 'https://wa.me/' + wa;
+				}
+
+				// Update email
+				if (data.email) {
+					const emailLinkEl = document.getElementById('about-email-link');
+					const emailTextEl = document.getElementById('about-email-text');
+					
+					if (emailLinkEl) emailLinkEl.href = 'mailto:' + data.email;
+					if (emailTextEl) emailTextEl.textContent = data.email;
+				}
+
+				// Update social media links
+				if (data.ig) {
+					const igEl = document.getElementById('about-social-instagram');
+					if (igEl) igEl.href = data.ig;
+				}
+				if (data.fb) {
+					const fbEl = document.getElementById('about-social-facebook');
+					if (fbEl) fbEl.href = data.fb;
+				}
+				if (data.tiktok) {
+					const tiktokEl = document.getElementById('about-social-tiktok');
+					if (tiktokEl) tiktokEl.href = data.tiktok;
+				}
+				if (data.twitter) {
+					const twitterEl = document.getElementById('about-social-twitter');
+					if (twitterEl) twitterEl.href = data.twitter;
+				}
+			}
+		});
+		</script>
 
 
 
@@ -553,9 +642,9 @@
             <div class="col-xl-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="image-wrapper">
                     <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/about-5.webp" alt="Business Meeting"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/about-us1.jpg" alt="Business Meeting"
                             class="img-fluid main-image rounded-4">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/about-2.webp" alt="Team Discussion"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/about-us2.jpg" alt="Team Discussion"
                             class="img-fluid small-image rounded-4">
                     </div>
                     <!-- <div class="experience-badge floating">
@@ -1051,10 +1140,10 @@ $(function() {
                 <!-- Testimonial Item 1 -->
                 <div class="swiper-slide">
                     <div class="testimonial-item">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-1.jpg"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/testi4.jpeg"
                             class="testimonial-img" alt="Foto Budi Santoso">
                         <h3>Budi Santoso</h3>
-                        <h4>Keluarga, Jakarta</h4>
+                        <h4>Jakarta</h4>
                         <div class="stars">
                             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                                 class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -1075,7 +1164,7 @@ $(function() {
                 <!-- Testimonial Item 2 -->
                 <div class="swiper-slide">
                     <div class="testimonial-item">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-2.jpg"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/testi2.jpg"
                             class="testimonial-img" alt="Foto Anita Wijaya">
                         <h3>Anita Wijaya</h3>
                         <h4>Solo Traveler, Surabaya</h4>
@@ -1098,7 +1187,7 @@ $(function() {
                 <!-- Testimonial Item 3 -->
                 <div class="swiper-slide">
                     <div class="testimonial-item">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-3.jpg"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/testi1.jpg"
                             class="testimonial-img" alt="Foto Dian & Reza">
                         <h3>Dian & Reza</h3>
                         <h4>Honeymoon Couple, Bandung</h4>
@@ -1121,7 +1210,7 @@ $(function() {
                 <!-- Testimonial Item 4 -->
                 <div class="swiper-slide">
                     <div class="testimonial-item">
-                        <img src="<?= base_url('landing-page/') ?>assets/img/testimonials/testimonials-4.jpg"
+                        <img src="<?= base_url('landing-page/') ?>assets/img/testi3.jpg"
                             class="testimonial-img" alt="Foto Hendra Wijaya">
                         <h3>Hendra Wijaya</h3>
                         <h4>Business Trip, Semarang</h4>
@@ -1814,127 +1903,128 @@ $(function() {
     });
 
     // Submit booking
-    $('#bp_kirim').on('click', function() {
-        var form = $('#bookingForm');
-        if (!form[0].checkValidity()) {
-            form[0].reportValidity();
-            return;
-        }
+$('#bp_kirim').on('click', function() {
+    var form = $('#bookingForm');
+    if (!form[0].checkValidity()) {
+        form[0].reportValidity();
+        return;
+    }
 
-        // Pastikan siteContact.whatsapp sudah diisi dari API sebelum submit booking
-        function proceedBooking() {
-            var postData = form.serialize();
-            var url = '<?= base_url("Tour_package/book") ?>';
+    // Pastikan siteContact.whatsapp sudah diisi dari API sebelum submit booking
+    function proceedBooking() {
+        var postData = form.serialize();
+        var url = '<?= base_url("Tour_package/book") ?>';
 
-            $.post(url, postData)
-                .done(function(res) {
-                    if (!res || !res.status) {
-                        var msg = (res && res.message) ? res.message : 'Gagal melakukan booking';
-                        Swal.fire('Gagal', msg, 'error');
-                        return;
+        $.post(url, postData)
+            .done(function(res) {
+                if (!res || !res.status) {
+                    var msg = (res && res.message) ? res.message : 'Gagal melakukan booking';
+                    Swal.fire('Gagal', msg, 'error');
+                    return;
+                }
+
+                // build WhatsApp message and open
+                var data = res.data || {};
+                var pkgId = data.tour_package_id || '';
+                var nama = encodeURIComponent(data.nama_pemesan || $('#bp_nama').val());
+                var tel = encodeURIComponent(data.nomor_telepon || $('#bp_telepon').val());
+
+                // Attempt to get package name from modal title (falls back to id)
+                var pkgName = $('#bookingModalLabel').text().replace('Booking Paket: ', '') ||
+                    pkgId;
+
+                // Use richer flow similar to rental booking: show loading, then open WhatsApp with detailed message
+                Swal.fire({
+                    title: 'Mengirim data booking!',
+                    html: 'Menyiapkan pesan WhatsApp...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timer: 1200,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
                     }
+                }).then((result) => {
+                    // WhatsApp number in international format (no leading zero)
+                    const waNumber = (window.siteContact && window.siteContact
+                        .whatsapp) ? window.siteContact.whatsapp : '';
 
-                    // build WhatsApp message and open
-                    var data = res.data || {};
-                    var pkgId = data.tour_package_id || '';
-                    var nama = encodeURIComponent(data.nama_pemesan || $('#bp_nama').val());
-                    var tel = encodeURIComponent(data.nomor_telepon || $('#bp_telepon').val());
+                    const bookingCode = encodeURIComponent(data.booking_code || '');
+                    const customerName = encodeURIComponent(data.nama_pemesan ||
+                        decodeURIComponent(nama));
+                    const customerPhone = encodeURIComponent(data.nomor_telepon ||
+                        decodeURIComponent(tel));
+                    const packageName = encodeURIComponent(pkgName || '');
 
-                    // Attempt to get package name from modal title (falls back to id)
-                    var pkgName = $('#bookingModalLabel').text().replace('Booking Paket: ', '') ||
-                        pkgId;
+                    // Build message - use %0A for new lines
+                    let message = `Halo, saya ${customerName}%0A`;
+                    message +=
+                        `Saya sudah melakukan pemesanan paket dengan detail sebagai berikut:%0A%0A`;
+                    message += `*Kode Booking*: ${bookingCode}%0A`;
+                    message += `*Nama Pemesan*: ${customerName}%0A`;
+                    message += `*No. Telepon*: ${customerPhone}%0A`;
+                    message += `*Paket*: ${packageName}%0A%0A`;
+                    message += `Terima kasih.`;
 
-                    // Use richer flow similar to rental booking: show loading, then open WhatsApp with detailed message
+                    const whatsappUrl = `https://wa.me/${waNumber}?text=${message}`;
+
+                    // close modal then open WhatsApp in new tab
+                    $('#bookingModal').modal('hide');
+                    window.open(whatsappUrl, '_blank');
+
+                    // Show success dialog with booking code
                     Swal.fire({
-                        title: 'Mengirim data booking!',
-                        html: 'Menyiapkan pesan WhatsApp...',
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                        timer: 1200,
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    }).then((result) => {
-                        // WhatsApp number in international format (no leading zero)
-                        const waNumber = (window.siteContact && window.siteContact
-                            .whatsapp) ? window.siteContact.whatsapp : '';
-
-                        const bookingCode = encodeURIComponent(data.booking_code || '');
-                        const customerName = encodeURIComponent(data.nama_pemesan ||
-                            decodeURIComponent(nama));
-                        const customerPhone = encodeURIComponent(data.nomor_telepon ||
-                            decodeURIComponent(tel));
-                        const packageName = encodeURIComponent(pkgName || '');
-
-                        // Build message - use %0A for new lines
-                        let message = `Halo, saya ${customerName}%0A`;
-                        message +=
-                            `Saya sudah melakukan pemesanan paket dengan detail sebagai berikut:%0A%0A`;
-                        message += `*Kode Booking*: ${bookingCode}%0A`;
-                        message += `*Nama Pemesan*: ${customerName}%0A`;
-                        message += `*No. Telepon*: ${customerPhone}%0A`;
-                        message += `*Paket*: ${packageName}%0A%0A`;
-                        message += `Terima kasih.`;
-
-                        const whatsappUrl = `https://wa.me/${waNumber}?text=${message}`;
-
-                        // close modal then open WhatsApp in new tab
-                        $('#bookingModal').modal('hide');
-                        window.open(whatsappUrl, '_blank');
-
-                        // Show success dialog with booking code
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Mengirim Booking !',
-                            html: `<div class="text-start"><p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p><div class="alert alert-info mt-3"><strong>Kode Booking:</strong> ${data.booking_code || ''}</div></div>`,
-                            confirmButtonText: 'Selesai'
-                        }).then(() => {
-                            // reset form fields in modal
-                            $('#bookingForm')[0].reset();
-                            $('#bookingModalLabel').text('Booking Paket');
-                        });
+                        icon: 'success',
+                        title: 'Mengirim Booking !',
+                        html: `<div class="text-start"><p>Terima kasih telah melakukan pemesanan. Detail pemesanan telah dikirim ke WhatsApp Anda.</p><div class="alert alert-info mt-3"><strong>Kode Booking:</strong> ${data.booking_code || ''}</div></div>`,
+                        confirmButtonText: 'Selesai'
+                    }).then(() => {
+                        // reset form fields in modal
+                        $('#bookingForm')[0].reset();
+                        $('#bookingModalLabel').text('Booking Paket');
                     });
-                })
-                .fail(function(xhr) {
-                    var msg = 'Gagal menyimpan booking';
-                    try {
-                        var j = JSON.parse(xhr.responseText);
-                        if (j && j.message) msg = j.message;
-                    } catch (e) {}
-                    Swal.fire('Error', msg, 'error');
                 });
-        }
+            })
+            .fail(function(xhr) {
+                var msg = 'Gagal menyimpan booking';
+                try {
+                    var j = JSON.parse(xhr.responseText);
+                    if (j && j.message) msg = j.message;
+                } catch (e) {}
+                Swal.fire('Error', msg, 'error');
+            });
+    }
 
-        // Jika whatsapp belum diisi, fetch ulang dari API
-        if (!window.siteContact || !window.siteContact.whatsapp) {
-            var contactApi = '<?= base_url('Content_management/get_contact_data') ?>';
-            fetch(contactApi, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(function(resp) {
-                    return resp.json();
-                })
-                .then(function(res) {
-                    if (res && res.status === 'success' && res.data && res.data.whatsapp) {
-                        var wa = res.data.whatsapp.toString().trim().replace(/\s+/g, '');
-                        if (wa.charAt(0) === '+') wa = wa.substr(1);
-                        if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
-                        window.siteContact = window.siteContact || {};
-                        window.siteContact.whatsapp = wa;
-                    }
-                    proceedBooking();
-                })
-                .catch(function() {
-                    proceedBooking();
-                });
-        } else {
-            proceedBooking();
-        }
-    });
+    // Jika whatsapp belum diisi, fetch ulang dari API
+    if (!window.siteContact || !window.siteContact.whatsapp) {
+        var contactApi = '<?= base_url('Content_management/get_contact_data') ?>';
+        fetch(contactApi, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function(resp) {
+                return resp.json();
+            })
+            .then(function(res) {
+                if (res && res.status === 'success' && res.data && res.data.whatsapp) {
+                    var wa = res.data.whatsapp.toString().trim().replace(/\s+/g, '');
+                    if (wa.charAt(0) === '+') wa = wa.substr(1);
+                    if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
+                    window.siteContact = window.siteContact || {};
+                    window.siteContact.whatsapp = wa;
+                }
+                proceedBooking();
+            })
+            .catch(function() {
+                proceedBooking();
+            });
+    } else {
+        proceedBooking();
+    }
+});
+
 });
 </script>
 

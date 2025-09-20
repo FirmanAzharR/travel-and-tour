@@ -4,7 +4,7 @@
         <div class="row gy-4">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 footer-about">
                 <a href="/#travel-wisata-jogja" class="logo d-flex align-items-center">
-                    <img src="<?= base_url('landing-page/') ?>assets/img/base/logo.jpg" alt="Wak Trans Travel Logo"
+                    <img id="footer-logo" src="<?= base_url('landing-page/') ?>assets/img/base/logo.jpg" alt="Wak Trans Travel Logo"
                         class="img-fluid" style="max-width: 100px;">
                 </a>
 
@@ -29,101 +29,166 @@
 
                 <script>
                 (function() {
-                    var api = '<?= base_url('Content_management/get_contact_data') ?>';
-                    fetch(api, {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json'
+                    // Load logo dinamis untuk footer
+                    var footerLogoEl = document.getElementById('footer-logo');
+                    if (footerLogoEl) {
+                        // Cek apakah logo sudah dimuat di header
+                        var headerLogoEl = document.getElementById('site-logo');
+                        if (headerLogoEl && headerLogoEl.getAttribute('data-loaded') === 'true') {
+                            // Gunakan logo yang sama dengan header
+                            footerLogoEl.src = headerLogoEl.src;
+                        } else {
+                            // Jika logo header belum dimuat, ambil dari API
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '<?= base_url('Content_Management/get_active_logo') ?>', true);
+                            xhr.setRequestHeader('Accept', 'application/json');
+                            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                            
+                            // Prepare token (CSRF) if available from CodeIgniter
+                            var tokenName = '<?= isset($this->security) ? $this->security->get_csrf_token_name() : '' ?>';
+                            var tokenHash = '<?= isset($this->security) ? $this->security->get_csrf_hash() : '' ?>';
+                            
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState !== 4) return;
+                                if (xhr.status === 200) {
+                                    try {
+                                        var res = JSON.parse(xhr.responseText);
+                                        if (res && res.status === 'success' && res.image_url) {
+                                            footerLogoEl.src = res.image_url;
+                                            return;
+                                        }
+                                    } catch (e) {
+                                        // ignore parse errors
+                                    }
+                                }
+                                // fallback: keep existing src (default image)
+                            };
+                            
+                            // send form-encoded body if token exists otherwise send empty body
+                            if (tokenName && tokenHash) {
+                                var form = [];
+                                form.push(encodeURIComponent(tokenName) + '=' + encodeURIComponent(tokenHash));
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xhr.send(form.join('&'));
+                            } else {
+                                xhr.send();
                             }
-                        })
-                        .then(function(r) {
-                            return r.json();
-                        })
-                        .then(function(res) {
-                            if (!res || res.status !== 'success' || !res.data) return;
-                            var d = res.data;
-
-                            // alamat
-                            if (d.alamat) document.querySelectorAll('.footer-alamat').forEach(function(el) {
-                                el.textContent = d.alamat;
+                        }
+                    }
+                    
+                    // Cek apakah data kontak sudah ada di window.siteContact
+                    if (window.siteContact) {
+                        updateFooterContactInfo(window.siteContact);
+                    } else {
+                        var api = '<?= base_url('Content_management/get_contact_data') ?>';
+                        fetch(api, {
+                                method: 'GET',
+                                headers: {
+                                    'Accept': 'application/json'
+                                }
+                            })
+                            .then(function(r) {
+                                return r.json();
+                            })
+                            .then(function(res) {
+                                if (!res || res.status !== 'success' || !res.data) return;
+                                
+                                // Simpan data kontak di variabel global
+                                window.siteContact = res.data;
+                                
+                                // Update elemen footer
+                                updateFooterContactInfo(res.data);
+                            })
+                            .catch(function(e) {
+                                console.warn('Failed to load footer contact', e);
                             });
-
-                            // phone (display with + and link using wa.me)
-                            if (d.whatsapp) {
-                                var wa = d.whatsapp.toString().trim().replace(/\s+/g, '');
-                                if (wa.charAt(0) === '+') wa = wa.substr(1);
-                                if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
-                                document.querySelectorAll('.footer-phone').forEach(function(el) {
-                                    el.textContent = (wa.indexOf('62') === 0 ? '+' + wa : wa);
-                                });
-                                var waLink = 'https://wa.me/' + wa;
-                                var a = document.querySelector('.footer-whatsapp');
-                                if (a) a.href = waLink;
-                            }
-
-                            // email
-                            if (d.email) {
-                                document.querySelectorAll('.footer-email').forEach(function(el) {
-                                    el.textContent = d.email;
-                                    el.href = 'mailto:' + d.email;
-                                });
-                            }
-
-                            // socials
-                            if (d.ig) {
-                                var a = document.querySelector('.footer-instagram');
-                                if (a) a.href = d.ig;
-                            }
-                            if (d.fb) {
-                                var a = document.querySelector('.footer-facebook');
-                                if (a) a.href = d.fb;
-                            }
-                            if (d.tiktok) {
-                                var a = document.querySelector('.footer-tiktok');
-                                if (a) a.href = d.tiktok;
-                            }
-                            if (d.twitter) {
-                                var a = document.querySelector('.footer-twitter');
-                                if (a) a.href = d.twitter;
-                            }
-                        })
-                        .catch(function(e) {
-                            console.warn('Failed to load footer contact', e);
+                    }
+                    
+                    // Fungsi untuk memperbarui informasi kontak di footer
+                    function updateFooterContactInfo(d) {
+                        // alamat
+                        if (d.alamat) document.querySelectorAll('.footer-alamat').forEach(function(el) {
+                            el.textContent = d.alamat;
                         });
+
+                        // phone (display with + and link using wa.me)
+                        if (d.whatsapp) {
+                            var wa = d.whatsapp.toString().trim().replace(/\s+/g, '');
+                            if (wa.charAt(0) === '+') wa = wa.substr(1);
+                            if (wa.charAt(0) === '0') wa = '62' + wa.substr(1);
+                            document.querySelectorAll('.footer-phone').forEach(function(el) {
+                                el.textContent = (wa.indexOf('62') === 0 ? '+' + wa : wa);
+                            });
+                            var waLink = 'https://wa.me/' + wa;
+                            var a = document.querySelector('.footer-whatsapp');
+                            if (a) a.href = waLink;
+                        }
+
+                        // email
+                        if (d.email) {
+                            document.querySelectorAll('.footer-email').forEach(function(el) {
+                                el.textContent = d.email;
+                                el.href = 'mailto:' + d.email;
+                            });
+                        }
+
+                        // socials
+                        if (d.ig) {
+                            var a = document.querySelector('.footer-instagram');
+                            if (a) a.href = d.ig;
+                        }
+                        if (d.fb) {
+                            var a = document.querySelector('.footer-facebook');
+                            if (a) a.href = d.fb;
+                        }
+                        if (d.tiktok) {
+                            var a = document.querySelector('.footer-tiktok');
+                            if (a) a.href = d.tiktok;
+                        }
+                        if (d.twitter) {
+                            var a = document.querySelector('.footer-twitter');
+                            if (a) a.href = d.twitter;
+                        }
+                    }
+                    
+                    // Listen for siteContactLoaded event
+                    document.addEventListener('siteContactLoaded', function(e) {
+                        updateFooterContactInfo(e.detail);
+                    });
                 })();
                 </script>
             </div>
 
             <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 footer-links">
-				<h4>Layanan Kami</h4>
-				<ul>
-					<li><a href="/#travel-wisata-jogja">Paket Wisata</a></li>
-					<li><a href="/#rental-mobil">Rental Mobil</a></li>
-					<li><a href="/#travel-bandara">Antar Jemput Bandara</a></li>
-					<li><a href="/#carter-bus">Carter Bus</a></li>
-				</ul>
-			</div>
+                <h4>Layanan Kami</h4>
+                <ul>
+                    <li><a href="/#travel-wisata-jogja">Paket Wisata</a></li>
+                    <li><a href="/#rental-mobil">Rental Mobil</a></li>
+                    <li><a href="/#travel-bandara">Antar Jemput Bandara</a></li>
+                    <li><a href="/#carter-bus">Carter Bus</a></li>
+                </ul>
+            </div>
 
-			<div class="col-12 col-sm-6 col-md-4 col-lg-3 footer-links">
-				<h4>Destinasi Populer</h4>
-				<ul>
-					<li><a href="#">Yogyakarta</a></li>
-					<li><a href="#">Bali</a></li>
-					<li><a href="#">Bromo</a></li>
-					<li><a href="#">Labuan Bajo</a></li>
-					<li><a href="#">Raja Ampat</a></li>
-				</ul>
-			</div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 footer-links">
+                <h4>Destinasi Populer</h4>
+                <ul>
+                    <li><a href="#">Yogyakarta</a></li>
+                    <li><a href="#">Bali</a></li>
+                    <li><a href="#">Bromo</a></li>
+                    <li><a href="#">Labuan Bajo</a></li>
+                    <li><a href="#">Raja Ampat</a></li>
+                </ul>
+            </div>
 
-			<div class="col-12 col-sm-6 col-md-12 col-lg-3 footer-links">
-				<h4>Hubungi Kami</h4>
-				<ul>
-					<li><i class="bi bi-geo-alt me-2"></i> Jl. Kaliurang Km 5, Yogyakarta</li>
-					<li><i class="bi bi-telephone me-2"></i> +62 831-9751-1897</li>
-					<li><i class="bi bi-envelope me-2"></i> info@waktrans.com</li>
-					<li><i class="bi bi-clock me-2"></i> Senin-Sabtu: 08.00 - 17.00</li>
-				</ul>
-			</div> -->
+            <div class="col-12 col-sm-6 col-md-12 col-lg-3 footer-links">
+                <h4>Hubungi Kami</h4>
+                <ul>
+                    <li><i class="bi bi-geo-alt me-2"></i> Jl. Kaliurang Km 5, Yogyakarta</li>
+                    <li><i class="bi bi-telephone me-2"></i> +62 831-9751-1897</li>
+                    <li><i class="bi bi-envelope me-2"></i> info@waktrans.com</li>
+                    <li><i class="bi bi-clock me-2"></i> Senin-Sabtu: 08.00 - 17.00</li>
+                </ul>
+            </div> -->
         </div>
     </div>
 

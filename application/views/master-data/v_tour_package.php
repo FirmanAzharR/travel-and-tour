@@ -57,7 +57,7 @@
                     <!-- Type -->
                     <div class="form-group">
                         <label for="type">Tipe Paket</label>
-                        <select class="form-control" id="type" name="type" required>
+                        <select class="form-control" id="type" name="type">
                             <option value="">Pilih Tipe Paket</option>
                             <option value="wisata">Wisata</option>
                             <option value="city_tour">City Tour</option>
@@ -67,7 +67,7 @@
                     <!-- Duration -->
                     <div class="form-group">
                         <label for="duration">Durasi</label>
-                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Contoh: 2 Hari 1 Malam" required>
+                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Contoh: 2 Hari 1 Malam">
                     </div>
 
                     <!-- Price -->
@@ -77,24 +77,33 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga paket" min="0" required>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga paket" min="0">
                         </div>
                     </div>
 
                     <!-- Description -->
                     <div class="form-group">
                         <label for="description">Deskripsi</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Masukkan deskripsi paket" required></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Masukkan deskripsi paket"></textarea>
                     </div>
 
                     <!-- Image -->
                     <div class="form-group">
                         <label for="image">Gambar Paket</label>
+                        <small class="form-text text-muted d-block mb-2">Format: JPG, PNG | Maks: 500KB</small>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
+                            <input type="file" class="custom-file-input" id="image" name="image" accept="image/jpeg,image/png" required>
                             <label class="custom-file-label" for="image">Pilih gambar...</label>
                         </div>
                         <div class="mt-2" id="imagePreview"></div>
+                        <div id="fileSizeError" class="alert alert-danger mt-2" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i> <span id="fileSizeErrorText">Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.</span>
+                        </div>
+                        <div id="removeFileBtn" class="mt-2" style="display: none;">
+                            <button type="button" class="btn btn-danger btn-sm" id="removeFileButton">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -187,20 +196,157 @@ $(document).ready(function() {
         "order": [[1, 'asc']]
     });
 
+    // Function to format file size for display
+    function formatFileSize(bytes) {
+        const fileSizeMB = bytes / (1024 * 1024);
+        if (fileSizeMB < 1) {
+            // If less than 1MB, show in KB
+            const fileSizeKB = Math.round(bytes / 1024);
+            return fileSizeKB + 'KB';
+        } else {
+            // If 1MB or more, show in MB
+            return fileSizeMB.toFixed(2) + 'MB';
+        }
+    }
+
+    // Function to validate file size (max 500KB)
+    function validateFileSize(file) {
+        const maxSize = 500 * 1024; // 500KB in bytes
+        const fileSizeError = $('#fileSizeError');
+        const fileSizeErrorText = $('#fileSizeErrorText');
+        
+        // If no file, return false (button should be disabled for new records)
+        if (!file) {
+            fileSizeError.hide();
+            return false;
+        }
+        
+        if (file.size > maxSize) {
+            const formattedSize = formatFileSize(file.size);
+            fileSizeErrorText.text('Ukuran file ' + formattedSize + ' melebihi batas maksimal 500KB. Silakan pilih file yang lebih kecil.');
+            fileSizeError.show();
+            return false;
+        } else {
+            fileSizeError.hide();
+            return true;
+        }
+    }
+
+    // Function to validate form and enable/disable save button
+    function validateForm() {
+        const name = $('#name').val().trim();
+        const imageFile = $('#image')[0].files[0];
+        const packageId = $('#packageId').val();
+        const existingImage = $('input[name="existing_image"]').val();
+        const saveBtn = $('#savePackage');
+        
+        // Only name and image are required
+        const nameValid = name.length > 0;
+        
+        // Image validation:
+        // - For new records: image file is required
+        // - For edit: either new image file OR existing image must exist
+        let imageValid = false;
+        if (packageId) {
+            // Editing: image file OR existing image is acceptable
+            imageValid = imageFile ? validateFileSize(imageFile) : (existingImage ? true : false);
+        } else {
+            // New record: image file is required and must be valid
+            imageValid = imageFile ? validateFileSize(imageFile) : false;
+        }
+        
+        // Enable button only if name and image are valid
+        if (nameValid && imageValid) {
+            saveBtn.prop('disabled', false);
+        } else {
+            saveBtn.prop('disabled', true);
+        }
+    }
+
     // Handle file input change
     $('#image').on('change', function() {
-        var fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').html(fileName);
+        var file = this.files[0];
+        const removeFileBtn = $('#removeFileBtn');
+        const removeFileButton = $('#removeFileButton');
         
-        // Show image preview
-        if (this.files && this.files[0]) {
+        if (file) {
+            // Validate file type
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Format File Tidak Valid',
+                    text: 'Hanya file JPG dan PNG yang diperbolehkan'
+                });
+                $(this).val('');
+                $('#fileSizeError').hide();
+                $('#imagePreview').empty();
+                $('.custom-file-label').text('Pilih gambar...');
+                removeFileBtn.hide();
+                validateForm(); // Re-validate form
+                return;
+            }
+            
+            // Validate size (500KB max)
+            if (!validateFileSize(file)) {
+                $(this).val('');
+                $('#imagePreview').empty();
+                $('.custom-file-label').text('Pilih gambar...');
+                removeFileBtn.hide();
+                validateForm(); // Re-validate form
+                return;
+            }
+            
+            // Preview image
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('#imagePreview').html('<img src="' + e.target.result + '" class="img-fluid" style="max-height: 200px;">');
+                $('#imagePreview').html('<img src="' + e.target.result + '" class="img-thumbnail" style="max-width: 200px;">');
+                validateForm(); // Re-validate form after preview
             }
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(file);
+            $('.custom-file-label').text(file.name);
+            removeFileBtn.show(); // Show remove button when file is selected
+        } else {
+            // If no file selected
+            $('#imagePreview').empty();
+            $('.custom-file-label').text('Pilih gambar...');
+            removeFileBtn.hide();
+            validateForm(); // Re-validate form
         }
     });
+    
+    // Handle remove file button
+    $('#removeFileButton').on('click', function() {
+        // Reset file input
+        $('#image').val('');
+        
+        // Clear preview
+        $('#imagePreview').empty();
+        $('.custom-file-label').text('Pilih gambar...');
+        
+        // Hide remove button
+        $('#removeFileBtn').hide();
+        
+        // Hide error message if any
+        $('#fileSizeError').hide();
+        
+        // If editing and existing image exists, restore it
+        var packageId = $('#packageId').val();
+        var existingImage = $('input[name="existing_image"]').val();
+        if (packageId && existingImage) {
+            $('#imagePreview').html(
+                '<img src="' + baseUrl + existingImage + '" class="img-thumbnail" style="max-width: 200px;">'
+            );
+            $('.custom-file-label').text('Ganti gambar...');
+        }
+        
+        validateForm(); // Re-validate form
+    });
+    
+    // Handle name input change
+    $('#name').on('input', function() {
+        validateForm();
+    });
+    
 
     // Handle edit button click
     $('#tourPackagesTable').on('click', '.edit-btn', function() {
@@ -220,13 +366,28 @@ $(document).ready(function() {
                     $('#duration').val(package.duration);
                     $('#price').val(package.price);
                     
+                    // Show image preview if exists
                     if (package.image) {
-                        $('#imagePreview').html('<img src="' + baseUrl + package.image + '" class="img-fluid" style="max-height: 200px;">');
+                        $('#imagePreview').html(
+                            '<img src="' + baseUrl + package.image + '" class="img-thumbnail" style="max-width: 200px;">' +
+                            '<input type="hidden" name="existing_image" value="' + package.image + '">'
+                        );
+                        $('.custom-file-label').text('Ganti gambar...');
+                        $('#removeFileBtn').hide(); // Hide remove button when editing (existing image)
+                        $('#fileSizeError').hide(); // Hide any error message
                     } else {
-                        $('#imagePreview').html('');
+                        $('#imagePreview').empty();
+                        $('.custom-file-label').text('Pilih gambar...');
+                        $('#removeFileBtn').hide();
+                        $('#fileSizeError').hide();
                     }
                     
+                    // Change modal title
+                    $('#tourPackageModalLabel').text('Edit Paket Tour');
                     $('#tourPackageModal').modal('show');
+                    
+                    // Validate form after populating
+                    validateForm();
                 } else {
                     Swal.fire('Error', response.message || 'Gagal mengambil data paket', 'error');
                 }
@@ -281,19 +442,45 @@ $(document).ready(function() {
         var packageId = $('#packageId').val();
         var $btn = $(this);
         
+        // Validate file size before submission
+        if (imageFile && !validateFileSize(imageFile)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ukuran File Terlalu Besar',
+                text: 'Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.'
+            });
+            return false;
+        }
+        
         // Add form data
         formData.append('name', $('#name').val());
         formData.append('type', $('#type').val());
         formData.append('description', $('#description').val());
         formData.append('duration', $('#duration').val());
         formData.append('price', $('#price').val());
-        if (imageFile) {
-            formData.append('image', imageFile);
-        }
         
         // For update, include the package ID
         if (packageId) {
             formData.append('id', packageId);
+            
+            // Add existing image if no new image is being uploaded
+            var existingImage = $('input[name="existing_image"]').val();
+            if (!imageFile && existingImage) {
+                formData.append('existing_image', existingImage);
+            }
+        } else if (!imageFile) {
+            // Require image for new records
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Gambar paket harus diisi'
+            });
+            return false;
+        }
+        
+        // Add image file if exists
+        if (imageFile) {
+            formData.append('image', imageFile);
         }
         
         $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...');
@@ -323,6 +510,7 @@ $(document).ready(function() {
                 Swal.fire('Error', errorMessage, 'error');
             },
             complete: function() {
+                // Always re-enable the button and reset text
                 $btn.prop('disabled', false).html('Simpan');
             }
         });
@@ -340,7 +528,14 @@ $(document).ready(function() {
         $('#duration').val('');
         $('#price').val('');
         $('#imagePreview').html('');
-        $('.custom-file-label').html('Pilih gambar...');
+        $('.custom-file-label').text('Pilih gambar...');
+        $('#fileSizeError').hide();
+        $('#removeFileBtn').hide();
+        $('#tourPackageModalLabel').text('Form Input Paket Tour'); // Reset modal title
+        $('#savePackage').prop('disabled', true); // Disable save button when modal is closed
     }
+    
+    // Initialize: disable save button on page load
+    $('#savePackage').prop('disabled', true);
 });
 </script>

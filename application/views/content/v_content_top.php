@@ -9,9 +9,10 @@
                <form id="logoForm" class="flex-fill">
                   <h3 class="mb-4 text-center">Preview Logo</h3>
                   <div class="form-group">
-                     <label for="fileInput">Pilih Gambar (Max 2MB)</label>
+                     <label for="fileInput">Pilih Gambar (Max 500KB)</label>
                      <input type="file" id="fileInput" name="logo" class="form-control-file" accept="image/*" required>
                      <small class="form-text text-muted">Format: JPG, JPEG, PNG, GIF</small>
+                     <small id="fileSizeError" class="form-text text-danger d-none">Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.</small>
                   </div>
                   <div id="preview" class="image-preview">
                      <?php if (isset($latest_logo) && !empty($latest_logo->url_image)): ?>
@@ -134,12 +135,61 @@
          });
       }
 
+      // Function to validate file size (max 500KB)
+      function validateFileSize(file) {
+         const maxSize = 500 * 1024; // 500KB in bytes
+         const fileSizeError = document.getElementById('fileSizeError');
+         const $btn = $('#btnUpload');
+         
+         if (file && file.size > maxSize) {
+            fileSizeError.classList.remove('d-none');
+            $btn.prop('disabled', true);
+            return false;
+         } else {
+            fileSizeError.classList.add('d-none');
+            $btn.prop('disabled', false);
+            return true;
+         }
+      }
+
+      // Function to format file size for display
+      function formatFileSize(bytes) {
+         if (bytes === 0) return '0 Bytes';
+         const k = 1024;
+         const sizes = ['Bytes', 'KB', 'MB'];
+         const i = Math.floor(Math.log(bytes) / Math.log(k));
+         return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+      }
+
       // Function to update preview with selected image
       function updateImagePreview(input) {
          const preview = document.getElementById('preview');
          const file = input.files[0];
+         const $btn = $('#btnUpload');
          
          if (file) {
+            // Validate file size first
+            if (!validateFileSize(file)) {
+               // Reset file input if size is invalid
+               input.value = '';
+               // Disable button
+               $btn.prop('disabled', true);
+               // Show placeholder
+               const currentLogo = '<?= isset($latest_logo->url_image) && !empty($latest_logo->url_image) ? base_url($latest_logo->url_image) : "" ?>';
+               if (currentLogo) {
+                  preview.innerHTML = `<img src="${currentLogo}" class="img-fluid">`;
+               } else {
+                  preview.innerHTML = `
+                     <i class="fas fa-image"></i>
+                     <p class="placeholder mb-0">Gambar belum dipilih</p>
+                  `;
+               }
+               return;
+            }
+            
+            // Enable button if file is valid
+            $btn.prop('disabled', false);
+            
             const reader = new FileReader();
             
             reader.onload = function(e) {
@@ -148,7 +198,8 @@
             
             reader.readAsDataURL(file);
          } else {
-            // If no file is selected, show the current logo or placeholder
+            // If no file is selected, enable button and show the current logo or placeholder
+            $btn.prop('disabled', false);
             const currentLogo = '<?= isset($latest_logo->url_image) && !empty($latest_logo->url_image) ? base_url($latest_logo->url_image) : "" ?>';
             if (currentLogo) {
                preview.innerHTML = `<img src="${currentLogo}" class="img-fluid">`;
@@ -174,6 +225,29 @@
          const $btn = $('#btnUpload');
          const $btnText = $('#btnLogoText');
          const $loading = $('#btnLoading');
+         const initialButtonText = $btnText.text().trim(); // Store initial button text
+         const fileInput = document.getElementById('fileInput');
+         const file = fileInput.files[0];
+         
+         // Validate file size before submission
+         if (file && !validateFileSize(file)) {
+            $btn.prop('disabled', true);
+            Toast.fire({
+               icon: 'error',
+               title: 'Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.'
+            });
+            return;
+         }
+         
+         // Check if file is selected
+         if (!file) {
+            Toast.fire({
+               icon: 'warning',
+               title: 'Silakan pilih file gambar terlebih dahulu'
+            });
+            return;
+         }
+         
          const formData = new FormData($form[0]);
          
          // Show loading state
@@ -200,6 +274,10 @@
                   // Update preview with the new image from server
                   updateImagePreview(document.getElementById('fileInput'));
                   
+                  // Reset loading state
+                  $btn.prop('disabled', false);
+                  $loading.addClass('d-none');
+                  
                   Toast.fire({
                      icon: 'success',
                      title: response.message
@@ -207,6 +285,11 @@
                } else {
                   // If upload fails, reset to current logo
                   updateImagePreview(document.getElementById('fileInput'));
+                  
+                  // Reset loading state and button text
+                  $btn.prop('disabled', false);
+                  $btnText.text(initialButtonText);
+                  $loading.addClass('d-none');
                   
                   Toast.fire({
                      icon: 'error',
@@ -217,6 +300,11 @@
             error: function(xhr) {
                // Reset to current logo on error
                updateImagePreview(document.getElementById('fileInput'));
+               
+               // Reset loading state and button text
+               $btn.prop('disabled', false);
+               $btnText.text('<?= isset($latest_logo) ? 'Update Logo' : 'Simpan Logo' ?>');
+               $loading.addClass('d-none');
                
                let errorMsg = 'Terjadi kesalahan pada server';
                try {
@@ -232,9 +320,14 @@
                });
             },
             complete: function() {
-               // Reset form and button state
-               $btn.prop('disabled', false);
-               $loading.addClass('d-none');
+               // Reset button state (fallback in case success/error didn't handle it)
+               // Note: This is a fallback, but success/error handlers should already reset the state
+               // Only reset if button is still in loading state
+               if (!$loading.hasClass('d-none')) {
+                  $btn.prop('disabled', false);
+                  $btnText.text(initialButtonText);
+                  $loading.addClass('d-none');
+               }
                // Don't reset the form to keep the selected file
             }
          });

@@ -60,11 +60,20 @@
                     <!-- Image -->
                     <div class="form-group">
                         <label for="image">Gambar Mobil</label>
+                        <small class="form-text text-muted d-block mb-2">Format: JPG, PNG | Maks: 500KB</small>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="image" accept="image/*" required>
+                            <input type="file" class="custom-file-input" id="image" accept="image/jpeg,image/png" required>
                             <label class="custom-file-label" for="image">Pilih gambar...</label>
                         </div>
                         <div class="mt-2" id="imagePreview"></div>
+                        <div id="fileSizeError" class="alert alert-danger mt-2" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i> <span id="fileSizeErrorText">Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.</span>
+                        </div>
+                        <div id="removeFileBtn" class="mt-2" style="display: none;">
+                            <button type="button" class="btn btn-danger btn-sm" id="removeFileButton">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -179,14 +188,21 @@ $(document).ready(function() {
                             '<input type="hidden" name="existing_image" value="' + car.image + '">'
                         );
                         $('.custom-file-label').text('Ganti gambar...');
+                        $('#removeFileBtn').hide(); // Hide remove button when editing (existing image)
+                        $('#fileSizeError').hide(); // Hide any error message
                     } else {
                         $('#imagePreview').empty();
                         $('.custom-file-label').text('Pilih gambar...');
+                        $('#removeFileBtn').hide();
+                        $('#fileSizeError').hide();
                     }
                     
                     // Change modal title and show
                     $('#carModalLabel').text('Edit Data Mobil');
                     $('#carModal').modal('show');
+                    
+                    // Validate form after populating
+                    validateForm();
                 } else {
                     throw new Error(response.message || 'Gagal memuat data mobil');
                 }
@@ -271,17 +287,156 @@ $(document).ready(function() {
         });
     });
 
+    // Function to format file size for display
+    function formatFileSize(bytes) {
+        const fileSizeMB = bytes / (1024 * 1024);
+        if (fileSizeMB < 1) {
+            // If less than 1MB, show in KB
+            const fileSizeKB = Math.round(bytes / 1024);
+            return fileSizeKB + 'KB';
+        } else {
+            // If 1MB or more, show in MB
+            return fileSizeMB.toFixed(2) + 'MB';
+        }
+    }
+
+    // Function to validate file size (max 500KB)
+    function validateFileSize(file) {
+        const maxSize = 500 * 1024; // 500KB in bytes
+        const fileSizeError = $('#fileSizeError');
+        const fileSizeErrorText = $('#fileSizeErrorText');
+        const saveBtn = $('#saveCar');
+        
+        // If no file, return false (button should be disabled for new records)
+        if (!file) {
+            fileSizeError.hide();
+            return false;
+        }
+        
+        if (file.size > maxSize) {
+            const formattedSize = formatFileSize(file.size);
+            fileSizeErrorText.text('Ukuran file ' + formattedSize + ' melebihi batas maksimal 500KB. Silakan pilih file yang lebih kecil.');
+            fileSizeError.show();
+            return false;
+        } else {
+            fileSizeError.hide();
+            return true;
+        }
+    }
+
+    // Function to validate form and enable/disable save button
+    function validateForm() {
+        const name = $('#name').val().trim();
+        const imageFile = $('#image')[0].files[0];
+        const carId = $('#carId').val();
+        const existingImage = $('input[name="existing_image"]').val();
+        const saveBtn = $('#saveCar');
+        
+        // Name is always required
+        const nameValid = name.length > 0;
+        
+        // Image validation:
+        // - For new records: image file is required
+        // - For edit: either new image file OR existing image must exist
+        let imageValid = false;
+        if (carId) {
+            // Editing: image file OR existing image is acceptable
+            imageValid = imageFile ? validateFileSize(imageFile) : (existingImage ? true : false);
+        } else {
+            // New record: image file is required and must be valid
+            imageValid = imageFile ? validateFileSize(imageFile) : false;
+        }
+        
+        // Enable button only if both name and image are valid
+        if (nameValid && imageValid) {
+            saveBtn.prop('disabled', false);
+        } else {
+            saveBtn.prop('disabled', true);
+        }
+    }
+
     // Handle image preview
     $('#image').on('change', function() {
         var file = this.files[0];
+        const removeFileBtn = $('#removeFileBtn');
+        const removeFileButton = $('#removeFileButton');
+        
         if (file) {
+            // Validate file type
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Format File Tidak Valid',
+                    text: 'Hanya file JPG dan PNG yang diperbolehkan'
+                });
+                $(this).val('');
+                $('#fileSizeError').hide();
+                $('#imagePreview').empty();
+                $('.custom-file-label').text('Pilih gambar...');
+                removeFileBtn.hide();
+                validateForm(); // Re-validate form
+                return;
+            }
+            
+            // Validate size (500KB max)
+            if (!validateFileSize(file)) {
+                $(this).val('');
+                $('#imagePreview').empty();
+                $('.custom-file-label').text('Pilih gambar...');
+                removeFileBtn.hide();
+                validateForm(); // Re-validate form
+                return;
+            }
+            
+            // Preview image
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('#imagePreview').html('<img src="' + e.target.result + '" class="img-thumbnail" style="max-width: 200px;">');
+                validateForm(); // Re-validate form after preview
             }
             reader.readAsDataURL(file);
             $('.custom-file-label').text(file.name);
+            removeFileBtn.show(); // Show remove button when file is selected
+        } else {
+            // If no file selected
+            $('#imagePreview').empty();
+            $('.custom-file-label').text('Pilih gambar...');
+            removeFileBtn.hide();
+            validateForm(); // Re-validate form
         }
+    });
+    
+    // Handle remove file button
+    $('#removeFileButton').on('click', function() {
+        // Reset file input
+        $('#image').val('');
+        
+        // Clear preview
+        $('#imagePreview').empty();
+        $('.custom-file-label').text('Pilih gambar...');
+        
+        // Hide remove button
+        $('#removeFileBtn').hide();
+        
+        // Hide error message if any
+        $('#fileSizeError').hide();
+        
+        // If editing and existing image exists, restore it
+        var carId = $('#carId').val();
+        var existingImage = $('input[name="existing_image"]').val();
+        if (carId && existingImage) {
+            $('#imagePreview').html(
+                '<img src="' + baseUrl + existingImage + '" class="img-thumbnail" style="max-width: 200px;">'
+            );
+            $('.custom-file-label').text('Ganti gambar...');
+        }
+        
+        validateForm(); // Re-validate form
+    });
+    
+    // Handle name input change
+    $('#name').on('input', function() {
+        validateForm();
     });
 
     // Handle form submission
@@ -291,6 +446,16 @@ $(document).ready(function() {
         var carId = $('#carId').val();
         var $btn = $(this);
         var $icon = $btn.find('i');
+        
+        // Validate file size before submission
+        if (imageFile && !validateFileSize(imageFile)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ukuran File Terlalu Besar',
+                text: 'Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.'
+            });
+            return false;
+        }
         
         // Add form data
         formData.append('name', $('#name').val());
@@ -369,7 +534,7 @@ $(document).ready(function() {
                 });
             },
             complete: function() {
-                // Always re-enable the button
+                // Always re-enable the button and reset text
                 $btn.prop('disabled', false).html('Simpan');
             }
         });
@@ -383,6 +548,14 @@ $(document).ready(function() {
         $('#carForm')[0].reset();
         $('.custom-file-label').text('Pilih gambar...');
         $('#imagePreview').empty();
+        $('#fileSizeError').hide();
+        $('#removeFileBtn').hide();
+        $('#carId').val(''); // Clear car ID
+        $('#carModalLabel').text('Form Input Data Mobil'); // Reset modal title
+        $('#saveCar').prop('disabled', true); // Disable save button when modal is closed
     });
+    
+    // Initialize: disable save button on page load
+    $('#saveCar').prop('disabled', true);
 });
 </script>

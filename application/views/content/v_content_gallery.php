@@ -15,10 +15,18 @@
                             <div id="dropzone" class="dropzone">
                                 <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
                                 <p class="mb-0">Tarik & letakkan gambar di sini atau klik untuk memilih</p>
-                                <p class="small text-muted">Format: JPG, PNG | Maks: 2MB</p>
+                                <p class="small text-muted">Format: JPG, PNG | Maks: 500KB</p>
                                 <input type="file" id="fileInput" name="image" accept="image/jpeg,image/png" hidden>
                             </div>
                             <div id="preview" class="mt-3 text-center"></div>
+                            <div id="fileSizeError" class="alert alert-danger mt-2" style="display: none;">
+                                <i class="fas fa-exclamation-triangle"></i> <span id="fileSizeErrorText">Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.</span>
+                            </div>
+                            <div id="removeFileBtn" class="mt-2" style="display: none;">
+                                <button type="button" class="btn btn-danger btn-sm" id="removeFileButton">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </div>
                             <button type="submit" class="btn btn-primary mt-3" id="uploadButton" disabled>
                                 <i class="fas fa-upload"></i> Upload Gambar
                             </button>
@@ -45,8 +53,27 @@
                                                  style="height: 150px; object-fit: cover;" 
                                                  alt="Gallery Image <?= $image->id ?>">
                                             <div class="card-body p-2 text-center">
-                                                <small class="text-muted d-block mb-2">
+                                                <small class="text-muted d-block mb-1">
                                                     <?= date('d M Y H:i', strtotime($image->created_at)) ?>
+                                                </small>
+                                                <?php
+                                                // Get file size
+                                                $file_path = FCPATH . $image->url_image;
+                                                $file_size = 0;
+                                                $file_size_formatted = 'N/A';
+                                                if (file_exists($file_path)) {
+                                                    $file_size = filesize($file_path);
+                                                    if ($file_size < 1024) {
+                                                        $file_size_formatted = $file_size . ' Bytes';
+                                                    } elseif ($file_size < 1024 * 1024) {
+                                                        $file_size_formatted = round($file_size / 1024, 2) . ' KB';
+                                                    } else {
+                                                        $file_size_formatted = round($file_size / (1024 * 1024), 2) . ' MB';
+                                                    }
+                                                }
+                                                ?>
+                                                <small class="text-muted d-block mb-2">
+                                                    <i class="fas fa-file-image"></i> <?= $file_size_formatted ?>
                                                 </small>
                                                 <button class="btn btn-danger btn-sm delete-image" data-id="<?= $image->id ?>">
                                                     <i class="fas fa-trash-alt"></i> Hapus
@@ -177,6 +204,8 @@ $(document).ready(function() {
     const fileInput = $('#fileInput');
     const preview = $('#preview');
     const uploadButton = $('#uploadButton');
+    const removeFileBtn = $('#removeFileBtn');
+    const removeFileButton = $('#removeFileButton');
     
     // Click dropzone to open file dialog - using mousedown to prevent recursion
     dropzone.on('mousedown', function(e) {
@@ -184,6 +213,48 @@ $(document).ready(function() {
         fileInput[0].click();
     });
     
+    // Function to format file size for display
+    function formatFileSize(bytes) {
+        const fileSizeMB = bytes / (1024 * 1024);
+        if (fileSizeMB < 1) {
+            // If less than 1MB, show in KB
+            const fileSizeKB = Math.round(bytes / 1024);
+            return fileSizeKB + 'KB';
+        } else {
+            // If 1MB or more, show in MB
+            return fileSizeMB.toFixed(2) + 'MB';
+        }
+    }
+
+    // Function to validate file size (max 500KB)
+    function validateFileSize(file) {
+        const maxSize = 500 * 1024; // 500KB in bytes
+        const fileSizeError = $('#fileSizeError');
+        const fileSizeErrorText = $('#fileSizeErrorText');
+        
+        // If no file, return false (button should be disabled)
+        if (!file) {
+            fileSizeError.hide();
+            uploadButton.prop('disabled', true);
+            return false;
+        }
+        
+        if (file.size > maxSize) {
+            const formattedSize = formatFileSize(file.size);
+            fileSizeErrorText.text(`Ukuran file ${formattedSize} melebihi batas maksimal 500KB. Silakan pilih file yang lebih kecil.`);
+            fileSizeError.show();
+            uploadButton.prop('disabled', true);
+            return false;
+        } else {
+            fileSizeError.hide();
+            // Only enable button if file exists and is valid
+            if (file) {
+                uploadButton.prop('disabled', false);
+            }
+            return true;
+        }
+    }
+
     // Handle file selection (click or drop)
     fileInput.on('change', function() {
         if (this.files && this.files[0]) {
@@ -191,15 +262,24 @@ $(document).ready(function() {
             
             // Validate file type
             if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
-                alert('Hanya file JPG dan PNG yang diperbolehkan');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Format File Tidak Valid',
+                    text: 'Hanya file JPG dan PNG yang diperbolehkan'
+                });
                 fileInput.val('');
+                uploadButton.prop('disabled', true);
+                $('#fileSizeError').hide();
+                preview.empty();
+                removeFileBtn.hide(); // Hide remove button on invalid file
                 return;
             }
             
-            // Validate size (2MB max)
-            if (file.size > 2 * 1024 * 1024) {
-                alert('Ukuran file maksimal 2MB');
+            // Validate size (500KB max)
+            if (!validateFileSize(file)) {
                 fileInput.val('');
+                preview.empty();
+                removeFileBtn.hide(); // Hide remove button on invalid file size
                 return;
             }
             
@@ -207,10 +287,39 @@ $(document).ready(function() {
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.html('<img src="' + e.target.result + '" class="img-fluid rounded shadow" alt="Preview">');
-                uploadButton.prop('disabled', false);
+                // Only enable button if file is valid and selected
+                if (file && validateFileSize(file)) {
+                    uploadButton.prop('disabled', false);
+                    removeFileBtn.show(); // Show remove button when file is selected
+                } else {
+                    uploadButton.prop('disabled', true);
+                }
             }
             reader.readAsDataURL(file);
+        } else {
+            // If no file selected, ensure button is disabled
+            uploadButton.prop('disabled', true);
+            preview.empty();
+            removeFileBtn.hide();
         }
+    });
+    
+    // Handle remove file button
+    removeFileButton.on('click', function() {
+        // Reset file input
+        fileInput.val('');
+        
+        // Clear preview
+        preview.empty();
+        
+        // Hide remove button
+        removeFileBtn.hide();
+        
+        // Disable upload button
+        uploadButton.prop('disabled', true);
+        
+        // Hide error message if any
+        $('#fileSizeError').hide();
     });
     
     // Drag over
@@ -243,6 +352,29 @@ $(document).ready(function() {
     $('#uploadForm').on('submit', function(e) {
         e.preventDefault();
         
+        const file = fileInput[0].files[0];
+        
+        // Validate file is selected
+        if (!file) {
+            uploadButton.prop('disabled', true); // Ensure button is disabled
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: 'Silakan pilih file gambar terlebih dahulu'
+            });
+            return;
+        }
+        
+        // Validate file size before submission
+        if (!validateFileSize(file)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ukuran File Terlalu Besar',
+                text: 'Ukuran file melebihi 500KB. Silakan pilih file yang lebih kecil.'
+            });
+            return;
+        }
+        
         const formData = new FormData(this);
         const originalBtnText = uploadButton.html();
         
@@ -264,7 +396,10 @@ $(document).ready(function() {
                                      style="height: 150px; object-fit: cover;" 
                                      alt="Gallery Image ${response.image_id}">
                                 <div class="card-body p-2 text-center">
-                                    <small class="text-muted d-block mb-2">Baru saja</small>
+                                    <small class="text-muted d-block mb-1">Baru saja</small>
+                                    <small class="text-muted d-block mb-2">
+                                        <i class="fas fa-file-image"></i> ${response.file_size || 'N/A'}
+                                    </small>
                                     <button class="btn btn-danger btn-sm delete-image" data-id="${response.image_id}">
                                         <i class="fas fa-trash-alt"></i> Hapus
                                     </button>
@@ -281,6 +416,7 @@ $(document).ready(function() {
                     
                     $('#uploadForm')[0].reset();
                     preview.empty();
+                    removeFileBtn.hide(); // Hide remove button after successful upload
                     uploadButton.prop('disabled', true);
                     
                     if ($('.image-item').length >= maxImages) {
@@ -305,6 +441,8 @@ $(document).ready(function() {
                         title: 'Gambar berhasil diupload'
                     });
                 } else {
+                    // Reset button state on error
+                    uploadButton.html(originalBtnText).prop('disabled', false);
                     Swal.fire({
                         title: 'Error!',
                         text: response.message || 'Terjadi kesalahan saat mengupload gambar',
@@ -313,6 +451,8 @@ $(document).ready(function() {
                 }
             },
             error: function() {
+                // Reset button state on error
+                uploadButton.html(originalBtnText).prop('disabled', false);
                 Swal.fire({
                     title: 'Error!',
                     text: 'Terjadi kesalahan saat mengupload gambar',
@@ -320,7 +460,10 @@ $(document).ready(function() {
                 });
             },
             complete: function() {
-                uploadButton.html(originalBtnText).prop('disabled', false);
+                // Only reset if not already reset in error handlers
+                if (uploadButton.prop('disabled')) {
+                    uploadButton.html(originalBtnText).prop('disabled', false);
+                }
             }
         });
     });

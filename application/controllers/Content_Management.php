@@ -444,11 +444,27 @@ class Content_Management extends CI_Controller
             $result = $this->m_content->save_popup_image($data);
             
             if ($result) {
+                // Get file size for display
+                $file_path = FCPATH . $image_path;
+                $file_size = 0;
+                $file_size_formatted = 'N/A';
+                if (file_exists($file_path)) {
+                    $file_size = filesize($file_path);
+                    if ($file_size < 1024) {
+                        $file_size_formatted = $file_size . ' Bytes';
+                    } elseif ($file_size < 1024 * 1024) {
+                        $file_size_formatted = round($file_size / 1024, 2) . ' KB';
+                    } else {
+                        $file_size_formatted = round($file_size / (1024 * 1024), 2) . ' MB';
+                    }
+                }
+                
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Gambar berhasil diupload',
                     'image_id'  => $result,
-                    'image_url' => base_url($image_path)
+                    'image_url' => base_url($image_path),
+                    'file_size' => $file_size_formatted
                 ]);
             } else {
                 // Delete the uploaded file if database insert fails
@@ -563,11 +579,27 @@ class Content_Management extends CI_Controller
             $result = $this->m_content->save_gallery_image($data);
             
             if ($result) {
+                // Get file size for display
+                $file_path = FCPATH . $image_path;
+                $file_size = 0;
+                $file_size_formatted = 'N/A';
+                if (file_exists($file_path)) {
+                    $file_size = filesize($file_path);
+                    if ($file_size < 1024) {
+                        $file_size_formatted = $file_size . ' Bytes';
+                    } elseif ($file_size < 1024 * 1024) {
+                        $file_size_formatted = round($file_size / 1024, 2) . ' KB';
+                    } else {
+                        $file_size_formatted = round($file_size / (1024 * 1024), 2) . ' MB';
+                    }
+                }
+                
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Gambar gallery berhasil diupload',
                     'image_id'  => $result,
-                    'image_url' => base_url($image_path)
+                    'image_url' => base_url($image_path),
+                    'file_size' => $file_size_formatted
                 ]);
             } else {
                 // Delete the uploaded file if database insert fails
